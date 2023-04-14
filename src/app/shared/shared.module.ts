@@ -6,15 +6,17 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServiceSearchComponent } from './home-navbar/components/service-search/service-search.component';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
 
 const sharedComponents = [
   HomeNavbarComponent,
   ServiceSearchComponent,
-  LoadingComponent
+  LoadingComponent,
+  FooterComponent
 ];
 
 @NgModule({
-  declarations: [...sharedComponents],
+  declarations: [...sharedComponents, FooterComponent],
   imports: [
     CommonModule,
     RouterModule,
