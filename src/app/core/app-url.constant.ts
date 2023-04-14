@@ -14,7 +14,7 @@ export class ApiEndpoints {
     static readonly API_URL = API_ENDPOINT;
 
     static readonly AUTH = {
-        CUSTOM_USER_REGISTRATION: API_ENDPOINT + '/auth/register',
+        CUSTOM_USER_REGISTRATION: API_ENDPOINT + '/auth/register-user',
         CUSTOM_USER_LOGIN: API_ENDPOINT + '/auth/login',
 
         CHECK_VERIFICATION_CODE: API_ENDPOINT + '/auth/check-verification-code',

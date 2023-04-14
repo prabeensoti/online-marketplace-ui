@@ -79,8 +79,8 @@ export class LoginPageComponent implements OnInit {
 
   initializeLoginForm(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['user', [Validators.required]],
-      password: ['user', [Validators.required]],
+      username: ['test@gmail.com', [Validators.required]],
+      password: ['test', [Validators.required]],
       rememberMe: [true]
     });
   }
@@ -96,7 +96,7 @@ export class LoginPageComponent implements OnInit {
     }
     const formValue = this.loginForm.value;
     const loginContext: LoginContext = {
-      email: formValue.email,
+      username: formValue.username,
       password: formValue.password,
       rememberMe: formValue.rememberMe
     };

@@ -17,10 +17,10 @@
 
                     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingEmail" placeholder="Email"
-                                formControlName="email"
-                                [ngClass]="{ 'is-invalid': isSubmitted && formControls['email'].errors }" required>
-                            <label for="floatingEmail"><span class="text-danger">*</span> Email address</label>
+                            <input type="username" class="form-control" id="floatingUsername" placeholder="username/email"
+                                formControlName="username"
+                                [ngClass]="{ 'is-invalid': isSubmitted && formControls['username'].errors }" required>
+                            <label for="floatingUsername"><span class="text-danger">*</span> Username/Email</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control" id="floatingPassword" placeholder="Password"

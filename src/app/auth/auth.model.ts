@@ -23,7 +23,7 @@ export interface VerifyForgotPasswordContext {
 }
 
 export interface LoginContext {
-    email: string;
+    username: string;
     password: string;
     rememberMe?: boolean;
 }
