@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '@app/shared/shared.module';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { SearchNListingComponent } from './search-n-listing/search-n-listing.component';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { SearchNListingComponent } from './search-n-listing/search-n-listing.com
     PublicPagesWrapperComponent,
     ShoppingCartComponent,
     SearchNListingComponent,
+    CheckoutPageComponent,
   ],
   imports: [
     CommonModule,

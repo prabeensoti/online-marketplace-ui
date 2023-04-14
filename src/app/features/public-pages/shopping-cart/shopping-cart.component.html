@@ -18,6 +18,7 @@
             </div>
 
             <p class="mb-0">Subtotal ({{ cartItems.length }} item): {{ total }}</p>
+            <button class="btn btn-primary btn-small" [routerLink]="['/checkout']" routerLinkActive="router-link-active">Checkout</button>
         </div>
     </div>
 
@@ -30,4 +31,5 @@
             </p>
         </div>
     </ng-template>
+
 </div>

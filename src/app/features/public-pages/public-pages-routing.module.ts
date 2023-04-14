@@ -5,6 +5,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { SearchNListingComponent } from './search-n-listing/search-n-listing.component';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,14 @@ const routes: Routes = [
         component: ShoppingCartComponent,
         data: {
           title: 'Shopping Cart'
+        }
+      },
+
+      {
+        path: 'checkout',
+        component: CheckoutPageComponent,
+        data: {
+          title: 'Checkout Page'
         }
       },
 
