@@ -13,6 +13,7 @@ import { SearchNListingComponent } from './search-n-listing/search-n-listing.com
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { CategoryItemsComponent } from './components/category-items/category-items.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
+import { NewsletterComponent } from './components/newsletter/newsletter.component';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { ProductItemComponent } from './components/product-item/product-item.com
     CheckoutPageComponent,
     CategoryItemsComponent,
     ProductItemComponent,
-    
+    NewsletterComponent,
   ],
   imports: [
     CommonModule,
