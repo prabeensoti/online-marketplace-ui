@@ -11,6 +11,9 @@ import { SharedModule } from '@app/shared/shared.module';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { SearchNListingComponent } from './search-n-listing/search-n-listing.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
+import { CategoryItemsComponent } from './components/category-items/category-items.component';
+import { ProductItemComponent } from './components/product-item/product-item.component';
+import { NewsletterComponent } from './components/newsletter/newsletter.component';
 
 
 @NgModule({
@@ -21,6 +24,9 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
     ShoppingCartComponent,
     SearchNListingComponent,
     CheckoutPageComponent,
+    CategoryItemsComponent,
+    ProductItemComponent,
+    NewsletterComponent,
   ],
   imports: [
     CommonModule,
