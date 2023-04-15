@@ -79,8 +79,8 @@ export class LoginPageComponent implements OnInit {
 
   initializeLoginForm(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['test@gmail.com', [Validators.required]],
-      password: ['test', [Validators.required]],
+      username: ['admin@gmail.com', [Validators.required]],
+      password: ['admin', [Validators.required]],
       rememberMe: [true]
     });
   }

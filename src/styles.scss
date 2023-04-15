@@ -4,6 +4,8 @@
 
 /* @import "~font-awesome/css/font-awesome.css"; */
 
+$primary-color: #f0c040;
+
 * {
     margin: 0;
     font-family: 'Urbanist', sans-serif;
@@ -22,7 +24,13 @@ body {
 }
 
 .btn-login {
+    background-color: $primary-color;
     font-size: 0.9rem;
     letter-spacing: 0.05rem;
     padding: 0.75rem 1rem;
+    border-color: #a88734 #9c7e31 #846a29;
+
+    // &:hover {
+    //      background-color: #f0c14b;
+    // }
 }

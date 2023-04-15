@@ -21,7 +21,7 @@
 
                     <div class="text-center">
                         <p>  </p>
-                        <button class="btn btn-primary btn-small" [routerLink]="['/login']"
+                        <button class="btn btn-warning btn-small" [routerLink]="['/login']"
                             routerLinkActive="router-link-active">Go to Login</button>
                     </div>
                 </ng-container>
@@ -57,7 +57,7 @@
 
 
                             <div class="d-grid mb-2">
-                                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit"
+                                <button class="btn btn-lg btn-warning btn-login fw-bold text-uppercase" type="submit"
                                     [disabled]="setNewPasswordForm.invalid || loading">
                                     Update
                                     <app-loading *ngIf="loading" [repeat]="3"></app-loading>

@@ -40,7 +40,7 @@
 
                         </div>
                         <div class="d-grid mb-2">
-                            <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit" [disabled]="loading">
+                            <button class="btn btn-warning btn-login text-uppercase fw-bold" type="submit" [disabled]="loading">
                                 Sign in
                                 <app-loading *ngIf="loading" [repeat]="3"></app-loading>
                             </button>
@@ -113,7 +113,7 @@
             </div>
 
             <div class="col-12 text-end">
-                <button type="submit" class="col-6 btn btn btn-primary rounded-pill" [disabled]="loading">
+                <button type="submit" class="col-6 btn btn btn-warning rounded-pill" [disabled]="loading">
                     Send reset link
                     <app-loading *ngIf="loading" [repeat]="1"></app-loading>
                 </button>
