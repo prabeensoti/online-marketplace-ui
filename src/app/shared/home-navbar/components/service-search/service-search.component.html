@@ -1,0 +1,15 @@
+<div class="d-grid">
+    <form role="form" (ngSubmit)="onSearchSubmit()" novalidate="novalidate">
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingSearchText" placeholder="Search online marketplace ?"
+                [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" required>
+            <label for="floatingSearchText"> Search online marketplace </label>
+        </div>
+
+        <!-- <div class="align-self-center">
+            <button type="submit" class="btn btn-lg btn-primary rounded-pill">Search</button>
+        </div> -->
+
+    </form>
+</div>
