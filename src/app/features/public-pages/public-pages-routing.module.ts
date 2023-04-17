@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PublicPagesWrapperComponent } from './public-pages-wrapper.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { ContactPageComponent } from './contact-page/contact-page.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { SearchNListingComponent } from './search-n-listing/search-n-listing.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
+import { AppRouteConstant } from '@app/core/constants/app-route-constant';
 
 
 const routes: Routes = [
@@ -37,12 +37,14 @@ const routes: Routes = [
       },
 
       {
-        path: 'checkout',
+        path: AppRouteConstant.CHECKOUT_BY_ID,
         component: CheckoutPageComponent,
+                // loadChildren: () => import('./checkout-page/checkout-page.module').then((m) => m.CheckoutPageModule),
         data: {
           title: 'Checkout Page'
         }
       },
+      
 
     ]
 

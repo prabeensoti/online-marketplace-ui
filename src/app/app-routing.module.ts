@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignupPageComponent } from './auth/signup-page/signup-page.component';
 import { LoginPageComponent } from './auth/login-page/login-page.component';
@@ -30,7 +30,7 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard],
     loadChildren: () => import('@app/features/dashboard/dashboard.module')
         .then(m => m.DashboardModule)
-}
+},
 
 ];
 

@@ -8,7 +8,6 @@ import { AccountProfileComponent } from './components/account-profile/account-pr
 import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
 
 
-
 @NgModule({
   declarations: [
     DashboardWrapperComponent,

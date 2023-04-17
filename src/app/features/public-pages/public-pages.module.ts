@@ -5,7 +5,7 @@ import { PublicPagesWrapperComponent } from './public-pages-wrapper.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { PublicPagesRoutingModule } from './public-pages-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '@app/shared/shared.module';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
@@ -26,6 +26,7 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
     CommonModule,
     PublicPagesRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     SharedModule
   ]
