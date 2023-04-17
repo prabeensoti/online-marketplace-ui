@@ -14,6 +14,7 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { CategoryItemsComponent } from './components/category-items/category-items.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { NewsletterComponent } from './components/newsletter/newsletter.component';
+import {InvoiceComponent} from "@app/features/public-pages/invoice/invoice.component";
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { NewsletterComponent } from './components/newsletter/newsletter.componen
     ShoppingCartComponent,
     SearchNListingComponent,
     CheckoutPageComponent,
+    InvoiceComponent,
     CategoryItemsComponent,
     ProductItemComponent,
     NewsletterComponent,
