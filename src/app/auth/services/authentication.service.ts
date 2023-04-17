@@ -52,14 +52,14 @@ export class AuthenticationService {
 
   public login(loginContext: LoginContext, redirectAfterLogin: boolean = false, defaultRedirectUri: string | null = '/'): Observable<Credentials> {
     // TODO: Currently using the mock auth implementation
-    // const authResponseObservable: Observable<AuthResponse> = this.http.post<AuthResponse>(this.AUTH_URL.CUSTOM_USER_LOGIN, loginContext);
-    const authResponseObservable: Observable<AuthResponse> = Observable.create((observer: any) => {
-      const mockAuthResponse: AuthResponse = {
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-      };
-      observer.next(mockAuthResponse);
-      observer.complete();
-    });
+    const authResponseObservable: Observable<AuthResponse> = this.http.post<AuthResponse>(this.AUTH_URL.CUSTOM_USER_LOGIN, loginContext);
+    // const authResponseObservable: Observable<AuthResponse> = Observable.create((observer: any) => {
+    //   const mockAuthResponse: AuthResponse = {
+    //     token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+    //   };
+    //   observer.next(mockAuthResponse);
+    //   observer.complete();
+    // });
     const generateCredentialsObservable: Observable<Credentials> = authResponseObservable.pipe(
       map((authResponse: AuthResponse) => {
         const tokenPayload: JwtTokenPayload = this.parseJwt(authResponse.token);
