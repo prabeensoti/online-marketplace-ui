@@ -6,6 +6,7 @@ import { ContactPageComponent } from './contact-page/contact-page.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { SearchNListingComponent } from './search-n-listing/search-n-listing.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
+import {InvoiceComponent} from "@app/features/public-pages/invoice/invoice.component";
 
 
 const routes: Routes = [
@@ -43,6 +44,10 @@ const routes: Routes = [
           title: 'Checkout Page'
         }
       },
+      {
+        path: 'invoice',
+        component: InvoiceComponent
+      }
 
     ]
 
