@@ -12,6 +12,7 @@ export class InvoiceComponent implements OnInit {
 
   invoiceDetails: any;
   shippingAddress: any;
+  paymentMethod: any;
   orderItems: any
   totalAmount: any
 
@@ -26,6 +27,7 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.getInvoice(1).subscribe(response => {
       this.invoiceDetails = response;
       this.shippingAddress = response.shippingAddress;
+      this.paymentMethod = response.paymentMethod;
       this.orderItems = response.orderItemList
       this.totalAmount = response.total;
       console.log("Response ", response);
