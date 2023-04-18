@@ -29,6 +29,7 @@ export interface LoginContext {
 }
 
 export interface AuthResponse {
+    username?: string;
     token: string;
 }
 
