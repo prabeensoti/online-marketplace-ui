@@ -4,6 +4,7 @@ import { AccountProfileComponent } from "./components/account-profile/account-pr
 import { AccountSettingsComponent } from "./components/account-settings/account-settings.component";
 import { DashboardServicesComponent } from "./components/dashboard-services/dashboard-services.component";
 import { DashboardWrapperComponent } from "./dashboard-wrapper.component";
+import {EmailHistoryComponent} from "@app/features/dashboard/admin/email-history/email-history.component";
 
 const routes: Routes = [
     {
@@ -34,6 +35,14 @@ const routes: Routes = [
                     title: 'Settings'
                 },
             },
+            {
+              path: 'email-history',
+              component: EmailHistoryComponent,
+              pathMatch: 'full',
+              data: {
+                title: 'EmailHistory'
+              },
+            }
         ]
     }
 ];

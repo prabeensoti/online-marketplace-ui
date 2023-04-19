@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-xl-6 mb-1"><span class="fw-bold">From: </span>{{emailHistory.fromEmail}}</div>
+    <div class="col-xl-6 mb-1"><span class="fw-bold">To: </span>{{emailHistory.toEmail}}</div>
+    <div class="col-xl-6 mb-1"><span class="fw-bold">Subject: </span>{{emailHistory.subject}}</div>
+    <div class="col-xl-6 mb-1"><span class="fw-bold">Send Date: </span>{{emailHistory.mailSendDateTime|date:'yyyy-MM-dd HH:mm:ss'}}</div>
+  </div>
+  <div class="border border-dark border-2 mt-2 p-2">
+    <div [innerHTML]="emailHistory.message|sanitizeHtml"></div>
+  </div>
+</div>

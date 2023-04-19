@@ -1,0 +1,50 @@
+<div *ngIf="collectionSize!=0; else dataNotFound" class="card card-body table-responsive">
+  <table class="table table-hover align-middle">
+    <thead>
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Mail Type</th>
+      <th scope="col">Subject</th>
+      <th scope="col">From</th>
+      <th scope="col">To</th>
+      <th scope="col">Send Date</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let emailHistory of emailHistories; index as sn">
+      <th scope="row">{{sn+1}}</th>
+      <th scope="row">{{emailHistory.mailType}}</th>
+      <th scope="row">{{emailHistory.subject}}</th>
+      <th scope="row">{{emailHistory.fromEmail}}</th>
+      <th scope="row">{{emailHistory.toEmail}}</th>
+      <th scope="row">{{emailHistory.mailSendDateTime}}</th>
+      <th scope="row"><i class="bi bi-eye" (click)="open(emailHistory)"></i></th>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination
+      [collectionSize]="collectionSize"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      (pageChange)="refreshEmailHistory()"
+    >
+    </ngb-pagination>
+
+    <select class="form-select pt-0 pb-0" style="width: auto; height: 2.5rem;" [(ngModel)]="pageSize" (ngModelChange)="refreshEmailHistory()">
+      <option [ngValue]="10">10</option>
+      <option [ngValue]="50">50</option>
+      <option [ngValue]="100">100</option>
+    </select>
+  </div>
+</div>
+<ng-template #dataNotFound>
+  <div class="card text-center">
+    <div class="card-body" style="color: red">
+      <h1><i class="bi bi-exclamation-triangle-fill"></i></h1>
+      <h5 class="card-title">Data Not Found</h5>
+    </div>
+  </div>
+</ng-template>
