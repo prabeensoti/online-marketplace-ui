@@ -6,6 +6,10 @@ import { DashboardServicesComponent } from './components/dashboard-services/dash
 import { SharedModule } from '@app/shared/shared.module';
 import { AccountProfileComponent } from './components/account-profile/account-profile.component';
 import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
+import { EmailHistoryComponent } from './admin/email-history/email-history.component';
+import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
+import {FormsModule} from "@angular/forms";
+import { EmailViewComponent } from './admin/email-history/email-view/email-view.component';
 
 
 
@@ -15,11 +19,15 @@ import { AccountSettingsComponent } from './components/account-settings/account-
     DashboardServicesComponent,
     AccountProfileComponent,
     AccountSettingsComponent,
+    EmailHistoryComponent,
+    EmailViewComponent,
   ],
   imports: [
-    CommonModule,    
+    CommonModule,
     DashboardRoutingModule,
-    SharedModule
+    SharedModule,
+    NgbPagination,
+    FormsModule
   ]
 })
 export class DashboardModule { }

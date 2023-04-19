@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServiceSearchComponent } from './home-navbar/components/service-search/service-search.component';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
+import { ToastNotificationComponent } from './toast-notification/toast-notification.component';
+import {SanitizeHtmlPipeComponent} from "@app/shared/pipe/sanitize-html-pipe.component";
 
 const sharedComponents = [
   HomeNavbarComponent,
@@ -16,13 +18,13 @@ const sharedComponents = [
 ];
 
 @NgModule({
-  declarations: [...sharedComponents, FooterComponent],
+  declarations: [...sharedComponents, FooterComponent, ToastNotificationComponent, SanitizeHtmlPipeComponent],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     NgbModule
   ],
-  exports: [...sharedComponents]
+  exports: [...sharedComponents, ToastNotificationComponent, SanitizeHtmlPipeComponent]
 })
 export class SharedModule { }
