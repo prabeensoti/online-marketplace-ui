@@ -35,11 +35,12 @@ export class ApiEndpoints {
 
     // CATEGORY
 
-    static readonly PRODUCT = {
-        CREATE_PRODUCT: API_ENDPOINT + '/products/create',
-        GET_PRODUCT: API_ENDPOINT + '/products',
-        UPDATE_PRODUCT: API_ENDPOINT + '/products/update',
-        DELETE_PRODUCT: API_ENDPOINT + '/products'
+    static readonly PRODUCTS = {
+        ALL: API_ENDPOINT + '/products',
+        GET_BY_ID: API_ENDPOINT + '/products',
+        CREATE: API_ENDPOINT + '/products',
+        UPDATE: API_ENDPOINT + '/products',
+        DELETE: API_ENDPOINT + '/products'
     };
 
     // Other Url constants

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, convertToParamMap, ParamMap, Params } from '@angular/router';
+import { ProductDTO } from '@app/core/model/domain.model';
+import { ProductService } from '@app/core/service/product.service';
 import { filter, map } from 'rxjs';
 
 @Component({
@@ -9,29 +11,25 @@ import { filter, map } from 'rxjs';
 })
 export class SearchNListingComponent implements OnInit {
 
-  products = [
-    {
-      name: 'Product 1',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
-      image: 'https://via.placeholder.com/350x200'
-    },
-    {
-      name: 'Product 2',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
-      image: 'https://via.placeholder.com/350x200'
-    },
-    {
-      name: 'Product 3',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
-      image: 'https://via.placeholder.com/350x200'
-    }
-  ];
+  products: ProductDTO[] = [];
 
   searchText: string = "";
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.initProductList();
+  }
+
+  private initProductList(): void {
+    this.productService.getAllProducts().subscribe({
+      next: (res) => {
+        this.products = res.content;
+      },
+      error: (error) => {
+        console.log("error ", error);
+      },
+    });
   }
 
   private processRouteQueryParams(): void {
