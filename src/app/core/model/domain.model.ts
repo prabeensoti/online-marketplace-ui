@@ -35,6 +35,7 @@ export interface ProductDTO {
   name: string;
   description: string;
   quantity: number;
+  price: number;
   images: FileEntityDTO[];
 
   isVerified: boolean;
