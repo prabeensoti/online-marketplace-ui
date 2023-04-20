@@ -19,6 +19,7 @@ import { SupportNMessagesComponent } from './components/support-n-messages/suppo
 import { ReportViewComponent } from './components/report-view/report-view.component';
 import { UserOrdersComponent } from './user/user-orders/user-orders.component';
 import { CategoryComponent } from '../public-pages/category/category.component';
+import {AddProductComponent} from "@app/features/dashboard/vendor/products/add-product/add-product.component";
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { CategoryComponent } from '../public-pages/category/category.component';
     SupportNMessagesComponent,
     ReportViewComponent,
     UserOrdersComponent,
+    AddProductComponent
   ],
   imports: [
     CommonModule,

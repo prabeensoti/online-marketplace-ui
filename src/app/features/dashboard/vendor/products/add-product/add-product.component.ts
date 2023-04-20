@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { APP_UI_ROUTES } from '@app/core/route.util';
 
 @Component({
-  selector: 'app-add-product',
+  selector: 'add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss']
 })
-export class AddProductComponent {
+export class AddProductComponent{
+
+
 
 }
