@@ -2,18 +2,6 @@ import { environment } from "@env/environment";
 
 export const appBrandName = environment.appBrandName || 'My App';
 
-// Sync this with routing modules
-export const APP_UI_ROUTES = {
-  HOME: '/',
-  LOGIN: '/login',
-  REGISTER: '/register',
-  VERIFY: '/verify',
-
-  CONTACT: '/contact',
-  SEARCH: '/s',
-
-  DASHBOARD: '/dashboard',
-};
 
 export class QueryParamKey {
 
@@ -38,6 +26,10 @@ export class QueryParamKey {
 }
 
 export class QueryParamUIKey {
+
+  static readonly ORIGINAL_REQUEST_URI = 'originalRequestUri';
+  static readonly REFERRED_FROM_URI = 'referredFromUri';
+  static readonly DEFAULT_INFO_MESSAGE = 'defaultInfoMessage';
 
   static readonly INFO_MESSAGE = "infoMessage";
 

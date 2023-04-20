@@ -1,0 +1,13 @@
+<div class="container-fluid mt-3 p-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" routerLinkActive="active">
+                <a [routerLink]="rootUrl">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item" routerLinkActive="active" *ngIf="currentRoute">
+                <a [routerLink]="currentRoute.url">{{ currentRoute.title }}</a> : {{currentRoute.label}}
+            </li>
+            <li class="breadcrumb-item active" *ngIf="!currentRoute">{{ currentRoute?.['title'] }}</li>
+        </ol>
+    </nav>
+</div>

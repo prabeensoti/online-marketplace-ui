@@ -3,10 +3,11 @@ enum UserStatus {
   UNVERIFIED = 'UNVERIFIED',
   SUSPENDED = 'SUSPENDED',
 }
-enum EnumRole {
+export enum EnumRole {
   ROLE_USER = 'ROLE_USER',
   ROLE_VENDOR = 'ROLE_VENDOR',
   ROLE_ADMIN = 'ROLE_ADMIN',
+  NONE = 'NONE'
 }
 enum FileType {
   IMAGES = 'IMAGES',

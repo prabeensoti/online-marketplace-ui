@@ -4,52 +4,23 @@ import { AccountProfileComponent } from "./components/account-profile/account-pr
 import { AccountSettingsComponent } from "./components/account-settings/account-settings.component";
 import { DashboardServicesComponent } from "./components/dashboard-services/dashboard-services.component";
 import { DashboardWrapperComponent } from "./dashboard-wrapper.component";
-import {EmailHistoryComponent} from "@app/features/dashboard/admin/email-history/email-history.component";
+import { EmailHistoryComponent } from "@app/features/dashboard/admin/email-history/email-history.component";
+import { AuthenticationGuard } from "@app/auth/guards/authentication.guard";
+import { DASHBOARD_ROUTES } from "@app/core/route.util";
 
-const routes: Routes = [
+
+export const ROUTES: Routes = [
     {
         path: '',
         component: DashboardWrapperComponent,
-        children: [
-            {
-                path: '',
-                component: DashboardServicesComponent,
-                pathMatch: 'full',
-                data: {
-                    title: 'Services'
-                },
-            },
-            {
-                path: 'profile',
-                component: AccountProfileComponent,
-                pathMatch: 'full',
-                data: {
-                    title: 'Profile'
-                },
-            },
-            {
-                path: 'settings',
-                component: AccountSettingsComponent,
-                pathMatch: 'full',
-                data: {
-                    title: 'Settings'
-                },
-            },
-            {
-              path: 'email-history',
-              component: EmailHistoryComponent,
-              pathMatch: 'full',
-              data: {
-                title: 'EmailHistory'
-              },
-            }
-        ]
-    }
+        canActivate: [AuthenticationGuard],
+        children: DASHBOARD_ROUTES
+    },
 ];
 
 @NgModule({
     imports: [
-        RouterModule.forChild(routes)
+        RouterModule.forChild(ROUTES)
     ],
     exports: [RouterModule]
 })
