@@ -67,4 +67,8 @@ export class ShoppingCartComponent implements OnInit {
     })
   }
 
+  onItemRemove(product: ShoppingCartDTO) {
+    alert("click");
+  }
+
 }
