@@ -54,3 +54,7 @@ export const ERROR_CODES_CONSTANTS = {
   ResourceNotFound: 404,
   InternalServerError: 500,
 };
+
+export class Constants {
+  static readonly CART_ITEMS_KEY = 'CART_ITEMS_KEY';
+}
