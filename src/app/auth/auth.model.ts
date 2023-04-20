@@ -47,3 +47,7 @@ export interface JwtTokenPayload {
     iat: string;
     exp: string
 }
+
+export interface CategoryContext {
+    category: string;
+}

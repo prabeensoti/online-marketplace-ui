@@ -18,6 +18,7 @@ import { VerifyVendorsComponent } from './admin/verify-vendors/verify-vendors.co
 import { SupportNMessagesComponent } from './components/support-n-messages/support-n-messages.component';
 import { ReportViewComponent } from './components/report-view/report-view.component';
 import { UserOrdersComponent } from './user/user-orders/user-orders.component';
+import { CategoryComponent } from '../public-pages/category/category.component';
 
 
 @NgModule({
