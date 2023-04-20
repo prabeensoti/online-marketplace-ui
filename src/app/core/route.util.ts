@@ -36,6 +36,7 @@ export const APP_UI_ROUTES = {
     ORDERS: '/dashboard/orders',
 
     MANAGE_PRODUCTS: '/dashboard/manage-products',
+
     MANAGE_ORDERS: '/dashboard/manage-orders',
     MANAGE_VENDORS: '/dashboard/manage-vendors',
 
@@ -85,12 +86,12 @@ export const DASHBOARD_ROUTES: Routes = [
     {
         path: 'profile',
         component: AccountProfileComponent,
-        data: { title: 'Profile', label: 'View and manage your profile and account information' }
+        data: { title: 'Profile', label: 'View and manage your profile and account information', hideMenu: true }
     },
     {
         path: 'settings',
         component: AccountSettingsComponent,
-        data: { title: 'Settings', label: 'Change view Settings and Privacy control' }
+        data: { title: 'Settings', label: 'Change view Settings and Privacy control', hideMenu: true }
     },
 
     // ROLE_USER

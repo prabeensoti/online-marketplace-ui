@@ -8,6 +8,7 @@ import { SearchNListingComponent } from './search-n-listing/search-n-listing.com
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import {InvoiceComponent} from "@app/features/public-pages/invoice/invoice.component";
 import { CategoryComponent } from './category/category.component';
+import { PricingPlatformPageComponent } from '../../auth/vendor-registration/components/pricing-platform-page/pricing-platform-page.component';
 
 
 const routes: Routes = [
@@ -51,7 +52,7 @@ const routes: Routes = [
       },{
         path: 'category',
         component: CategoryComponent
-    }
+    },
 
     ]
 

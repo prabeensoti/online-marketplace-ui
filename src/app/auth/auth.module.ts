@@ -9,6 +9,13 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '@app/shared/shared.module';
 import { HttpAuthInterceptor } from './interceptor/http-auth.interceptor';
+import { VendorRegistrationComponent } from './vendor-registration/vendor-registration.component';
+import { PricingPlatformPageComponent } from './vendor-registration/components/pricing-platform-page/pricing-platform-page.component';
+import { VendorRegistrationFormComponent } from './vendor-registration/components/vendor-registration-form/vendor-registration-form.component';
+import { VendorPaymentFormComponent } from './vendor-registration/components/vendor-payment-form/vendor-payment-form.component';
+import { VendorDetailsFormComponent } from './vendor-registration/components/vendor-details-form/vendor-details-form.component';
+import { AuthPagesNavbarComponent } from './auth-pages-navbar/auth-pages-navbar.component';
+import { AuthPagesFooterComponent } from './components/auth-pages-footer/auth-pages-footer.component';
 
 
 @NgModule({
@@ -16,6 +23,13 @@ import { HttpAuthInterceptor } from './interceptor/http-auth.interceptor';
     LoginPageComponent,
     SignupPageComponent,
     VerifyRequestComponent,
+    PricingPlatformPageComponent,
+    VendorRegistrationComponent,
+    VendorRegistrationFormComponent,
+    VendorPaymentFormComponent,
+    VendorDetailsFormComponent,
+    AuthPagesNavbarComponent,
+    AuthPagesFooterComponent,
   ],
   imports: [
     CommonModule,

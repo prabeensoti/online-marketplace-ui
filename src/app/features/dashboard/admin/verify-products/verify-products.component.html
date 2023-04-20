@@ -1,1 +1,11 @@
-<p>verify-products works!</p>
+<div class="container">
+    <app-table [title]="'Verify Order'" [dataGridConfigurer]="productDataGridConfigurer"
+        [actionTemplate]="{'Update': updateTemplate}">
+    </app-table>
+</div>
+
+<ng-template #updateTemplate let-data>
+    <a class="fs-4 link-primary cursor-pointer" (click)="verifySelectedProduct(data)">
+        <i class="bi bi-pencil-square"></i>
+    </a>
+</ng-template>

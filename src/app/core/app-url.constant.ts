@@ -40,7 +40,29 @@ export class ApiEndpoints {
         GET_BY_ID: API_ENDPOINT + '/products',
         CREATE: API_ENDPOINT + '/products',
         UPDATE: API_ENDPOINT + '/products',
-        DELETE: API_ENDPOINT + '/products'
+        DELETE: API_ENDPOINT + '/products',
+        FILTER: API_ENDPOINT + '/products/filter'
+
+    };
+
+    static readonly VENDORS = {
+        ALL: API_ENDPOINT + '/vendors',
+        GET_BY_ID: API_ENDPOINT + '/vendor',
+        CREATE: API_ENDPOINT + '/vendors',
+        UPDATE: API_ENDPOINT + '/vendors',
+        DELETE: API_ENDPOINT + '/vendors',
+        FILTER: API_ENDPOINT + '/vendors/filter'
+
+    };
+
+    static readonly ORDERS = {
+        ALL: API_ENDPOINT + '/orders',
+        GET_BY_ID: API_ENDPOINT + '/orders',
+        CREATE: API_ENDPOINT + '/orders',
+        UPDATE: API_ENDPOINT + '/orders',
+        DELETE: API_ENDPOINT + '/orders',
+        FILTER: API_ENDPOINT + '/orders/filter'
+
     };
 
     // Other Url constants

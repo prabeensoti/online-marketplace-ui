@@ -1,8 +1,6 @@
 <div class="container">
 
-    <div class="mt-2">
-        <a class="navbar-brand fw-bold fs-4" [routerLink]="'/'">{{appBrandName}}</a>
-    </div>
+    <app-auth-pages-navbar></app-auth-pages-navbar>
 
     <div class="row">
         <div class="col-lg-10 col-xl-9 mx-auto">
@@ -53,7 +51,8 @@
                             <label for="floatingPasswordConfirm"><span class="text-danger">*</span> Confirm
                                 Password</label>
 
-                            <span class="text-danger" *ngIf="formControls['passwordConfirm'].errors?.['confirmedValidator']">
+                            <span class="text-danger"
+                                *ngIf="formControls['passwordConfirm'].errors?.['confirmedValidator']">
                                 Password must match </span>
                         </div>
 
@@ -108,9 +107,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="text-center text-muted mb-3">
-    Copyright &copy; 2021 &mdash;
-    <a class="link" [routerLink]="'/'">{{appBrandName}}</a>
 </div>
