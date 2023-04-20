@@ -9,16 +9,18 @@ import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { ToastNotificationComponent } from './toast-notification/toast-notification.component';
 import {SanitizeHtmlPipeComponent} from "@app/shared/pipe/sanitize-html-pipe.component";
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 const sharedComponents = [
   HomeNavbarComponent,
   ServiceSearchComponent,
   LoadingComponent,
-  FooterComponent
+  FooterComponent,
+  BreadcrumbComponent
 ];
 
 @NgModule({
-  declarations: [...sharedComponents, FooterComponent, ToastNotificationComponent, SanitizeHtmlPipeComponent],
+  declarations: [...sharedComponents, FooterComponent, ToastNotificationComponent, SanitizeHtmlPipeComponent, BreadcrumbComponent],
   imports: [
     CommonModule,
     RouterModule,

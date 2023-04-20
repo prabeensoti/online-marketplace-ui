@@ -8,8 +8,9 @@ import { UserDTO } from '@app/core/model/user.model';
 import { Observable, of } from 'rxjs';
 import { AuthResponse, JwtTokenPayload, LoginContext, OAuth2Provider, RegisterContext, VerifyEmailContext, VerifyForgotPasswordContext } from '../auth.model';
 import { Credentials, CredentialsService } from './credentials.service';
-import { APP_UI_ROUTES, QueryParamKey, QueryParamUIKey } from '@app/core/core.constant';
+import { QueryParamKey, QueryParamUIKey } from '@app/core/core.constant';
 import { GenericResponse } from '@app/core/core.model';
+import { APP_UI_ROUTES } from '@app/core/route.util';
 
 @Injectable({
   providedIn: 'root'
@@ -64,9 +65,13 @@ export class AuthenticationService {
       map((authResponse: AuthResponse) => {
         const tokenPayload: JwtTokenPayload = this.parseJwt(authResponse.token);
         const credentialsData: Credentials = {
+          userId: authResponse.userId,
+          fullName: authResponse.fullName,
           email: tokenPayload.email,
           token: authResponse.token,
-          jwtTokenPayload: tokenPayload
+          username: authResponse.username,
+          role: authResponse.role,
+          // jwtTokenPayload: tokenPayload
         };
         this.credentialsService.setCredentials(credentialsData, loginContext.rememberMe);
         console.log('User Login successful generated credentials ', credentialsData);
@@ -160,7 +165,7 @@ export class AuthenticationService {
           if (params && params.hasOwnProperty(QueryParamKey.TOKEN)) {
             const paramMap: ParamMap = convertToParamMap(routeQueryParams);
             if (paramMap.has(QueryParamKey.TOKEN)) {
-              this.setOAuth2SuccessCredentials(paramMap, allowAuthRedirection);
+              // this.setOAuth2SuccessCredentials(paramMap, allowAuthRedirection);
               delete routeQueryParams[QueryParamKey.TOKEN];
             }
           }
@@ -170,22 +175,22 @@ export class AuthenticationService {
     return processedQueryParamsObservable;
   }
 
-  private setOAuth2SuccessCredentials(resParamMap: ParamMap, redirectToOriginalUri?: boolean): boolean {
-    console.log('Login Successful');
-    const jwtToken = resParamMap.get('token') || '';
-    const tokenPayload: JwtTokenPayload = this.parseJwt(jwtToken);
-    const credentialsData: Credentials = {
-      email: tokenPayload.email,
-      token: jwtToken,
-      jwtTokenPayload: tokenPayload
-    };
-    this.credentialsService.setCredentials(credentialsData, false);
-    if (redirectToOriginalUri) {
-      const originalRequestedUri = resParamMap.get(QueryParamKey.ORIGINAL_REQUEST_URI)
-      this.redirectToTargetRequestUri(originalRequestedUri);
-    }
-    return true;
-  }
+  // private setOAuth2SuccessCredentials(resParamMap: ParamMap, redirectToOriginalUri?: boolean): boolean {
+  //   console.log('Login Successful');
+  //   const jwtToken = resParamMap.get('token') || '';
+  //   const tokenPayload: JwtTokenPayload = this.parseJwt(jwtToken);
+  //   const credentialsData: Credentials = {
+  //     email: tokenPayload.email,
+  //     token: jwtToken,
+  //     jwtTokenPayload: tokenPayload
+  //   };
+  //   this.credentialsService.setCredentials(credentialsData, false);
+  //   if (redirectToOriginalUri) {
+  //     const originalRequestedUri = resParamMap.get(QueryParamKey.ORIGINAL_REQUEST_URI)
+  //     this.redirectToTargetRequestUri(originalRequestedUri);
+  //   }
+  //   return true;
+  // }
 
   private redirectToTargetRequestUri(targetRequestedUri?: string | null): void {
     const targetUri = targetRequestedUri && targetRequestedUri.length > 0 ? targetRequestedUri : '/'

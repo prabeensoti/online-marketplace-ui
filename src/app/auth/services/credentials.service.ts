@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { JwtTokenPayload } from '../auth.model';
+import { EnumRole } from '@app/core/model/domain.model';
 
 export interface Credentials {
   email: string;
+  fullName: string;
+  userId: string;
+  username: string;
   token: string;
-  jwtTokenPayload?: JwtTokenPayload
+  role: EnumRole;
+  // jwtTokenPayload?: JwtTokenPayload
 }
 
 const STORAGE_CREDENTIALS_KEY = 'credentials';
@@ -30,6 +35,11 @@ export class CredentialsService {
 
   getCredentials(): Credentials | null {
     return this._credentials;
+  }
+
+  getUserRole(): EnumRole | null {
+    const role = this._credentials?.role;
+    return role || null;
   }
 
   /**

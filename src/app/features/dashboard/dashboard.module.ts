@@ -10,7 +10,14 @@ import { EmailHistoryComponent } from './admin/email-history/email-history.compo
 import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
 import { EmailViewComponent } from './admin/email-history/email-view/email-view.component';
-
+import { BreadcrumbComponent } from '@app/shared/breadcrumb/breadcrumb.component';
+import { ManageOrdersComponent } from './vendor/manage-orders/manage-orders.component';
+import { ManageProductsComponent } from './vendor/manage-products/manage-products.component';
+import { VerifyProductsComponent } from './admin/verify-products/verify-products.component';
+import { VerifyVendorsComponent } from './admin/verify-vendors/verify-vendors.component';
+import { SupportNMessagesComponent } from './components/support-n-messages/support-n-messages.component';
+import { ReportViewComponent } from './components/report-view/report-view.component';
+import { UserOrdersComponent } from './user/user-orders/user-orders.component';
 
 
 @NgModule({
@@ -21,13 +28,20 @@ import { EmailViewComponent } from './admin/email-history/email-view/email-view.
     AccountSettingsComponent,
     EmailHistoryComponent,
     EmailViewComponent,
+    ManageOrdersComponent,
+    ManageProductsComponent,
+    VerifyProductsComponent,
+    VerifyVendorsComponent,
+    SupportNMessagesComponent,
+    ReportViewComponent,
+    UserOrdersComponent,
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
     NgbPagination,
-    FormsModule
+    FormsModule,
   ]
 })
 export class DashboardModule { }

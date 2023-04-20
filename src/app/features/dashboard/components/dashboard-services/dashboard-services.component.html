@@ -1,11 +1,13 @@
+
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
-    <div *ngFor="let service of services" class="col mb-4">
-      <div class="card h-100">
-        <div class="card-body">
-          <h3 class="card-title">{{ service.name }}</h3>
-          <p class="card-text">{{ service.description }}</p>
+  <ng-container *ngFor="let service of services">
+    <div *ngIf="isAvailable(service)" class="col mb-4">
+      <div [routerLink]="[service.path]" class="card h-100">
+        <div class="card-body cursor-pointer">
+          <h3 class="card-title link-primary">{{ service.data?.['title'] }}</h3>
+          <p class="card-text">{{ service.data?.['label'] }}</p>
         </div>
       </div>
     </div>
-  </div>
-  
+  </ng-container>
+</div>
