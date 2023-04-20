@@ -94,7 +94,7 @@ export class CheckoutPageComponent implements OnInit {
 
   patchCreateCheckoutPageForm(){
     this.createCheckoutPageForm.patchValue({
-      userId: this.orderPayModel.userId,
+      userId: this.userCardInfoModel.userId,
       address: this.userCardInfoModel.addressModel,
       city: this.userCardInfoModel.addressModel.city,
       state: this.userCardInfoModel.addressModel.state,
@@ -106,9 +106,9 @@ export class CheckoutPageComponent implements OnInit {
       expiryMonth: this.userCardInfoModel.cardInfoModel.expMonth,
       expiryYear: this.userCardInfoModel.cardInfoModel.expYear,
       cardBrand: this.userCardInfoModel.cardInfoModel.cardBrand,
-      quantity: this.orderPayModel.quantity,
-      price: this.orderPayModel.price,
-      fullName: this.orderPayModel.fullName,
+      quantity: this.userCardInfoModel.quantity,
+      price: this.userCardInfoModel.price,
+      fullName: this.userCardInfoModel.fullName,
     })
     this.userPresent = true;
   }
