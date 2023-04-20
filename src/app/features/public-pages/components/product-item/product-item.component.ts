@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class ProductItemComponent {
 
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  onAddToCartClick(id:number){
+    alert(id)
+  }
+
+
 }
