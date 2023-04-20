@@ -7,6 +7,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { SearchNListingComponent } from './search-n-listing/search-n-listing.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import {InvoiceComponent} from "@app/features/public-pages/invoice/invoice.component";
+import { CategoryComponent } from './category/category.component';
 
 
 const routes: Routes = [
@@ -47,7 +48,10 @@ const routes: Routes = [
       {
         path: 'invoice',
         component: InvoiceComponent
-      }
+      },{
+        path: 'category',
+        component: CategoryComponent
+    }
 
     ]
 

@@ -7,6 +7,8 @@ import { DashboardWrapperComponent } from "./dashboard-wrapper.component";
 import { EmailHistoryComponent } from "@app/features/dashboard/admin/email-history/email-history.component";
 import { AuthenticationGuard } from "@app/auth/guards/authentication.guard";
 import { DASHBOARD_ROUTES } from "@app/core/route.util";
+import { CategoryComponent } from "../public-pages/category/category.component";
+import { AddProductComponent } from "./vendor/products/add-product/add-product.component";
 
 
 export const ROUTES: Routes = [
@@ -16,6 +18,7 @@ export const ROUTES: Routes = [
         canActivate: [AuthenticationGuard],
         children: DASHBOARD_ROUTES
     },
+    
 ];
 
 @NgModule({
