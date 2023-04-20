@@ -45,4 +45,12 @@ export class ApiEndpoints {
 
     // Other Url constants
 
+    static readonly SHOPPING_CART = {
+      ALL: API_ENDPOINT+'/shopping-cart',
+      GET: API_ENDPOINT+'/shopping-cart',
+      POST: API_ENDPOINT+'/shopping-cart',
+      PUT: API_ENDPOINT+'/shopping-cart',
+      DELETE: API_ENDPOINT+'/shopping-cart'
+  }
+
 }

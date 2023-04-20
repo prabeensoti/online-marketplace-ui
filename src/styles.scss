@@ -23,6 +23,10 @@ body {
     background: linear-gradient(to right, #f2f6f9, #ebeef1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .btn-login {
     background-color: $primary-color;
     font-size: 0.9rem;
@@ -33,4 +37,12 @@ body {
     // &:hover {
     //      background-color: #f0c14b;
     // }
+}
+
+.full-page-loader {
+  background-color: red;
+  //width: 100px;
+  //height: 100px;
+  //position: absolute;
+  //z-index: 2;
 }

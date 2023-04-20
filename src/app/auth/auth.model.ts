@@ -1,3 +1,4 @@
+import { EnumRole } from "@app/core/model/domain.model";
 import { UserDTO } from "@app/core/model/user.model";
 
 export enum OAuth2Provider {
@@ -29,8 +30,12 @@ export interface LoginContext {
 }
 
 export interface AuthResponse {
-    username?: string;
+    userId: string;
+    fullName: string;
     token: string;
+    email: string;
+    username: string;
+    role: EnumRole;
 }
 
 export interface JwtTokenPayload {

@@ -14,7 +14,7 @@ export class HomeNavbarComponent implements OnInit {
 
   isNavCollapse: boolean = true;
   isLoggedIn: boolean = false;
-  firstName: string | undefined; // TODO replace with firstname, fullname or substring email..
+  firstName: string | undefined; 
 
   constructor(private credentialsService: CredentialsService, private authenticationService: AuthenticationService) { }
 
@@ -26,7 +26,7 @@ export class HomeNavbarComponent implements OnInit {
     this.isLoggedIn = this.credentialsService.isAuthenticated();
     if (this.isLoggedIn) {
       const credentials = this.credentialsService.getCredentials();
-      this.firstName = credentials?.email;
+      this.firstName = credentials?.fullName;
     }
   }
 
