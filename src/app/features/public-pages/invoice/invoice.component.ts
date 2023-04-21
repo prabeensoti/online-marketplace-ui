@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {InvoiceService} from "@app/core/service/invoice.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-invoice',
@@ -8,7 +9,7 @@ import {InvoiceService} from "@app/core/service/invoice.service";
 })
 export class InvoiceComponent implements OnInit {
 
-  orderId: String = "2305834";
+  orderId: any;
 
   invoiceDetails: any;
   shippingAddress: any;
@@ -16,15 +17,20 @@ export class InvoiceComponent implements OnInit {
   orderItems: any
   totalAmount: any
 
-  constructor(private invoiceService : InvoiceService) {
+  constructor(private invoiceService : InvoiceService,
+              private activatedRoute: ActivatedRoute) {
   }
+
+
 
   ngOnInit(): void {
     this.generateInvoice();
   }
 
   generateInvoice() {
-    this.invoiceService.getInvoice(1).subscribe(response => {
+    this.orderId = this.activatedRoute.snapshot.paramMap.get('orderId');
+
+    this.invoiceService.getInvoice(this.orderId).subscribe(response => {
       this.invoiceDetails = response;
       this.shippingAddress = response.shippingAddress;
       this.paymentMethod = response.paymentMethod;
