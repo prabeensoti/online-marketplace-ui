@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, convertToParamMap, ParamMap, Params } from '@angular/router';
-import { ProductDTO } from '@app/core/model/domain.model';
-import { ProductService } from '@app/core/service/product.service';
-import { filter, map } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, convertToParamMap, ParamMap, Params} from '@angular/router';
+import {ProductDTO} from '@app/core/model/domain.model';
+import {ProductService} from '@app/core/service/product.service';
+import {filter} from 'rxjs';
 import {CredentialsService} from "@app/auth/services/credentials.service";
+import {ShoppingCartService} from "@app/core/service/shopping-cart.service";
+import {ToastService} from "@app/core/service/toast.service";
+import {Constants} from "@app/core/core.constant";
 
 @Component({
   selector: 'app-search-n-listing',
@@ -17,11 +20,13 @@ export class SearchNListingComponent implements OnInit {
   products: ProductDTO[] = [];
 
   searchText: string = "";
+  loading: boolean = false;
 
   constructor(private credentialsService: CredentialsService,
               private route: ActivatedRoute,
-              private productService: ProductService) {
-
+              private productService: ProductService,
+              private shoppingCartService: ShoppingCartService,
+              private toastService: ToastService) {
   }
 
   ngOnInit(): void {
@@ -54,23 +59,30 @@ export class SearchNListingComponent implements OnInit {
   }
 
   onAddToCartClick(product:ProductDTO) {
-
+    this.loading = true;
     if(this.credentialsService.isAuthenticated()){
       //use loggedIn // first remove from localStorage
-      localStorage.removeItem(this.CART_ITEMS_KEY);
-
+      sessionStorage.removeItem(Constants.CART_ITEMS_KEY);
+      this.shoppingCartService.addItemToCart(product.productId, 1).subscribe({
+        next:(res) => {
+          this.toastService.show("Product Added To Cart", { classname: 'bg-success text-light fs-5', delay: 2000 });
+        },
+        error:(err) => {
+          console.log("Error on remove cart",err)
+          this.loading = false;
+          this.toastService.show(err.error.status+" "+err.error.message, { classname: 'bg-danger text-light fs-5', delay: 2000 });
+        },
+        complete:() => {
+          this.loading = false
+        }
+      })
 
 
     } else {
       //user not loggedIN
-      let cartItems:any = JSON.parse(localStorage.getItem(this.CART_ITEMS_KEY) || '[]');
-      let existingItem = cartItems.find((item: { productId: number; }) => item.productId === product.productId);
-      if(existingItem){
-        existingItem.quantity += 1
-      } else {
-        cartItems.push( {...product, ...{quantity: 1}});
-      }
-      localStorage.setItem(this.CART_ITEMS_KEY, JSON.stringify(cartItems))
+        this.shoppingCartService.addItemToCartLocal(product, true)
+      this.loading = false
+        this.toastService.show("Product Added To Cart", { classname: 'bg-success text-light fs-5', delay: 2000 });
     }
   }
 }

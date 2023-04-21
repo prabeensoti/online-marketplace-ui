@@ -1,0 +1,109 @@
+<div class="container">
+    <app-auth-pages-navbar></app-auth-pages-navbar>
+
+
+    <app-pricing-platform-page></app-pricing-platform-page>
+
+    <!-- 
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Step {{ step }}</h4>
+                </div>
+                <div class="card-body">
+                    <ng-container *ngIf="step === 1">
+                        <app-vendor-registration-form (next)="onVendorRegistration($event)"></app-vendor-registration-form>
+                    </ng-container>
+                    <ng-container *ngIf="step === 2">
+                        <app-vendor-details-form (next)="onVendorDetailsSaved($event)"></app-vendor-details-form>
+                    </ng-container>
+                    <ng-container *ngIf="step === 3">
+                        <app-vendor-payment-form (previous)="onRegistrationPayment($event)"></app-vendor-payment-form>
+                    </ng-container>
+                </div> 
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-secondary" *ngIf="step !== 1" (click)="onPrevious()">Previous</button>
+                        <button class="btn btn-primary" *ngIf="step !== 3" (click)="onNext()">Next</button>
+                        <button class="btn btn-success" *ngIf="step === 3">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+    <div class="container">
+        <div class="card mb-5">
+            <div class="row">
+
+                <div class="col-md-4 left-side">
+                    <div class="left-heading text-center border-bottom">
+                        <h3>Register Account</h3>
+                    </div>
+                    <div class="steps-content">
+                        <h3>Step <span class="step-number">1</span></h3>
+                        <p class="step-number-content" [ngClass]="step === 1 ? 'active': 'd-none'">Create your initial
+                            admin
+                            username and password.</p>
+                        <p class="step-number-content" [ngClass]="step === 2 ? 'active': 'd-none'">Enter more details
+                            complete details, to help customers
+                            know
+                            better.</p>
+                        <p class="step-number-content" [ngClass]="step === 3 ? 'active': 'd-none'">Complete the
+                            paymenent
+                            and register into the system.
+                        </p>
+                    </div>
+                    <ul class="progress-bar">
+                        <li [ngClass]="{'active': step === 1}">Account Creation</li>
+                        <li [ngClass]="{'active': step === 2}">More Information</li>
+                        <li [ngClass]="{'active': step === 3}">Payment</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-8 p-3">
+
+                    <div *ngIf="step === 1">
+                        <i class="bi bi-circle"></i>
+                        <div class="text">
+                            <h2>Account Creation</h2>
+                            <p>Create your initial admin username and password.</p>
+                        </div>
+                        <app-vendor-registration-form
+                            (next)="onVendorRegistration($event)"></app-vendor-registration-form>
+                    </div>
+                    <div *ngIf="step === 2">
+                        <i class="bi bi-circle"></i>
+                        <div class="text">
+                            <h2>Your Personal Information</h2>
+                            <p>Enter more details complete details, to help customers know better.</p>
+                        </div>
+                        <app-vendor-details-form (previous)="onPrevious()"
+                            (next)="onVendorDetailsSaved($event)"></app-vendor-details-form>
+                    </div>
+
+                    <div *ngIf="step === 3">
+                        <i class="bi bi-circle"></i>
+                        <div class="text">
+                            <h2>Registration Payment</h2>
+                            <p>Complete the paymenent and register into the system.</p>
+                        </div>
+                        <app-vendor-payment-form (previous)="onPrevious()"
+                            (next)="onRegistrationPayment($event)"></app-vendor-payment-form>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <app-auth-pages-footer></app-auth-pages-footer>
+
+</div>

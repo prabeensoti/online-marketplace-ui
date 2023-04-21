@@ -1,1 +1,18 @@
-<p>manage-products works!</p>
+<div class="row justify-content-end me-5 mb-3">
+    <div class="col-auto">
+        <button class="btn btn-lg btn-primary rounded-pill" role="button">New +</button>
+    </div>
+</div>
+
+
+<div class="container">
+    <app-table [title]="'Manage Products'" [dataGridConfigurer]="productDataGridConfigurer"
+        [actionTemplate]="{'Update': updateTemplate}">
+    </app-table>
+</div>
+
+<ng-template #updateTemplate let-data>
+    <a class="fs-4 link-primary cursor-pointer" (click)="updateProduct(data)">
+        <i class="bi bi-pencil-square"></i>
+    </a>
+</ng-template>

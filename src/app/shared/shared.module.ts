@@ -8,19 +8,31 @@ import { ServiceSearchComponent } from './home-navbar/components/service-search/
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { ToastNotificationComponent } from './toast-notification/toast-notification.component';
-import {SanitizeHtmlPipeComponent} from "@app/shared/pipe/sanitize-html-pipe.component";
+import { SanitizeHtmlPipeComponent } from "@app/shared/pipe/sanitize-html-pipe.component";
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { TableComponent } from './table/table.component';
+import { ObjKeysPipe } from './table/pipe/obj-keys.pipe';
+import { StColumnSortDirective } from './table/st-column-sort/st-column-sort.directive';
+import { StPaginationComponent } from './table/st-pagination/st-pagination.component';
 
 const sharedComponents = [
   HomeNavbarComponent,
   ServiceSearchComponent,
   LoadingComponent,
   FooterComponent,
-  BreadcrumbComponent
+  BreadcrumbComponent,
+  TableComponent
 ];
 
 @NgModule({
-  declarations: [...sharedComponents, FooterComponent, ToastNotificationComponent, SanitizeHtmlPipeComponent, BreadcrumbComponent],
+  declarations: [
+    ...sharedComponents,
+    ToastNotificationComponent,
+    SanitizeHtmlPipeComponent,
+    ObjKeysPipe,
+    StColumnSortDirective,
+    StPaginationComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,

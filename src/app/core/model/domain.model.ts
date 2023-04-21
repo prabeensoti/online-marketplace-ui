@@ -13,6 +13,11 @@ enum FileType {
   IMAGES = 'IMAGES',
   LIST = 'LIST',
 }
+enum OrderStatus {
+  NEW = "NEW",
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED"
+}
 
 export interface UserDTO {
   userId: number;
@@ -57,6 +62,14 @@ export interface VendorDTO {
 export interface ProductCategoryDTO {
   categoryId: number;
   category: string;
+}
+
+export interface OrderDTO {
+  OrderId: number;
+  orderStatus: OrderStatus;
+  orderDate: Date;
+  // shipping: Shipping;
+  user: UserDTO;
 }
 
 export interface AddressDTO {

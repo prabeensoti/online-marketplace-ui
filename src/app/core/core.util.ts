@@ -1,4 +1,6 @@
 import { FormGroup } from "@angular/forms";
+import { PageRequest } from "./core.model";
+import { HttpParams } from "@angular/common/http";
 
 export class CoreUtil {
 
@@ -15,6 +17,13 @@ export class CoreUtil {
                 matchingControl.setErrors(null);
             }
         }
+    }
+
+    static buildPageParams = (pageRequest: PageRequest): HttpParams => {
+        return new HttpParams()
+            .set('page', (pageRequest.page - 1).toString())
+            .set('size', pageRequest.size.toString())
+            .set('sort', pageRequest.sort.toString() + ',' + pageRequest.direction.toString());
     }
 
 }

@@ -13,14 +13,14 @@ export interface UserDTO {
     updatedAt?: string;
 }
 
-export interface VendorDTO {
+// export interface VendorDTO {
 
-}
+// }
 
-export interface AdminDTO {
+// export interface AdminDTO {
 
-}
+// }
 
-export interface ClientDTO {
+// export interface ClientDTO {
     
-}
+// }
