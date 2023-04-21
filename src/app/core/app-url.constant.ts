@@ -65,6 +65,14 @@ export class ApiEndpoints {
 
     };
 
+  static readonly CATEGORIES = {
+    ALL: API_ENDPOINT + '/category',
+    GET_BY_ID: API_ENDPOINT + '/category',
+    CREATE: API_ENDPOINT + '/category',
+    UPDATE: API_ENDPOINT + '/category',
+    DELETE: API_ENDPOINT + '/category'
+  };
+
     // Other Url constants
 
     static readonly SHOPPING_CART = {

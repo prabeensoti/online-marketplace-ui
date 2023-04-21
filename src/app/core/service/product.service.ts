@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiEndpoints } from '../app-url.constant';
 import { GenericFilterRequest, PageRequest, PageableResponse } from '../core.model';
 import { CoreUtil } from '../core.util';
+import {ProductModel} from "@app/core/model/product.model";
 
 @Injectable({
   providedIn: 'root'
@@ -55,4 +56,8 @@ export class ProductService {
     return throwError(error);
   }
 
+
+  saveProduct(product : ProductModel): Observable<ProductModel> {
+    return this.http.post<ProductModel>(ApiEndpoints.PRODUCTS.CREATE, product);
+  }
 }
