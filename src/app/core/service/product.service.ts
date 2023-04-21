@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductDTO } from '../model/domain.model';
+import {ProductDTO, VerifyProductDTO} from '../model/domain.model';
 import { Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiEndpoints } from '../app-url.constant';
@@ -55,4 +55,7 @@ export class ProductService {
     return throwError(error);
   }
 
+  verifyProduct(data: VerifyProductDTO): Observable<ProductDTO> {
+    return this.http.put<ProductDTO>(ApiEndpoints.PRODUCTS.UPDATE, data);
+  }
 }

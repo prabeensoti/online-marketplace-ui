@@ -5,7 +5,28 @@
 </div>
 
 <ng-template #updateTemplate let-data>
-    <a class="fs-4 link-primary cursor-pointer" (click)="verifySelectedProduct(data)">
+    <a class="fs-4 link-primary cursor-pointer" (click)="verifySelectedProduct(data,content)">
         <i class="bi bi-pencil-square"></i>
     </a>
+</ng-template>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Verify Product</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+               [formControl]="isVerified">
+        <label class="form-check-label" for="flexCheckDefault">
+          Verify Product
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
 </ng-template>

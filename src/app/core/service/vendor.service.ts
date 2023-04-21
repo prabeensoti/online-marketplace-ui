@@ -43,6 +43,10 @@ export class VendorService {
       .pipe(catchError(this.errorHandler));
   }
 
+  verifyVendor(vendor: VendorDTO): Observable<VendorDTO> {
+    return this.http.put<VendorDTO>(ApiEndpoints.VENDORS.VERIFY, vendor);
+  }
+
 
   errorHandler(error: HttpErrorResponse): Observable<any> {
     console.log('Vendor api error ', error);
