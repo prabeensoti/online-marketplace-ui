@@ -37,7 +37,20 @@
           <button type="button"  (click)="createOrderPayment()"class="w-100 btn btn-primary btn-lg m-2">Confirm</button>
         </div>
 
-          <div class="form-group row">
+        <fieldset class="form-group" disabled>
+          <legend class="col-form-label col-sm-2 pt-0">Payment</legend>
+          <div class="my-3">
+            <div *ngFor="let shippingAddress of shippingAddresses">
+              <input type="radio" formControlName="cardBrand" *ngIf="shippingAddress.show"
+              [value]="shippingAddress.val" (click)="activeRadio(shippingAddress.val)"
+              [checked]="shippingAddress.val === selectedCardBrand" class="form-check-input">
+              <label for="{{shippingAddress.name}}" >
+                {{shippingAddress.name}}</label>
+            </div>
+          </div>
+        </fieldset>
+
+          <!-- <div class="form-group row">
             <label for="colFormLabel" class="col-sm-2 col-form-label">Full Name</label>
             <div class="col-sm-4">
               <input type="text" formControlName="fullName"  class="form-control" id="fullName" readonly required>
@@ -71,7 +84,7 @@
             <div class="col-sm-4">
               <input type="text" formControlName="zipcode" class="form-control" id="address" readonly required>
             </div>
-          </div>
+          </div> -->
   
   
           <fieldset class="form-group" disabled>

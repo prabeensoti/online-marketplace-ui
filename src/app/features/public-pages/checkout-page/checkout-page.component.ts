@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Utility } from '@app/core/constant/utility';
+import { AddressDto } from '@app/core/dto/address-dto';
+import { CardInfoDto } from '@app/core/dto/card-info-dto';
 import { OrderPayModel } from '@app/core/model/order-pay-model';
 import { UserCardInfoModel } from '@app/core/model/user-card-info-model';
 import { OrderPayService } from '@app/core/service/order-pay.service';
@@ -30,6 +32,11 @@ export class CheckoutPageComponent implements OnInit {
   cardBrands = [{name: 'Master Card', val: 'MASTERCARD'}, {name: 'Visa', val: 'VISA'}, {name: 'Stripe', val: 'STRIPE'}];
   selectedCardBrand!: string;
   userCardInfoModel = new UserCardInfoModel();
+  addressDto = new AddressDto();
+  cardInfoDto = new CardInfoDto();
+  shippingAddresses = [{name: 'Current Shipping Address', val: Utility.SHIPPING_ADDRESS_CURRENT, show: false },
+    {name: 'Add new', val: Utility.SHIPPING_ADDRESS_NEW, show: true }];
+  selectedAddress!: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -46,13 +53,19 @@ export class CheckoutPageComponent implements OnInit {
     
     this.obtainByUserId(1);
     this.checkoutPageFormBuilder();
-    this.patchCreateCheckoutPageForm();
 
-    this.shippingCost = Math.ceil(this.orderPayModel.price/50)*Utility.SHIPPING_CHARGE;
-    this.tax = (Utility.TAX/100) * this.orderPayModel.price;
-    this.totalPrice = this.orderPayModel.price + this.shippingCost + this.tax;
+    console.log("======ngOnInit ============");
+    
+    console.log(this.userCardInfoModel.price);
+    
+    
+
+    this.shippingCost = Math.ceil(this.userCardInfoModel.price/50)*Utility.SHIPPING_CHARGE;
+    this.tax = (Utility.TAX/100) * this.userCardInfoModel.price;
+    this.totalPrice = this.userCardInfoModel.price + this.shippingCost + this.tax;
     // this.states = Utility.STATES;
     // this.countries = Utility.COUNTRIES;
+    console.log(this.totalPrice);
   }
 
   checkoutPageFormBuilder(){
@@ -84,9 +97,24 @@ export class CheckoutPageComponent implements OnInit {
           .pipe()
           .subscribe(
               (resp) => {
-                console.log("===============");
-                console.log(resp);
                 this.userCardInfoModel = resp;
+                if(!resp.addressDto){
+                  console.log("=========####===================");
+                  
+                  this.addressDto = resp.addressDto;
+                }
+                console.log(this.addressDto);                
+                console.log("=========####=2================== "+this.shippingAddresses[0].show);
+                  
+                
+                this.cardInfoDto = resp.cardInfoDto; 
+                this.patchCreateCheckoutPageForm();
+
+                if(this.addressDto != null){
+                  this.selectedAddress = Utility.SHIPPING_ADDRESS_CURRENT;
+                  this.shippingAddresses[0].show= true;
+                }
+                
               },
               (errorResp) => {  }
           );
@@ -95,17 +123,17 @@ export class CheckoutPageComponent implements OnInit {
   patchCreateCheckoutPageForm(){
     this.createCheckoutPageForm.patchValue({
       userId: this.userCardInfoModel.userId,
-      address: this.userCardInfoModel.addressModel,
-      city: this.userCardInfoModel.addressModel.city,
-      state: this.userCardInfoModel.addressModel.state,
-      zipcode: this.userCardInfoModel.addressModel.zipcode,
-      country: this.userCardInfoModel.addressModel.country,
-      cardNumber: this.userCardInfoModel.cardInfoModel.cardNumber,
-      nameOnCard: this.userCardInfoModel.cardInfoModel.nameOnCard,
-      securityCode: this.userCardInfoModel.cardInfoModel.cvc,
-      expiryMonth: this.userCardInfoModel.cardInfoModel.expMonth,
-      expiryYear: this.userCardInfoModel.cardInfoModel.expYear,
-      cardBrand: this.userCardInfoModel.cardInfoModel.cardBrand,
+      address: this.addressDto.address1,
+      city: this.addressDto.city,
+      state: this.addressDto.state,
+      zipcode: this.addressDto.zipCode,
+      country: this.addressDto.country,
+      cardNumber: this.cardInfoDto.cardNumber,
+      nameOnCard: this.cardInfoDto.nameOnCard,
+      securityCode: this.cardInfoDto.cvc,
+      expiryMonth: this.cardInfoDto.expMonth,
+      expiryYear: this.cardInfoDto.expYear,
+      cardBrand: this.cardInfoDto.cardBrand,
       quantity: this.userCardInfoModel.quantity,
       price: this.userCardInfoModel.price,
       fullName: this.userCardInfoModel.fullName,
@@ -125,12 +153,11 @@ export class CheckoutPageComponent implements OnInit {
   createOrderPayment(){
     this.orderPayService.createOrderPay(this.createCheckoutPageForm.value)
             .pipe()
-            .subscribe(
-                (resp) => {
+            .subscribe({ next: (resp) => {
                     // this.router.navigate(['/admin']);
                 },
-                (error) => { console.log(error);}
-            );
+                error: (error) => { console.log(error);}
+              });
 
   }
 
