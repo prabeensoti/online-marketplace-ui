@@ -49,6 +49,7 @@ export class ApiEndpoints {
         ALL: API_ENDPOINT + '/vendors',
         GET_BY_ID: API_ENDPOINT + '/vendor',
         CREATE: API_ENDPOINT + '/vendors',
+        VERIFY: API_ENDPOINT + '/vendors',
         UPDATE: API_ENDPOINT + '/vendors',
         DELETE: API_ENDPOINT + '/vendors',
         FILTER: API_ENDPOINT + '/vendors/filter'

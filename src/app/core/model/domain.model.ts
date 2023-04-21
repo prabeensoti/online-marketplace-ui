@@ -51,11 +51,26 @@ export interface ProductDTO {
   productCategory: ProductCategoryDTO;
 }
 
+export interface VerifyProductDTO {
+  productId: number;
+  name: string;
+  description: string;
+  quantity: number;
+  price: number;
+  images: FileEntityDTO[];
+
+  isVerified: boolean;
+  isDeleted: boolean;
+
+  vendorId: number;
+  categoryId: number ;
+}
+
 export interface VendorDTO {
   vendorId: number;
   description: string;
   logo: FileEntityDTO;
-
+  isVerified: boolean
   user: UserDTO;
 }
 
