@@ -40,7 +40,7 @@ export class ShoppingCartService {
 
   //below are the function for not loggedIn case
   public addItemToCartLocal(product:ShoppingCartDTO | ProductDTO, type:boolean){
-    let cartItems:any = JSON.parse(sessionStorage.getItem(Constants.CART_ITEMS_KEY) || '[]');
+    let cartItems:any = JSON.parse(Constants.STORAGE_LOCATION.getItem(Constants.CART_ITEMS_KEY) || '[]');
     let existingItem;
     if ("productId" in product) {
       console.log("110")
@@ -60,11 +60,11 @@ export class ShoppingCartService {
       console.log("10")
       cartItems.push({product,quantity: 1});
     }
-    sessionStorage.setItem(Constants.CART_ITEMS_KEY, JSON.stringify(cartItems))
+    Constants.STORAGE_LOCATION.setItem(Constants.CART_ITEMS_KEY, JSON.stringify(cartItems))
   }
 
   public removeItemFromCartLocal(product:ShoppingCartDTO | ProductDTO){
-    let cartItems:any = JSON.parse(sessionStorage.getItem(Constants.CART_ITEMS_KEY) || '[]');
+    let cartItems:any = JSON.parse(Constants.STORAGE_LOCATION.getItem(Constants.CART_ITEMS_KEY) || '[]');
     let existingItemIdx;
     if ("productId" in product) {
       existingItemIdx = cartItems.findIndex((item: { product: { productId: number; }; }) => item.product.productId === product.productId);
@@ -73,7 +73,7 @@ export class ShoppingCartService {
     }
     if(existingItemIdx > -1){
       cartItems.splice(existingItemIdx, 1)
-      sessionStorage.setItem(Constants.CART_ITEMS_KEY, JSON.stringify(cartItems));
+      Constants.STORAGE_LOCATION.setItem(Constants.CART_ITEMS_KEY, JSON.stringify(cartItems));
     }
   }
 }

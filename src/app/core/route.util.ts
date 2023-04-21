@@ -113,6 +113,7 @@ export const DASHBOARD_ROUTES: Routes = [
         data: { title: 'Manage Orders', label: 'Ship, track and cancel/return an order', }
     },
 
+
     // ROLE_ADMIN
     {
         path: 'verify-products',

@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { CategoryContext } from '@app/auth/auth.model';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
+import {PageableResponse} from "@app/core/core.model";
+import {ProductCategoryDTO, ProductDTO} from "@app/core/model/domain.model";
+import {ApiEndpoints} from "@app/core/app-url.constant";
 
 const API_URL = environment.apiUrl;
 
@@ -12,6 +15,16 @@ const API_URL = environment.apiUrl;
 export class CategoryService {
 
   constructor(private httpClient : HttpClient) { }
+
+  // TODO findAll category, Observable<ProductCategory[]>
+  // backend List<ProductCategory>
+
+  public getAllCategories(): Observable<ProductCategoryDTO[]> {
+    const categoriesObservable: Observable<ProductCategoryDTO[]> = this.httpClient
+      .get<ProductCategoryDTO[]>(ApiEndpoints.CATEGORIES.ALL);
+    return categoriesObservable;
+  }
+
 
   saveCategory(category: CategoryContext): Observable<CategoryContext>{
     return this.httpClient.post<CategoryContext>(`${API_URL}/category`, category);

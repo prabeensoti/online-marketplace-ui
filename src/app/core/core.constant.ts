@@ -56,5 +56,6 @@ export const ERROR_CODES_CONSTANTS = {
 };
 
 export class Constants {
+  static readonly STORAGE_LOCATION = sessionStorage;
   static readonly CART_ITEMS_KEY = 'CART_ITEMS_KEY';
 }

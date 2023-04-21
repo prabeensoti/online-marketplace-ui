@@ -49,6 +49,7 @@ export class ApiEndpoints {
         ALL: API_ENDPOINT + '/vendors',
         GET_BY_ID: API_ENDPOINT + '/vendor',
         CREATE: API_ENDPOINT + '/vendors',
+        VERIFY: API_ENDPOINT + '/vendors',
         UPDATE: API_ENDPOINT + '/vendors',
         DELETE: API_ENDPOINT + '/vendors',
         FILTER: API_ENDPOINT + '/vendors/filter'
@@ -64,6 +65,14 @@ export class ApiEndpoints {
         FILTER: API_ENDPOINT + '/orders/filter'
 
     };
+
+  static readonly CATEGORIES = {
+    ALL: API_ENDPOINT + '/category',
+    GET_BY_ID: API_ENDPOINT + '/category',
+    CREATE: API_ENDPOINT + '/category',
+    UPDATE: API_ENDPOINT + '/category',
+    DELETE: API_ENDPOINT + '/category'
+  };
 
     // Other Url constants
 
