@@ -104,7 +104,7 @@ export const DASHBOARD_ROUTES: Routes = [
     // ROLE_VENDOR
     {
         path: 'manage-products',
-        component: AddProductComponent,
+        component: ManageProductsComponent,
         data: { title: 'Manage Products', label: 'View, modify and publish products', }
     },
     {

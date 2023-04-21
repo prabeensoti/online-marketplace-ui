@@ -7,8 +7,8 @@ import { SharedModule } from '@app/shared/shared.module';
 import { AccountProfileComponent } from './components/account-profile/account-profile.component';
 import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
 import { EmailHistoryComponent } from './admin/email-history/email-history.component';
-import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NgbModalModule, NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import { EmailViewComponent } from './admin/email-history/email-view/email-view.component';
 import { BreadcrumbComponent } from '@app/shared/breadcrumb/breadcrumb.component';
 import { ManageOrdersComponent } from './vendor/manage-orders/manage-orders.component';
@@ -45,6 +45,7 @@ import {AddProductComponent} from "@app/features/dashboard/vendor/products/add-p
     SharedModule,
     NgbPagination,
     FormsModule,
+    NgbModalModule,
     ReactiveFormsModule
   ]
 })

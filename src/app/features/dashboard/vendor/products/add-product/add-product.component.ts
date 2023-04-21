@@ -8,7 +8,7 @@ import {ProductModel} from "@app/core/model/product.model";
 import {CategoryService} from "@app/core/service/category.service";
 
 @Component({
-  selector: 'add-product',
+  selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss']
 })
