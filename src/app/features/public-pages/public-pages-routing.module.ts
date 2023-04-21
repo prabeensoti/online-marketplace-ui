@@ -47,7 +47,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'invoice',
+        path: 'invoice/:orderId',
         component: InvoiceComponent
       },{
         path: 'category',

@@ -5,12 +5,12 @@
 
   <div class="row">
     <div class="col-6">
-      <label>Paid By : </label>{{orderId}}
+      <label>Paid By : {{paymentMethod[0].cardHolderName}}</label>
     </div>
 
-    <label>Placed By : {{orderId}}</label>
-    <label>Order Placed : {{orderId}}</label>
-    <label>Order number : {{invoiceDetails.orderNumber}}</label>
+    <label>Placed By : </label>
+    <label>Order Placed : {{invoiceDetails.orderPlaced}}</label>
+    <label>Order number : {{orderId}}</label>
     <label>Order Total : {{totalAmount}}</label>
   </div>
   <br>

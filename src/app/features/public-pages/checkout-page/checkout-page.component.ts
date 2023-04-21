@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-checkout-page',
@@ -13,7 +14,18 @@ export class CheckoutPageComponent implements OnInit {
 
   total = '$20';
 
+  constructor(private router: Router) {
+
+  }
+
   ngOnInit(): void {
+  }
+
+  onCheckOut() {
+    console.log('Check out Click');
+    let orderId = 1;
+    // After Payment Calculate and Success navigate to Invoice page
+    this.router.navigate(['/invoice',orderId]);
   }
 
 
