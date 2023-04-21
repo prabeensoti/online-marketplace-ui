@@ -34,13 +34,13 @@ export class ShoppingCartService {
   }
 
   // delete item from cart
-  public removeItemToCart(productId:number):Observable<boolean> {
+  public removeItemFromCart(productId:number):Observable<boolean> {
     return this.http.delete<boolean>(ApiEndpoints.SHOPPING_CART.DELETE+`?productId=${productId}`,this.httpOptions);
   }
 
   //below are the function for not loggedIn case
-  public addItemToCartLocal(product:ShoppingCartDTO | ProductDTO, qty:number){
-    let cartItems:any = JSON.parse(localStorage.getItem(Constants.CART_ITEMS_KEY) || '[]');
+  public addItemToCartLocal(product:ShoppingCartDTO | ProductDTO, type:boolean){
+    let cartItems:any = JSON.parse(sessionStorage.getItem(Constants.CART_ITEMS_KEY) || '[]');
     let existingItem;
     if ("productId" in product) {
       console.log("110")
@@ -55,16 +55,16 @@ export class ShoppingCartService {
     }
     if(existingItem){
       console.log("11")
-      existingItem.quantity += qty
+      existingItem.quantity = type ? existingItem.quantity+1 : (existingItem.quantity > 1 ? existingItem.quantity-1 : existingItem.quantity)
     } else {
       console.log("10")
-      cartItems.push({product,quantity: qty});
+      cartItems.push({product,quantity: 1});
     }
-    localStorage.setItem(Constants.CART_ITEMS_KEY, JSON.stringify(cartItems))
+    sessionStorage.setItem(Constants.CART_ITEMS_KEY, JSON.stringify(cartItems))
   }
 
   public removeItemFromCartLocal(product:ShoppingCartDTO | ProductDTO){
-    let cartItems:any = JSON.parse(localStorage.getItem(Constants.CART_ITEMS_KEY) || '[]');
+    let cartItems:any = JSON.parse(sessionStorage.getItem(Constants.CART_ITEMS_KEY) || '[]');
     let existingItemIdx;
     if ("productId" in product) {
       existingItemIdx = cartItems.findIndex((item: { product: { productId: number; }; }) => item.product.productId === product.productId);
@@ -73,7 +73,7 @@ export class ShoppingCartService {
     }
     if(existingItemIdx > -1){
       cartItems.splice(existingItemIdx, 1)
-      localStorage.setItem(Constants.CART_ITEMS_KEY, JSON.stringify(cartItems));
+      sessionStorage.setItem(Constants.CART_ITEMS_KEY, JSON.stringify(cartItems));
     }
   }
 }

@@ -132,7 +132,7 @@
                 <label for="country" class="form-label">Country</label>
                 <input type="country" formControlName="country" class="form-control" id="country" >
               </div>
-  
+
               <div class="col-md-4">
                 <label for="state" class="form-label">State</label>
                 <input type="text" formControlName="state" class="form-control" id="state" required>
@@ -150,11 +150,11 @@
               </div>
   
             </div>
-  
+
             <hr class="my-4">
     
             <h4 class="mb-3">Payment</h4>
-  
+
             <div class="my-3">
               <div *ngFor="let radiobutton of cardBrands">
                 <input type="radio" formControlName="cardBrand" class="form-check-input" 
@@ -164,7 +164,7 @@
                   {{radiobutton.name}}</label>
               </div>
             </div>
-  
+
             <div class="row gy-3">
               <div class="col-md-6">
                 <label for="nameOnCard" class="form-label">Name on card</label>
@@ -174,7 +174,7 @@
                   Name on card is required
                 </div>
               </div>
-  
+
               <div class="col-md-6">
                 <label for="cardNumber" class="form-label">Credit card number</label>
                 <input type="text" formControlName="cardNumber" class="form-control" required>
@@ -182,7 +182,7 @@
                   Credit card number is required
                 </div>
               </div>
-  
+
               <div class="col-md-3">
                 <label class="form-label">Expiry Month</label>
                 <input type="text" formControlName="expiryMonth" class="form-control" id="expiryMonth" required>
@@ -190,7 +190,7 @@
                   Expiration date required
                 </div>
               </div>
-  
+
               <div class="col-md-3">
                 <label class="form-label">Expiry Year</label>
                 <input type="text" formControlName="expiryYear" class="form-control" id="expiryYear" required>
@@ -207,7 +207,7 @@
                 </div>
               </div>
             </div>
-  
+
             <hr class="my-4">
   
         </div> 
