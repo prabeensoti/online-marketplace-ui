@@ -7,8 +7,8 @@ import { SharedModule } from '@app/shared/shared.module';
 import { AccountProfileComponent } from './components/account-profile/account-profile.component';
 import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
 import { EmailHistoryComponent } from './admin/email-history/email-history.component';
-import {NgbModalModule, NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NgbModalModule, NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import { EmailViewComponent } from './admin/email-history/email-view/email-view.component';
 import { BreadcrumbComponent } from '@app/shared/breadcrumb/breadcrumb.component';
 import { ManageOrdersComponent } from './vendor/manage-orders/manage-orders.component';
@@ -19,6 +19,7 @@ import { SupportNMessagesComponent } from './components/support-n-messages/suppo
 import { ReportViewComponent } from './components/report-view/report-view.component';
 import { UserOrdersComponent } from './user/user-orders/user-orders.component';
 import { CategoryComponent } from '../public-pages/category/category.component';
+import {AddProductComponent} from "@app/features/dashboard/vendor/products/add-product/add-product.component";
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { CategoryComponent } from '../public-pages/category/category.component';
     SupportNMessagesComponent,
     ReportViewComponent,
     UserOrdersComponent,
+    AddProductComponent
   ],
   imports: [
     CommonModule,
