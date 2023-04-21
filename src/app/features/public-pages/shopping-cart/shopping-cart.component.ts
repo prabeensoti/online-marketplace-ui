@@ -27,15 +27,15 @@ export class ShoppingCartComponent implements OnInit {
   }
   private initLocalItem(): void {
     // load local storage item to cart
-    this.cartItems = JSON.parse(sessionStorage.getItem(Constants.CART_ITEMS_KEY) || '[]');
+    this.cartItems = JSON.parse(Constants.STORAGE_LOCATION.getItem(Constants.CART_ITEMS_KEY) || '[]');
     this.total=this.cartItems.length > 0 ? this.cartItems.map(x=> x.quantity*x.product.price).reduce((x,y)=>x+y) : 0;
   }
 
   private initCartList(): void {
     this.shoppingCartService.getAllCartItems().subscribe({
       next:(res) => {
-        this.total=this.cartItems.length > 0 ? res.map(x=> x.quantity*x.product.price).reduce((x,y)=>x+y) : 0;
         this.cartItems = res
+        this.total=this.cartItems.length > 0 ? res.map(x=> x.quantity*x.product.price).reduce((x,y)=>x+y) : 0;
         this.loading = false
         //this.toastService.show("Cart Loaded", { classname: 'bg-success text-light fs-5', delay: 2000 });
       },
