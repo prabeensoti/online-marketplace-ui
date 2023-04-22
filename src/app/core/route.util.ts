@@ -14,6 +14,9 @@ import { ReportViewComponent } from "@app/features/dashboard/components/report-v
 import { UserOrdersComponent } from "@app/features/dashboard/user/user-orders/user-orders.component";
 import { AddProductComponent } from "@app/features/dashboard/vendor/products/add-product/add-product.component";
 import { CategoryComponent } from "@app/features/public-pages/category/category.component";
+import {
+  SalesReportComponent
+} from "@app/features/dashboard/vendor/product-sales-report/sales-report.component";
 
 export interface RoutePathAndRoles {
     allowedRoles?: EnumRole[];
@@ -39,10 +42,10 @@ export const APP_UI_ROUTES = {
 
     MANAGE_ORDERS: '/dashboard/manage-orders',
     MANAGE_VENDORS: '/dashboard/manage-vendors',
+    SALES_REPORT: '/dashboard/sales-reports',
 
     VERIFY_PRODUCTS: '/dashboard/verify-products',
     VERIFY_VENDORS: '/dashboard/verify-vendors',
-    REPORTS: '/dashboard/reports',
     SUPPORT_N_MESSAGES: '/dashboard/support-n-messages'
 };
 
@@ -65,11 +68,10 @@ export const APP_UI_ROUTES_AND_ACCESS: { [key in AppUiRouteKey | any]?: RoutePat
 
     [APP_UI_ROUTES.MANAGE_PRODUCTS]: { allowedRoles: [EnumRole.ROLE_VENDOR] },
     [APP_UI_ROUTES.MANAGE_ORDERS]: { allowedRoles: [EnumRole.ROLE_VENDOR] },
+    [APP_UI_ROUTES.SALES_REPORT]: { allowedRoles: [EnumRole.ROLE_VENDOR] },
 
     [APP_UI_ROUTES.VERIFY_PRODUCTS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
     [APP_UI_ROUTES.VERIFY_VENDORS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
-    [APP_UI_ROUTES.REPORTS]: { allowedRoles: [EnumRole.ROLE_VENDOR, EnumRole.ROLE_ADMIN] },
-
 
     [APP_UI_ROUTES.SUPPORT_N_MESSAGES]: { allowedRoles: allRoles },
 };
@@ -112,6 +114,11 @@ export const DASHBOARD_ROUTES: Routes = [
         component: ManageOrdersComponent,
         data: { title: 'Manage Orders', label: 'Ship, track and cancel/return an order', }
     },
+    {
+      path: 'sales-reports',
+      component: SalesReportComponent,
+      data: { title: 'Product Sales Report', label: 'Overall Sales report of product', }
+    },
 
 
     // ROLE_ADMIN
@@ -124,13 +131,6 @@ export const DASHBOARD_ROUTES: Routes = [
         path: 'verify-vendors',
         component: VerifyVendorsComponent,
         data: { title: 'Verify Vendors', label: 'Verify Vendors', }
-    },
-
-    // ROLE_VENDOR and ROLE_ADMIN
-    {
-        path: 'reports',
-        component: ReportViewComponent,
-        data: { title: 'View Reports', label: 'View sales and revenue reports', }
     },
 
     // ALL_USERS
