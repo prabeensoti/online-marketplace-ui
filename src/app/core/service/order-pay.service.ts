@@ -4,6 +4,9 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { PathConstant } from '../constant/path-constant';
 import { BackendServerResponse } from '../model/backend-server-response';
 import { OrderPayModel } from '../model/order-pay-model';
+import { ShoppingCartDTO } from '../model/shopping-cart.model';
+import { OrderPayInfoDto } from '../dto/order-pay-info-dto';
+import { OrderPayResponseDto } from '../dto/order-pay-response-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,14 +27,47 @@ export class OrderPayService {
 
     return throwError(errorMessage);
   }
+  
+findOrderPayInfo(cartItems: ShoppingCartDTO[]){
+  return this.httpClient.post<OrderPayInfoDto>(
+    PathConstant.API_ENDPOINT +
+    PathConstant.ORDER +
+    PathConstant.PAY +
+    PathConstant.INFO , cartItems
+  )
+  .pipe(catchError(this.errorHandler))
+}
 
-  createOrderPay(orderPaymentModel : OrderPayModel): Observable<BackendServerResponse> {
+testData(){
+  let orderPaymentModel= {
+    userId:1,    
+    address: '1502',
+    city: 'Seattle',
+    state: 'WA',
+    zipcode: '98118',
+    country: 'USA',
+    cardNumber: 123456789,
+    nameOnCard: 'Suprea Ghising',
+    securityCode: 123,
+    expiryMonth: 5,
+    expiryYear: 2025,
+    cardBrand: 'Visa',
+    quantity: 15,
+    price: 55, 
+    fullName: 'Anna Purna'
+  };
+
+  return orderPaymentModel;
+}
+
+  createOrderPay(orderPaymentModel : OrderPayModel): Observable<OrderPayResponseDto> {
     console.log("service::: createOrderPay");
     
     return this.httpClient
-    .post<BackendServerResponse>(
+    .post<OrderPayResponseDto>(
       PathConstant.API_ENDPOINT +
-      PathConstant.ORDER_PAY, orderPaymentModel)
+      PathConstant.ORDER +
+      PathConstant.PAY, orderPaymentModel)
     .pipe(catchError(this.errorHandler));
 }
 

@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CredentialsService } from '@app/auth/services/credentials.service';
 import { Utility } from '@app/core/constant/utility';
+import { Constants } from '@app/core/core.constant';
 import { AddressDto } from '@app/core/dto/address-dto';
 import { CardInfoDto } from '@app/core/dto/card-info-dto';
+import { OrderPayInfoDto } from '@app/core/dto/order-pay-info-dto';
 import { OrderPayModel } from '@app/core/model/order-pay-model';
-import { UserCardInfoModel } from '@app/core/model/user-card-info-model';
+import { ShoppingCartDTO } from '@app/core/model/shopping-cart.model';
 import { OrderPayService } from '@app/core/service/order-pay.service';
+import { ToastService } from '@app/core/service/toast.service';
 import { UserService } from '@app/core/service/user.service';
+import { zip } from 'lodash';
 
 @Component({
   selector: 'app-checkout-page',
@@ -20,23 +25,32 @@ export class CheckoutPageComponent implements OnInit {
 
   // promo = { name: 'My Promo code', code: 'EXAMPLECODE', discount: '$25' };
 
-  orderPayModel = new OrderPayModel(); 
+  // orderPayModel = new OrderPayModel(); 
+  // countries!: string[];
+  // states!: string[];
+
   createCheckoutPageForm!: FormGroup;
   shippingCost!: number;
   tax!: number;
   totalPrice!: number;
 
-  countries!: string[];
-  states!: string[];
-  userPresent = false;
-  cardBrands = [{name: 'Master Card', val: 'MASTERCARD'}, {name: 'Visa', val: 'VISA'}, {name: 'Stripe', val: 'STRIPE'}];
+  cardBrands = [
+   {name: 'Master Card', val: Utility.MASTERCARD},
+   {name: 'Visa', val: Utility.VISA}, 
+   {name: 'Stripe', val: Utility.STRIPE}
+  ];
   selectedCardBrand!: string;
-  userCardInfoModel = new UserCardInfoModel();
-  addressDto = new AddressDto();
-  cardInfoDto = new CardInfoDto();
-  shippingAddresses = [{name: 'Current Shipping Address', val: Utility.SHIPPING_ADDRESS_CURRENT, show: false },
-    {name: 'Add new', val: Utility.SHIPPING_ADDRESS_NEW, show: true }];
-  selectedAddress!: string;
+  orderPayInfoDto = new OrderPayInfoDto();
+  // addressDto = new AddressDto();
+  // cardInfoDto = new CardInfoDto();
+  shippingAddresses : AddressDto[] = [];
+
+  cardInfos = [
+    {'cardInfoId':0, 'cardNumber':'', 'nameOnCard':'', 'expYear':0, 'expMonth':0, 'cvc':'', 'cardBrand':'', 'addressType':''}
+  ]
+  selectedAddressId!: number;
+  selectedCardInfos !: number;
+  cartItems : ShoppingCartDTO[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -44,37 +58,31 @@ export class CheckoutPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService,
-    private orderPayService: OrderPayService){
+    private orderPayService: OrderPayService,
+    private credentialsService: CredentialsService,
+    private toastrService: ToastService
+    ){
   
   }
 
   ngOnInit(): void {
     
-    this.obtainByUserId(1);
+    this.cartItems = JSON.parse(Constants.STORAGE_LOCATION.getItem(Constants.CART_ITEMS_KEY) || '[]');
+    this.obtainOrderPayInfo(this.cartItems);
     this.checkoutPageFormBuilder();
-
-    console.log("======ngOnInit ============");
-    
-    console.log(this.userCardInfoModel.price);
-    
-    
-
-    this.shippingCost = Math.ceil(this.userCardInfoModel.price/50)*Utility.SHIPPING_CHARGE;
-    this.tax = (Utility.TAX/100) * this.userCardInfoModel.price;
-    this.totalPrice = this.userCardInfoModel.price + this.shippingCost + this.tax;
-    // this.states = Utility.STATES;
-    // this.countries = Utility.COUNTRIES;
-    console.log(this.totalPrice);
   }
 
   checkoutPageFormBuilder(){
     this.createCheckoutPageForm = this.formBuilder.group({
       userId:[''],
-      address: ['', [Validators.required]],
+      quantity:['', [Validators.required]],
+      price: ['', [Validators.required]],
+      addressId: [''],
+      address1: ['', [Validators.required]],
+      address2: [''],
       city: ['', [Validators.required]],
       state: [''],
-      zipcode: [''],
+      zipCode: [''],
       country: [''],
       cardNumber: [''],
       nameOnCard: [''],
@@ -82,83 +90,120 @@ export class CheckoutPageComponent implements OnInit {
       expiryMonth: [''],
       expiryYear: [''],
       cardBrand: [''],
-      quantity:['', [Validators.required]],
-      price: ['', [Validators.required]],
       fullName: ['', [Validators.required]]
 
     })
   }
 
-  obtainByUserId(userId: number) {
-    // this.orderPayModel = this.userService.testData();
-    console.log(this.orderPayModel);
+  obtainOrderPayInfo(cartItems: ShoppingCartDTO[]) {
     
-      this.userService.findInfoById(userId)
+      this.orderPayService.findOrderPayInfo(cartItems)
           .pipe()
-          .subscribe(
-              (resp) => {
-                this.userCardInfoModel = resp;
-                if(!resp.addressDto){
-                  console.log("=========####===================");
-                  
-                  this.addressDto = resp.addressDto;
-                }
-                console.log(this.addressDto);                
-                console.log("=========####=2================== "+this.shippingAddresses[0].show);
-                  
-                
-                this.cardInfoDto = resp.cardInfoDto; 
-                this.patchCreateCheckoutPageForm();
+          .subscribe({ 
+            next: (resp) => {
+              this.orderPayInfoDto = resp;   
 
-                if(this.addressDto != null){
-                  this.selectedAddress = Utility.SHIPPING_ADDRESS_CURRENT;
-                  this.shippingAddresses[0].show= true;
-                }
-                
-              },
-              (errorResp) => {  }
-          );
+              this.getShippingAddresses();
+              this.getCardInfos();
+              this.calculatePrice();
+              this.patchCreateCheckoutPageForm();
+
+        },
+        error: (error) => { console.log(error);}
+      });
+
   }
+
+  getShippingAddresses(){                 
+    this.orderPayInfoDto?.addressDtos?.forEach(list => {
+      this.shippingAddresses.push(new AddressDto().add(list));
+    });
+    let addressDto = new AddressDto();
+    addressDto.addressId = 0;
+    addressDto.address1 = 'Add New';
+    this.shippingAddresses.push(addressDto);   
+  }
+
+  getCardInfos(){            
+    this.orderPayInfoDto?.cardInfoDtos?.forEach(list => {
+      this.cardInfos.push(new CardInfoDto().add(list));
+    })
+  }
+
+  calculatePrice(){  
+    this.shippingCost = Math.ceil(this.orderPayInfoDto.price/50)*Utility.SHIPPING_CHARGE;
+    this.tax = (Utility.TAX/100) * this.orderPayInfoDto.price;
+    this.totalPrice = this.orderPayInfoDto.price + this.shippingCost + this.tax;
+  }
+
 
   patchCreateCheckoutPageForm(){
     this.createCheckoutPageForm.patchValue({
-      userId: this.userCardInfoModel.userId,
-      address: this.addressDto.address1,
-      city: this.addressDto.city,
-      state: this.addressDto.state,
-      zipcode: this.addressDto.zipCode,
-      country: this.addressDto.country,
-      cardNumber: this.cardInfoDto.cardNumber,
-      nameOnCard: this.cardInfoDto.nameOnCard,
-      securityCode: this.cardInfoDto.cvc,
-      expiryMonth: this.cardInfoDto.expMonth,
-      expiryYear: this.cardInfoDto.expYear,
-      cardBrand: this.cardInfoDto.cardBrand,
-      quantity: this.userCardInfoModel.quantity,
-      price: this.userCardInfoModel.price,
-      fullName: this.userCardInfoModel.fullName,
+      userId: this.orderPayInfoDto.userId,
+      quantity: this.orderPayInfoDto?.quantity,
+      price: this.orderPayInfoDto?.price,
+      // address1: this.selectedAddressId,
+      // address2: this.addressDto?.address2,
+      // city: this.addressDto?.city,
+      // state: this.addressDto?.state,
+      // zipCode: this.addressDto?.zipCode,
+      // country: this.addressDto?.country,
+      // cardNumber: this.cardInfoDto?.cardNumber,
+      // nameOnCard: this.cardInfoDto?.nameOnCard,
+      // securityCode: this.cardInfoDto?.cvc,
+      // expiryMonth: this.cardInfoDto?.expMonth,
+      // expiryYear: this.cardInfoDto?.expYear,
+      // cardBrand: this.selectedCardBrand,
+      fullName: this.orderPayInfoDto?.fullName,
     })
-    this.userPresent = true;
   }
 
   reset() {
     // this.buttonPressed = false;
   }
 
-  activeRadio(name: string) {
-    this.selectedCardBrand = name;
-    
+  activeShippingAddress(val:number){
+    this.selectedAddressId = val;
+  }
+
+  activeRadio(val: string) {
+    this.selectedCardBrand = val;    
   }
 
   createOrderPayment(){
-    this.orderPayService.createOrderPay(this.createCheckoutPageForm.value)
+    console.log(this.createCheckoutPageForm.value);  
+    
+    if(!this.validateValue()){
+      this.toastrService.show("Address required", { classname: 'bg-danger text-light fs-5', delay: 2000 });
+      return;
+    }
+    
+    // this.createCheckoutPageForm.addControl('shoppingCartDtos', this.formBuilder.group(this.cartItems));
+    this.createCheckoutPageForm.addControl('isGuestUser', this.formBuilder.control(this.credentialsService.isAuthenticated()));
+    console.log("=======###createOrderPayment####===========");
+    var data = {...this.createCheckoutPageForm.value,shoppingCartDtos: this.cartItems};
+    this.orderPayService.createOrderPay(data)
             .pipe()
             .subscribe({ next: (resp) => {
-                    // this.router.navigate(['/admin']);
+                  console.log(" ::::::::::::: ");
+                  console.log(resp);
+                  
+                  
                 },
                 error: (error) => { console.log(error);}
               });
 
+  }
+
+  validateValue(){
+    let addressId = this.createCheckoutPageForm.get('addressId')?.value;
+    let address1 = this.createCheckoutPageForm.get('address1')?.value;
+    let address2 = this.createCheckoutPageForm.get('address2')?.value;
+    let zipCode = this.createCheckoutPageForm.get('zipCode')?.value;
+
+    if(!addressId && (!(address1 || address2) && !zipCode) )
+      return false;
+    return true;
   }
 
 }

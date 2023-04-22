@@ -4,5 +4,7 @@ export class PathConstant {
     
     public static API_ENDPOINT = environment.apiUrl;
     public static USER = '/user';
-    public static ORDER_PAY = '/order/pay';
+    public static ORDER = '/order';
+    public static PAY = "/pay"
+    public static INFO = '/info';
 }

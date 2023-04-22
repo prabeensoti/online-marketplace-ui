@@ -2,11 +2,33 @@
 <form [formGroup]="createCheckoutPageForm">
   <div class="container">
     <div class="py-5 text-center">
-      <h2>Checkout form</h2>
+      <h2>CHECKOUT FORM</h2>
     </div>
-  
-    <div class="row g-5">
-        <div class="col-md-5 col-lg-4 order-md-last">
+    <div class="row">
+      <div class="col-md-7 col-lg-8 pb-2" style="max-height: 70vh; overflow-y: scroll; overflow-x: hidden;">
+        <div *ngFor="let item of cartItems">
+            <div class="row">
+                <div class="border" style="padding: 10px">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="https://images.ctfassets.net/5gvckmvm9289/3BlDoZxSSjqAvv1jBJP7TH/65f9a95484117730ace42abf64e89572/Noissue-x-Creatsy-Tote-Bag-Mockup-Bundle-_4_-2.png"
+                                width="150px" />
+                        </div>
+                        <div class="col-md-10">
+                          <div class="product_name_container">
+                            <h5><a href="#" target="_blank">{{ item?.product?.name }}</a></h5>
+                          </div>
+                            <p>{{item.product.description}}</p>
+                            <p><strong>Category:</strong> {{ item.product.productCategory.category }}</p>
+                            <p><strong>Price:</strong> {{ item.product.price }}</p>
+                            <p><strong>Quantity:</strong> {{item.quantity}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+        <div class="col-md-5 col-lg-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">Your Cart Order Summary</span>
           </h4>
@@ -14,8 +36,8 @@
           <ul class="list-group mb-3">
             
             <li class="list-group-item d-flex justify-content-between">
-              <span class="my-0">Items <span class="badge bg-primary rounded-pill">{{userCardInfoModel.quantity}}</span> :</span>
-              <span class="my-0">{{ userCardInfoModel.price }}</span>
+              <span class="my-0">Items <span class="badge bg-primary rounded-pill">{{orderPayInfoDto.quantity}}</span> :</span>
+              <span class="my-0">{{ orderPayInfoDto.price }}</span>
             </li>
   
             <li class="list-group-item d-flex justify-content-between">
@@ -33,64 +55,76 @@
               <strong>{{ totalPrice }}</strong>
             </li>
           </ul>  
-  
-          <button type="button"  (click)="createOrderPayment()"class="w-100 btn btn-primary btn-lg m-2">Confirm</button>
         </div>
-
-        <fieldset class="form-group" disabled>
-          <legend class="col-form-label col-sm-2 pt-0">Payment</legend>
+      </div>
+        <fieldset class="form-group">
+          <legend class="col-form-label col-sm-2 pt-0"><strong>Shipping Address</strong></legend>
           <div class="my-3">
             <div *ngFor="let shippingAddress of shippingAddresses">
-              <input type="radio" formControlName="cardBrand" *ngIf="shippingAddress.show"
-              [value]="shippingAddress.val" (click)="activeRadio(shippingAddress.val)"
-              [checked]="shippingAddress.val === selectedCardBrand" class="form-check-input">
-              <label for="{{shippingAddress.name}}" >
-                {{shippingAddress.name}}</label>
+              <div *ngIf="shippingAddress.addressId!=0; else newAddress" class="form-check">
+                <input type="radio" formControlName="addressId"
+                [value]="shippingAddress.addressId" (click)="activeShippingAddress(shippingAddress.addressId)"
+                [checked]="shippingAddress.addressId === selectedAddressId" class="form-check-input">
+                <label class="form-check-label">
+                   {{shippingAddress?.address1}},
+                   {{shippingAddress?.address2}},
+                   {{shippingAddress?.city}},
+                   {{shippingAddress?.state}},
+                   {{shippingAddress?.zipCode}},
+                   {{shippingAddress?.country}}
+                </label>
+              </div>
+              <ng-template #newAddress>
+                <div class="form-check">
+                <input type="radio" 
+                [value]="shippingAddress.addressId" (click)="activeShippingAddress(shippingAddress.addressId)"
+                [checked]="shippingAddress.addressId === selectedAddressId" class="form-check-input">
+                <label class="form-check-label"><strong>New Address</strong></label>
+              </div>
+              </ng-template>
             </div>
-          </div>
-        </fieldset>
+            
+            <div *ngIf="selectedAddressId === 0 ">
+              <div class="row">
+              <div class="form-group col-md-6">
+                <label for="inputAddress">Address Street</label>
+                <input type="text" formControlName="address1" class="form-control"
+                 placeholder="1234 Main St">
+              </div>
 
-          <!-- <div class="form-group row">
-            <label for="colFormLabel" class="col-sm-2 col-form-label">Full Name</label>
-            <div class="col-sm-4">
-              <input type="text" formControlName="fullName"  class="form-control" id="fullName" readonly required>
+              <div class="form-group col-md-6">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" formControlName="address2"
+                  class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+              </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label for="inputCity">City</label>
+                  <input type="text" formControlName="city"
+                    class="form-control" id="inputCity">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputCity">State</label>
+                  <input type="text" formControlName="state"
+                  class="form-control" id="state">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputZip">Zip</label>
+                  <input type="text" formControlName="zipCode"
+                  class="form-control" id="inputZip">
+                </div>
+              </div>
             </div>
           </div>
-  
-          <div class="form-group row">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">Address Street</label>
-            <div class="col-sm-4">
-              <input type="text" formControlName="address" class="form-control" id="address" readonly required>
-            </div>
-          </div>
-  
-          
-          <div class="form-group row">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">Country</label>
-            <div class="col-sm-4">
-              <input type="text" formControlName="country" class="form-control" id="address" readonly required>
-            </div>
-          </div>
-          
-          <div class="form-group row">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">State</label>
-            <div class="col-sm-4">
-              <input type="text" formControlName="state" class="form-control" id="address" readonly required>
-            </div>
-          </div>
-          
-          <div class="form-group row">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">Zipcode</label>
-            <div class="col-sm-4">
-              <input type="text" formControlName="zipcode" class="form-control" id="address" readonly required>
-            </div>
-          </div> -->
-  
-  
+
+        </fieldset>
           <fieldset class="form-group" disabled>
             <legend class="col-form-label col-sm-2 pt-0">Payment</legend>
             <div class="my-3">
               <div *ngFor="let radiobutton of cardBrands">
+                
                 <input type="radio" formControlName="cardBrand" class="form-check-input" 
                 [value]="radiobutton.val" (click)="activeRadio(radiobutton.val)"
                 [checked]="radiobutton.val === selectedCardBrand" readonly>
@@ -100,121 +134,8 @@
             </div>
           </fieldset>
         
-           
-        
-        <div class="col-md-7 col-lg-8">
-          <h4 class="mb-3">Billing address</h4>
-            <div class="row g-3">
-              <div class="col-sm-6">
-                <label for="fullName" class="form-label">Full Name</label>
-                <input type="text" formControlName="fullName"  class="form-control" id="fullName" required>
-                
-                <div class="invalid-feedback">
-                  Valid full name is required.
-                </div>
-              </div>
+    <button type="button"  (click)="createOrderPayment()"class=" row btn btn-primary btn-md m-2">Confirm</button>
   
-              <div class="col-6">
-                <label for="address" class="form-label">Address Street</label>
-                <input type="text" formControlName="address" class="form-control" id="address" required>
-                <div class="invalid-feedback">
-                  Please enter your shipping address.
-                </div>
-              </div>
-  
-              <div class="col-6">
-                <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-                <input type="text" class="form-control" id="address2" placeholder="Apartment or suite ...">
-              </div>
-              
-  
-              <div class="col-md-6">
-                <label for="country" class="form-label">Country</label>
-                <input type="country" formControlName="country" class="form-control" id="country" >
-              </div>
-
-              <div class="col-md-4">
-                <label for="state" class="form-label">State</label>
-                <input type="text" formControlName="state" class="form-control" id="state" required>
-                <div class="invalid-feedback">
-                  State is required.
-                </div>
-              </div>
-  
-              <div class="col-md-4">
-                <label for="zipcode" class="form-label">Zip code</label>
-                <input type="text" formControlName="zipcode" class="form-control" id="zipcode" required>
-                <div class="invalid-feedback">
-                  Zip code required.
-                </div>
-              </div>
-  
-            </div>
-
-            <hr class="my-4">
-    
-            <h4 class="mb-3">Payment</h4>
-
-            <div class="my-3">
-              <div *ngFor="let radiobutton of cardBrands">
-                <input type="radio" formControlName="cardBrand" class="form-check-input" 
-                [value]="radiobutton.name" (click)="activeRadio(radiobutton.name)"
-                [checked]="radiobutton.name === selectedCardBrand">
-                <label for="{{radiobutton.name}}" >
-                  {{radiobutton.name}}</label>
-              </div>
-            </div>
-
-            <div class="row gy-3">
-              <div class="col-md-6">
-                <label for="nameOnCard" class="form-label">Name on card</label>
-                <input type="text" formControlName="nameOnCard" class="form-control" id="nameOnCard" required>
-                <small class="text-muted">Full name as displayed on card</small>
-                <div class="invalid-feedback">
-                  Name on card is required
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <label for="cardNumber" class="form-label">Credit card number</label>
-                <input type="text" formControlName="cardNumber" class="form-control" required>
-                <div class="invalid-feedback">
-                  Credit card number is required
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <label class="form-label">Expiry Month</label>
-                <input type="text" formControlName="expiryMonth" class="form-control" id="expiryMonth" required>
-                <div class="invalid-feedback">
-                  Expiration date required
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <label class="form-label">Expiry Year</label>
-                <input type="text" formControlName="expiryYear" class="form-control" id="expiryYear" required>
-                <div class="invalid-feedback">
-                  Expiration date required
-                </div>
-              </div>
-  
-              <div class="col-md-3">
-                <label for="securityCode" class="form-label">CVV</label>
-                <input type="text" formControlName="securityCode" class="form-control" id="securityCode" required>
-                <div class="invalid-feedback">
-                  Security code required
-                </div>
-              </div>
-            </div>
-
-            <hr class="my-4">
-  
-        </div> 
     </div>
   
-    
-  
-  
-  </div>
   </form>
