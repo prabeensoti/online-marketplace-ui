@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GenericFilterRequest, PageRequest, PageableResponse } from '../core.model';
 import { OrderDTO } from '../model/domain.model';
@@ -11,7 +11,7 @@ import { CoreUtil } from '../core.util';
 })
 export class OrderService {
 
-  
+
   readonly API_ENDPOINT = ApiEndpoints.API_URL;
 
   constructor(private http: HttpClient) {
@@ -42,6 +42,12 @@ export class OrderService {
     return this.http
       .post<PageableResponse<Array<OrderDTO>>>(ApiEndpoints.ORDERS.FILTER, genericFilterRequest, options)
       .pipe(catchError(this.errorHandler));
+  }
+
+  getOrderItems(productCode : string): Observable<any> {
+    const params = new HttpParams()
+      .set('productCode', productCode)
+    return this.http.get<any>(ApiEndpoints.ORDERS.GET_BY_PRODUCT_CODE, {params});
   }
 
 

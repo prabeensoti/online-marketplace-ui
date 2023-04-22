@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl} from "@angular/forms";
 import {VendorService} from "@app/core/service/vendor.service";
+import {ToastService} from "@app/core/service/toast.service";
 
 @Component({
   selector: 'app-verify-vendors',
@@ -20,26 +21,37 @@ export class VerifyVendorsComponent {
 
   constructor(private vendorGridService: VendorGridService, private router: Router,
               private modalService: NgbModal,
-              private vendorService: VendorService) {
+              private vendorService: VendorService,
+              private toastService: ToastService) {
     this.vendorDataGridConfigurer = vendorGridService;
   }
 
   verifySelectedVendor(data: VendorDTO, content: any): void {
     console.log('Verify vendor ', data);
+    this.isVerified = new FormControl()
     // TODO verify vendor
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.isVerified.value)
         const isVerified = this.isVerified.value
-        if(isVerified == true)
+        if (isVerified == true) {
           data.isVerified = true
-        else
+          this.toastService.show("Vendor Verify Successfully!", {classname: 'bg-success text-light fs-5', delay: 2000});
+        }
+        else {
           data.isVerified = false
+          this.toastService.show("Vendor UnVerify Successfully!", {classname: 'bg-success text-light fs-5', delay: 2000});
+        }
         this.vendorService.verifyVendor(data).subscribe(res => {
           console.log('Response ', res)
         }, err => {
           console.log(err)
+          this.toastService.show(err.error.status + " " + err.error.message, {
+            classname: 'bg-danger text-light fs-5',
+            delay: 2000
+          });
+
         })
       },
       (reason) => {
