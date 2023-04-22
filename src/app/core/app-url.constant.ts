@@ -66,6 +66,16 @@ export class ApiEndpoints {
 
     };
 
+  static readonly MANAGE_ORDERS = {
+    ALL: API_ENDPOINT + '/manage-orders',
+    GET_BY_ID: API_ENDPOINT + '/manage-orders',
+    CREATE: API_ENDPOINT + '/manage-orders',
+    UPDATE: API_ENDPOINT + '/manage-orders',
+    DELETE: API_ENDPOINT + '/manage-orders',
+    FILTER: API_ENDPOINT + '/manage-orders/filter'
+
+  };
+
   static readonly CATEGORIES = {
     ALL: API_ENDPOINT + '/category',
     GET_BY_ID: API_ENDPOINT + '/category',
