@@ -7,4 +7,5 @@ export interface ProductModel {
   isDeleted: false;
   vendorId: number;
   categoryId: number;
+  images: File[];
 }

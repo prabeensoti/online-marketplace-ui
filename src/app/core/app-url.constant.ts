@@ -37,6 +37,7 @@ export class ApiEndpoints {
 
     static readonly PRODUCTS = {
         ALL: API_ENDPOINT + '/products',
+        ALL_FOR_VENDOR: API_ENDPOINT+ '/allProducts/vendors',
         GET_BY_ID: API_ENDPOINT + '/products',
         CREATE: API_ENDPOINT + '/products',
         UPDATE: API_ENDPOINT + '/products',
@@ -67,7 +68,7 @@ export class ApiEndpoints {
     };
 
   static readonly CATEGORIES = {
-    ALL: API_ENDPOINT + '/category',
+    ALL: API_ENDPOINT + '/public/category',
     GET_BY_ID: API_ENDPOINT + '/category',
     CREATE: API_ENDPOINT + '/category',
     UPDATE: API_ENDPOINT + '/category',

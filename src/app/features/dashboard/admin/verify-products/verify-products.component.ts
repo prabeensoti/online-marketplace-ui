@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {ProductDTO, VerifyProductDTO} from '@app/core/model/domain.model';
 import { AbstractDataConfigurer } from '@app/shared/table/abstract-data-configurer';
-import { ProductGridService } from '../../configurer/product-grid.service';
+import { ProductGridAdminService } from '../../configurer/product-grid-admin.service';
 import {FormControl} from "@angular/forms";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ProductService} from "@app/core/service/product.service";
@@ -19,7 +19,7 @@ export class VerifyProductsComponent {
   closeResult = '';
   isVerified = new FormControl();
 
-  constructor(private productGridService: ProductGridService, private router: Router,
+  constructor(private productGridService: ProductGridAdminService, private router: Router,
               private modalService: NgbModal,
               private productService: ProductService) {
     this.productDataGridConfigurer = productGridService;

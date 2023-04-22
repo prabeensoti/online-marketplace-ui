@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ProductDTO } from '@app/core/model/domain.model';
 import { AbstractDataConfigurer } from '@app/shared/table/abstract-data-configurer';
-import { ProductGridService } from '../../configurer/product-grid.service';
+import { ProductGridAdminService } from '../../configurer/product-grid-admin.service';
 import { Router } from '@angular/router';
 import { APP_UI_ROUTES } from '@app/core/route.util';
+import {ProductGridVendorService} from "@app/features/dashboard/configurer/product-grid-vendor.service";
 
 @Component({
   selector: 'app-manage-products',
@@ -12,10 +13,10 @@ import { APP_UI_ROUTES } from '@app/core/route.util';
 })
 export class ManageProductsComponent {
 
-  productDataGridConfigurer!: AbstractDataConfigurer<ProductDTO>;
+  productVendorDataGridConfigurer!: AbstractDataConfigurer<ProductDTO>;
 
-  constructor(private productGridService: ProductGridService, private router: Router) {
-    this.productDataGridConfigurer = productGridService;
+  constructor(private productGridVendorService: ProductGridVendorService, private router: Router) {
+    this.productVendorDataGridConfigurer = productGridVendorService;
   }
 
   updateProduct(data: ProductDTO): void {
