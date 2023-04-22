@@ -1,8 +1,8 @@
 import {OrderDTO, ProductDTO} from "@app/core/model/domain.model";
 
 export interface OrderResponseDto {
-  orderDto: OrderDTO,
-  relatedOrderItems: {
+  orderDto: OrderDTO[];
+  relatedOrderItems: [{
     orderItemId: number,
     price: number,
     tax: number,
@@ -10,5 +10,5 @@ export interface OrderResponseDto {
     discount: number,
     isCommissioned: boolean,
     product: ProductDTO
-  }
+  }]
 }

@@ -83,7 +83,7 @@ export interface ProductCategoryDTO {
 }
 
 export interface OrderDTO {
-  OrderId: number;
+  orderId: number;
   orderStatus: OrderStatus;
   orderDate: Date;
   shipping: ShippingModel;
