@@ -2,11 +2,12 @@
 <div class="row">
   <div class="col-3">
     <form [formGroup]="myForm"  (ngSubmit)="searchOrder()">
+      <label>Enter orderId - OrderCode</label>
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="productCode" placeholder="orderCode"
+        <input type="text" class="form-control" id="productCode" placeholder="OrderId - OrderCode"
                formControlName="orderCode"
                required>
-        <label for="productCode"><span class="text-danger">*</span> Order Code</label>
+        <label for="productCode"><span class="text-danger">*</span>OrderId - OrderCode</label>
       </div>
 
       <div class="d-grid mb-2">

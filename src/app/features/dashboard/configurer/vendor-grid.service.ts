@@ -10,6 +10,7 @@ export const MANAGE_VENDORS_COLUMN: IColumn[] = [
   { id: 1, name: 'vendorId', label: 'Vendor Id', type: ColumnType.NUMBER, sortable: false, hide: true },
   { id: 2, name: 'vendorName', label: 'Vendor name', type: ColumnType.STRING, defaultSearch: true },
   { id: 2, name: 'description', label: 'Vendor description', type: ColumnType.STRING },
+  { id: 2, name: 'isVerified', label: 'Is Verified', type: ColumnType.BOOLEAN },
   { id: 7, name: 'user', label: 'Vendor', type: ColumnType.OBJECT, bindKeys: ['user', 'fullName'] },
 ];
 

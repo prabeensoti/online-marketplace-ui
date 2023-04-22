@@ -70,12 +70,13 @@ export class ApiEndpoints {
     };
 
   static readonly MANAGE_ORDERS = {
-    ALL: API_ENDPOINT + '/manage-orders',
-    GET_BY_ID: API_ENDPOINT + '/manage-orders',
-    CREATE: API_ENDPOINT + '/manage-orders',
-    UPDATE: API_ENDPOINT + '/manage-orders',
-    DELETE: API_ENDPOINT + '/manage-orders',
-    FILTER: API_ENDPOINT + '/manage-orders/filter'
+    ALL: API_ENDPOINT + '/manage-order',
+    GET_BY_ID: API_ENDPOINT + '/manage-order',
+    CREATE: API_ENDPOINT + '/manage-order',
+    UPDATE: API_ENDPOINT + '/manage-order',
+    DELETE: API_ENDPOINT + '/manage-order',
+    FILTER: API_ENDPOINT + '/manage-order/filter',
+    GET_BY_USER: API_ENDPOINT + '/manage-order/user'
 
   };
 
