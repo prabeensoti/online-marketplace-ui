@@ -48,6 +48,22 @@ export interface JwtTokenPayload {
     exp: string
 }
 
+export interface CardInfoContext {
+    cardNumber: number;
+    firstName: string;
+    lastName: string;
+    expiryDate: string;
+    cvv: number
+}
+
+export interface VendorRegistrationContext {
+    email: string;
+    password: string;
+    companyName: string;
+    description: string;
+    cardInfo: CardInfoContext;
+}
+
 export interface CategoryContext {
     category: string;
 }

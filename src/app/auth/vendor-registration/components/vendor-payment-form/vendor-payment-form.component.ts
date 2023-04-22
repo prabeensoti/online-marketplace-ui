@@ -1,33 +1,33 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-vendor-payment-form',
   templateUrl: './vendor-payment-form.component.html',
   styleUrls: ['./vendor-payment-form.component.scss']
 })
-export class VendorPaymentFormComponent {
+export class VendorPaymentFormComponent implements OnInit {
 
-  @Output() previous: EventEmitter<any> = new EventEmitter();
+  @Input() parentForm!: FormGroup;
   @Output() next: EventEmitter<any> = new EventEmitter();
 
-  form: FormGroup;
+  constructor() {
 
-  constructor(private formBuilder: FormBuilder) {
-    this.form = this.formBuilder.group({
-      cardNumber: ['', Validators.required],
-      nameOnCard: ['', Validators.required],
-      expiryDate: ['', Validators.required],
-      cvv: ['', Validators.required]
-    });
   }
 
-  onNext() {
-    this.next.emit("");
+  ngOnInit(): void {
   }
 
-  onPrevious() {
-    this.previous.emit("");
+  get currentFormGroup(): FormGroup {
+    return (this.parentForm.controls['cardInfo'] as FormGroup);
+  }
+
+  onNext(isNext: boolean = true) {
+    if (isNext && (this.parentForm.controls['cardInfo'] as FormGroup).valid) {
+      this.next.emit(true);
+    } else if (!isNext) {
+      this.next.emit(false);
+    }
   }
 
 }

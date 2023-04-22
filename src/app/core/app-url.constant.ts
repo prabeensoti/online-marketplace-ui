@@ -17,6 +17,9 @@ export class ApiEndpoints {
         CUSTOM_USER_REGISTRATION: API_ENDPOINT + '/auth/register-user',
         CUSTOM_USER_LOGIN: API_ENDPOINT + '/auth/login',
 
+        VENDOR_REGISTER: API_ENDPOINT + '/auth/register-vendor',
+
+        CHECK_EMAIL_IS_AVAILABLE: API_ENDPOINT + '/auth/check-email-availability',
         CHECK_VERIFICATION_CODE: API_ENDPOINT + '/auth/check-verification-code',
         RESEND_VERIFICATION_EMAIL: API_ENDPOINT + '/auth/resend-verification-email',
         FORGOT_PASSWORD: API_ENDPOINT + '/auth/send-forgot-password',
@@ -53,7 +56,6 @@ export class ApiEndpoints {
         UPDATE: API_ENDPOINT + '/vendors',
         DELETE: API_ENDPOINT + '/vendors',
         FILTER: API_ENDPOINT + '/vendors/filter'
-
     };
 
     static readonly ORDERS = {

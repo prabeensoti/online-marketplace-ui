@@ -5,6 +5,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { CoreUtil } from '../core.util';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiEndpoints } from '../app-url.constant';
+import { VendorRegistrationContext } from '@app/auth/auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,11 @@ export class VendorService {
 
   verifyVendor(vendor: VendorDTO): Observable<VendorDTO> {
     return this.http.put<VendorDTO>(ApiEndpoints.VENDORS.VERIFY, vendor);
+  }
+
+  registerVendor(vendorRegistrationContext: VendorRegistrationContext): Observable<VendorDTO> {
+    const vendorObservable: Observable<VendorDTO> = this.http.post<VendorDTO>(ApiEndpoints.AUTH.VENDOR_REGISTER, vendorRegistrationContext);
+    return vendorObservable;
   }
 
 

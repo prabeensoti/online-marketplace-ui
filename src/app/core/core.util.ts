@@ -1,8 +1,19 @@
 import { FormGroup } from "@angular/forms";
-import { PageRequest } from "./core.model";
+import { PageRequest, StatusModel } from "./core.model";
 import { HttpParams } from "@angular/common/http";
 
 export class CoreUtil {
+
+    static loadingStatusModel(isLoading: boolean, message: string = ''): StatusModel {
+        const statusModel = { loading: isLoading, hasError: false, message: message };
+        return statusModel;
+    }
+
+    static responseStatusModel(isSuccess: boolean, message: string = ''): StatusModel {
+        message = !!message ? message : isSuccess ? 'Success' : 'Something wrong';
+        const statusModel = { loading: false, hasError: !isSuccess, message: message };
+        return statusModel;
+    }
 
     static ConfirmedValidator(controlName: string, matchingControlName: string) {
         return (formGroup: FormGroup) => {
