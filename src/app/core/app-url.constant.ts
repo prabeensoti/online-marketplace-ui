@@ -62,7 +62,8 @@ export class ApiEndpoints {
         CREATE: API_ENDPOINT + '/orders',
         UPDATE: API_ENDPOINT + '/orders',
         DELETE: API_ENDPOINT + '/orders',
-        FILTER: API_ENDPOINT + '/orders/filter'
+        FILTER: API_ENDPOINT + '/orders/filter',
+        GET_BY_PRODUCT_CODE: API_ENDPOINT + '/orders'
 
     };
 
