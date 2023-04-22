@@ -46,7 +46,8 @@ export const APP_UI_ROUTES = {
 
     VERIFY_PRODUCTS: '/dashboard/verify-products',
     VERIFY_VENDORS: '/dashboard/verify-vendors',
-    SUPPORT_N_MESSAGES: '/dashboard/support-n-messages'
+    SUPPORT_N_MESSAGES: '/dashboard/support-n-messages',
+    EMAIL_HISTORY: '/dashboard/email-history'
 };
 
 const allRoles: EnumRole[] = [EnumRole.ROLE_USER, EnumRole.ROLE_VENDOR, EnumRole.ROLE_ADMIN];
@@ -72,6 +73,7 @@ export const APP_UI_ROUTES_AND_ACCESS: { [key in AppUiRouteKey | any]?: RoutePat
 
     [APP_UI_ROUTES.VERIFY_PRODUCTS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
     [APP_UI_ROUTES.VERIFY_VENDORS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
+    [APP_UI_ROUTES.EMAIL_HISTORY]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
 
     [APP_UI_ROUTES.SUPPORT_N_MESSAGES]: { allowedRoles: allRoles },
 };
@@ -132,7 +134,11 @@ export const DASHBOARD_ROUTES: Routes = [
         component: VerifyVendorsComponent,
         data: { title: 'Verify Vendors', label: 'Verify Vendors', }
     },
-
+    {
+      path: 'email-history',
+      component: EmailHistoryComponent,
+      data: { title: 'Email History', label: 'View all email send history of system' }
+    },
     // ALL_USERS
     {
         path: 'support-n-messages',
@@ -144,11 +150,6 @@ export const DASHBOARD_ROUTES: Routes = [
     //     component: ManageViewsComponent,
     //     data: { title: 'Manage Home/Category/Banners', label: 'Manage home view, category add/edit and trending views', }
     // },
-    {
-        path: 'email-history',
-        component: EmailHistoryComponent,
-        data: { title: 'Email History' }
-    },
 ];
 
 
