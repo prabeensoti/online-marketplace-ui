@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CredentialsService } from '@app/auth/services/credentials.service';
@@ -10,9 +10,10 @@ import { OrderPayInfoDto } from '@app/core/dto/order-pay-info-dto';
 import { OrderPayModel } from '@app/core/model/order-pay-model';
 import { ShoppingCartDTO } from '@app/core/model/shopping-cart.model';
 import { OrderPayService } from '@app/core/service/order-pay.service';
+import { ShoppingCartService } from '@app/core/service/shopping-cart.service';
 import { ToastService } from '@app/core/service/toast.service';
-import { UserService } from '@app/core/service/user.service';
-import { zip } from 'lodash';
+import {environment} from "@env/environment.prod";
+import {AppRouteConstant} from "@app/core/constant/app-route-constant";
 
 @Component({
   selector: 'app-checkout-page',
@@ -25,7 +26,7 @@ export class CheckoutPageComponent implements OnInit {
 
   // promo = { name: 'My Promo code', code: 'EXAMPLECODE', discount: '$25' };
 
-  // orderPayModel = new OrderPayModel(); 
+  // orderPayModel = new OrderPayModel();
   // countries!: string[];
   // states!: string[];
 
@@ -33,10 +34,11 @@ export class CheckoutPageComponent implements OnInit {
   shippingCost!: number;
   tax!: number;
   totalPrice!: number;
+  loading!:boolean
 
   cardBrands = [
    {name: 'Master Card', val: Utility.MASTERCARD},
-   {name: 'Visa', val: Utility.VISA}, 
+   {name: 'Visa', val: Utility.VISA},
    {name: 'Stripe', val: Utility.STRIPE}
   ];
   selectedCardBrand!: string;
@@ -52,6 +54,7 @@ export class CheckoutPageComponent implements OnInit {
   selectedCardInfos !: number;
   cartItems : ShoppingCartDTO[] = [];
 
+
   constructor(
     private activatedRoute: ActivatedRoute,
     // private location: Location,
@@ -60,17 +63,70 @@ export class CheckoutPageComponent implements OnInit {
     private route: ActivatedRoute,
     private orderPayService: OrderPayService,
     private credentialsService: CredentialsService,
-    private toastrService: ToastService
+    private toastrService: ToastService,
+    private shoppingCartService:ShoppingCartService
     ){
-  
+
   }
 
   ngOnInit(): void {
-    
-    this.cartItems = JSON.parse(Constants.STORAGE_LOCATION.getItem(Constants.CART_ITEMS_KEY) || '[]');
+    this.getShoppingCartsDetail();
     this.obtainOrderPayInfo(this.cartItems);
     this.checkoutPageFormBuilder();
+
+    // this.stripeTest = this.formBuilder.group({
+    //   name: ['', [Validators.required]]
+    // });
+    this.invokeStripe();
   }
+
+  makePayment(amount: any) {
+    const paymentHandler = (<any>window).StripeCheckout.configure({
+      key: AppRouteConstant.STRIPE_KEY,
+      locale: 'auto',
+      token: function (stripeToken: any) {
+        console.log(stripeToken.card);
+        alert('Stripe token generated!');
+      },
+    });
+
+    paymentHandler.open({
+      name: 'Technical Adda',
+      description: '4 Products Added',
+      amount: amount * 100,
+    });
+  }
+
+  invokeStripe() {
+    if (!window.document.getElementById('stripe-script')) {
+      const script = window.document.createElement('script');
+      script.id = 'stripe-script';
+      script.type = 'text/javascript';
+      script.src = 'https://checkout.stripe.com/checkout.js';
+      window.document.body.appendChild(script);
+    }
+  }
+
+  getShoppingCartsDetail(){
+    this.loading = false
+    if(this.credentialsService.isAuthenticated()){
+      this.shoppingCartService.getAllCartItems().subscribe({
+        next:(res)=>{
+          this.loading = false;
+          this.cartItems = res;
+        },
+        error:(err)=>{
+          console.log("Error",err);
+
+        },
+        complete:()=>{ }
+      })
+    } else{
+      this.cartItems = JSON.parse(Constants.STORAGE_LOCATION.getItem(Constants.CART_ITEMS_KEY) || '[]');
+
+    }
+  }
+
 
   checkoutPageFormBuilder(){
     this.createCheckoutPageForm = this.formBuilder.group({
@@ -96,12 +152,12 @@ export class CheckoutPageComponent implements OnInit {
   }
 
   obtainOrderPayInfo(cartItems: ShoppingCartDTO[]) {
-    
+
       this.orderPayService.findOrderPayInfo(cartItems)
           .pipe()
-          .subscribe({ 
+          .subscribe({
             next: (resp) => {
-              this.orderPayInfoDto = resp;   
+              this.orderPayInfoDto = resp;
 
               this.getShippingAddresses();
               this.getCardInfos();
@@ -114,23 +170,23 @@ export class CheckoutPageComponent implements OnInit {
 
   }
 
-  getShippingAddresses(){                 
+  getShippingAddresses(){
     this.orderPayInfoDto?.addressDtos?.forEach(list => {
       this.shippingAddresses.push(new AddressDto().add(list));
     });
     let addressDto = new AddressDto();
     addressDto.addressId = 0;
     addressDto.address1 = 'Add New';
-    this.shippingAddresses.push(addressDto);   
+    this.shippingAddresses.push(addressDto);
   }
 
-  getCardInfos(){            
+  getCardInfos(){
     this.orderPayInfoDto?.cardInfoDtos?.forEach(list => {
       this.cardInfos.push(new CardInfoDto().add(list));
     })
   }
 
-  calculatePrice(){  
+  calculatePrice(){
     this.shippingCost = Math.ceil(this.orderPayInfoDto.price/50)*Utility.SHIPPING_CHARGE;
     this.tax = (Utility.TAX/100) * this.orderPayInfoDto.price;
     this.totalPrice = this.orderPayInfoDto.price + this.shippingCost + this.tax;
@@ -167,17 +223,17 @@ export class CheckoutPageComponent implements OnInit {
   }
 
   activeRadio(val: string) {
-    this.selectedCardBrand = val;    
+    this.selectedCardBrand = val;
   }
 
   createOrderPayment(){
-    console.log(this.createCheckoutPageForm.value);  
-    
-    if(!this.validateValue()){
+    console.log(this.createCheckoutPageForm.value);
+
+    if(!this.validateAddress()){
       this.toastrService.show("Address required", { classname: 'bg-danger text-light fs-5', delay: 2000 });
       return;
     }
-    
+
     // this.createCheckoutPageForm.addControl('shoppingCartDtos', this.formBuilder.group(this.cartItems));
     this.createCheckoutPageForm.addControl('isGuestUser', this.formBuilder.control(this.credentialsService.isAuthenticated()));
     console.log("=======###createOrderPayment####===========");
@@ -187,15 +243,15 @@ export class CheckoutPageComponent implements OnInit {
             .subscribe({ next: (resp) => {
                   console.log(" ::::::::::::: ");
                   console.log(resp);
-                  
-                  
+
+
                 },
                 error: (error) => { console.log(error);}
               });
 
   }
 
-  validateValue(){
+  validateAddress(){
     let addressId = this.createCheckoutPageForm.get('addressId')?.value;
     let address1 = this.createCheckoutPageForm.get('address1')?.value;
     let address2 = this.createCheckoutPageForm.get('address2')?.value;
@@ -207,3 +263,4 @@ export class CheckoutPageComponent implements OnInit {
   }
 
 }
+
