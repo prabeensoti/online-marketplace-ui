@@ -45,7 +45,6 @@ export const APP_UI_ROUTES = {
 
     MANAGE_ALL_ORDERS: '/dashboard/manage-all-orders',
 
-  MANAGE_VENDORS: '/dashboard/manage-vendors',
 
     MANAGE_VENDORS: '/dashboard/manage-vendors',
     SALES_REPORT: '/dashboard/sales-reports',

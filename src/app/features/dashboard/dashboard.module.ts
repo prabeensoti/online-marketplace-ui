@@ -44,7 +44,7 @@ import { SalesReportComponent } from './vendor/product-sales-report/sales-report
     UserOrdersComponent,
     AddProductComponent,
 
-    OrderManageAllComponent
+    OrderManageAllComponent,
 
     SalesReportComponent
 
