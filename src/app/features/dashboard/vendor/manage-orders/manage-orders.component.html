@@ -1,18 +1,35 @@
 <div class="row justify-content-end me-5 mb-3">
     <div class="col-auto">
-        <button class="btn btn-lg btn-primary rounded-pill" role="button">New +</button>
+<!--        <button class="btn btn-lg btn-primary rounded-pill" role="button">New +</button>-->
     </div>
 </div>
 
 
 <div class="container">
-    <app-table [title]="'Manage Order'" [dataGridConfigurer]="orderDataGridConfigurer"
-        [actionTemplate]="{'Update': updateTemplate}">
+    <app-table [title]="'Manage Order'" [dataGridConfigurer]="vendorOrderDataGridConfigure"
+        [actionTemplate]="{
+          'Order Status' : orderStatusTemplate,
+          'OrderItems': relatedProductTemplate,
+          'Update': updateTemplate
+          }">
     </app-table>
 </div>
+
+<ng-template #orderStatusTemplate let-data>
+  <span class="badge" [ngClass]="data.orderDto.orderStatus == 'SUCCESS' ? 'bg-primary' : 'bg-danger' ">
+      {{data.orderDto.orderStatus || 'PENDING'}}
+  </span>
+</ng-template>
 
 <ng-template #updateTemplate let-data>
     <a class="fs-4 link-primary cursor-pointer" (click)="selectedOrder(data)">
         <i class="bi bi-pencil-square"></i>
     </a>
+</ng-template>
+
+<ng-template #relatedProductTemplate let-data>
+<!--  <a class="fs-4 link-primary cursor-pointer" (click)="selectedOrder(data)">-->
+<!--    <i class="bi bi-pencil-square"></i>-->
+<!--  </a>-->
+  <p>{{data.orderDto.orderCode}}</p>
 </ng-template>

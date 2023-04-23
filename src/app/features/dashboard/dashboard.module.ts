@@ -20,6 +20,7 @@ import { ReportViewComponent } from './components/report-view/report-view.compon
 import { UserOrdersComponent } from './user/user-orders/user-orders.component';
 import { CategoryComponent } from '../public-pages/category/category.component';
 import {AddProductComponent} from "@app/features/dashboard/vendor/products/add-product/add-product.component";
+import { OrderManageAllComponent } from './admin/manage-order/order-manage-all.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {AddProductComponent} from "@app/features/dashboard/vendor/products/add-p
     SupportNMessagesComponent,
     ReportViewComponent,
     UserOrdersComponent,
-    AddProductComponent
+    AddProductComponent,
+    OrderManageAllComponent
   ],
   imports: [
     CommonModule,

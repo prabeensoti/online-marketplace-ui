@@ -14,6 +14,7 @@ import { ReportViewComponent } from "@app/features/dashboard/components/report-v
 import { UserOrdersComponent } from "@app/features/dashboard/user/user-orders/user-orders.component";
 import { AddProductComponent } from "@app/features/dashboard/vendor/products/add-product/add-product.component";
 import { CategoryComponent } from "@app/features/public-pages/category/category.component";
+import {OrderManageAllComponent} from "@app/features/dashboard/admin/manage-order/order-manage-all.component";
 
 export interface RoutePathAndRoles {
     allowedRoles?: EnumRole[];
@@ -38,7 +39,9 @@ export const APP_UI_ROUTES = {
     MANAGE_PRODUCTS: '/dashboard/manage-products',
 
     MANAGE_ORDERS: '/dashboard/manage-orders',
-    MANAGE_VENDORS: '/dashboard/manage-vendors',
+    MANAGE_ALL_ORDERS: '/dashboard/manage-all-orders',
+
+  MANAGE_VENDORS: '/dashboard/manage-vendors',
 
     VERIFY_PRODUCTS: '/dashboard/verify-products',
     VERIFY_VENDORS: '/dashboard/verify-vendors',
@@ -65,8 +68,9 @@ export const APP_UI_ROUTES_AND_ACCESS: { [key in AppUiRouteKey | any]?: RoutePat
 
     [APP_UI_ROUTES.MANAGE_PRODUCTS]: { allowedRoles: [EnumRole.ROLE_VENDOR] },
     [APP_UI_ROUTES.MANAGE_ORDERS]: { allowedRoles: [EnumRole.ROLE_VENDOR] },
+    [APP_UI_ROUTES.MANAGE_ALL_ORDERS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
 
-    [APP_UI_ROUTES.VERIFY_PRODUCTS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
+  [APP_UI_ROUTES.VERIFY_PRODUCTS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
     [APP_UI_ROUTES.VERIFY_VENDORS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
     [APP_UI_ROUTES.REPORTS]: { allowedRoles: [EnumRole.ROLE_VENDOR, EnumRole.ROLE_ADMIN] },
 
@@ -113,7 +117,6 @@ export const DASHBOARD_ROUTES: Routes = [
         data: { title: 'Manage Orders', label: 'Ship, track and cancel/return an order', }
     },
 
-
     // ROLE_ADMIN
     {
         path: 'verify-products',
@@ -125,6 +128,11 @@ export const DASHBOARD_ROUTES: Routes = [
         component: VerifyVendorsComponent,
         data: { title: 'Verify Vendors', label: 'Verify Vendors', }
     },
+  {
+    path: 'manage-all-orders',
+    component: OrderManageAllComponent,
+    data: { title: 'Manage All Orders', label: 'Ship, track and cancel/return an order', }
+  },
 
     // ROLE_VENDOR and ROLE_ADMIN
     {
