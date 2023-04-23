@@ -69,4 +69,5 @@ export class VerifyVendorsComponent {
       return `with: ${reason}`;
     }
   }
+
 }

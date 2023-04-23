@@ -18,6 +18,7 @@ export interface GenericResponse<T> {
 }
 
 export interface GenericFilterRequest<T> {
+  searchText?: any;
   dataFilter: T;
 }
 

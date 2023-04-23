@@ -32,7 +32,7 @@ export class CoreUtil {
 
     static buildPageParams = (pageRequest: PageRequest): HttpParams => {
         return new HttpParams()
-            .set('page', (pageRequest.page - 1).toString())
+            .set('page', (pageRequest.page).toString())
             .set('size', pageRequest.size.toString())
             .set('sort', pageRequest.sort.toString() + ',' + pageRequest.direction.toString());
     }
