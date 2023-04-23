@@ -65,16 +65,8 @@ export class ProductService {
   }
 
 
-  saveProduct(product : ProductModel): Observable<ProductModel> {
-    const formData = new FormData();
-    formData.set("name", product.name);
-    formData.set("description", product.description);
-    formData.set("quantity", product.quantity.toString());
-    formData.set("price", product.price.toString());
-    // formData.set("vendorId", product.vendorId.toString());
-    formData.set("categoryId", product.categoryId.toString());
-    formData.set("images", product.images.toString());
-    return this.http.post<ProductModel>(ApiEndpoints.PRODUCTS.CREATE, formData);
+  saveProduct(productFormData : FormData): Observable<ProductModel> {
+    return this.http.post<ProductModel>(ApiEndpoints.PRODUCTS.CREATE, productFormData);
   }
   verifyProduct(data: VerifyProductDTO): Observable<ProductDTO> {
     let params = new HttpParams();
