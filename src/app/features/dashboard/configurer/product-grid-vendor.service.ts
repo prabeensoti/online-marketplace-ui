@@ -11,6 +11,7 @@ export const MANAGE_PRODUCTS_COLUMN: IColumn[] = [
   { id: 2, name: 'name', label: 'Product Name', type: ColumnType.STRING, defaultSearch: true },
   // { id: 3, name: 'description', label: 'Description', type: ColumnType.STRING, cssClasses: 'w-10' },
   { id: 4, name: 'quantity', label: 'Quantity', type: ColumnType.NUMBER },
+  { id: 2, name: 'isVerified', label: 'Is Verified', type: ColumnType.BOOLEAN },
   { id: 7, name: 'vendor', label: 'Vendor', type: ColumnType.OBJECT, bindKeys: ['vendor', 'vendorName'] },
   { id: 8, name: 'productCategory', label: 'Category', type: ColumnType.OBJECT, bindKeys: ['productCategory', 'category'] },
 ];
@@ -18,7 +19,7 @@ export const MANAGE_PRODUCTS_COLUMN: IColumn[] = [
 @Injectable({
   providedIn: 'root'
 })
-export class ProductGridService extends AbstractDataConfigurer<ProductDTO> {
+export class ProductGridVendorService extends AbstractDataConfigurer<ProductDTO> {
 
   displayColumns: IColumn[] = MANAGE_PRODUCTS_COLUMN;
 
@@ -35,11 +36,12 @@ export class ProductGridService extends AbstractDataConfigurer<ProductDTO> {
   }
 
   getGridData(pageRequest: PageRequest): Observable<PageableResponse<Array<ProductDTO>>> {
-    return this.productService.getAllProductsWithPage(pageRequest);
+    return this.productService.getAllProductsWithPageForVendor(pageRequest);
   }
 
   filterGridData(pageRequest: PageRequest, genericFilterRequest: GenericFilterRequest<ProductDTO>): Observable<PageableResponse<Array<ProductDTO>>> {
-    return this.productService.filterProducts(pageRequest, genericFilterRequest);
+    // return this.productService.filterProducts(pageRequest, genericFilterRequest);
+    return this.getGridData(pageRequest);
   }
 
 }

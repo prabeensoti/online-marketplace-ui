@@ -14,24 +14,31 @@ import { TableComponent } from './table/table.component';
 import { ObjKeysPipe } from './table/pipe/obj-keys.pipe';
 import { StColumnSortDirective } from './table/st-column-sort/st-column-sort.directive';
 import { StPaginationComponent } from './table/st-pagination/st-pagination.component';
+import { PageStatusViewComponent } from './page-status-view/page-status-view.component';
+import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { DatePickerComponent } from './datepicker/date-picker.component';
 
 const sharedComponents = [
+  LoadingComponent,
+  PageStatusViewComponent,
+  BreadcrumbComponent,
+  TableComponent,
+  AutoFocusDirective,
+  ObjKeysPipe,
+  SanitizeHtmlPipeComponent,
+  ToastNotificationComponent,
+
   HomeNavbarComponent,
   ServiceSearchComponent,
-  LoadingComponent,
   FooterComponent,
-  BreadcrumbComponent,
-  TableComponent
+
 ];
 
 @NgModule({
   declarations: [
     ...sharedComponents,
-    ToastNotificationComponent,
-    SanitizeHtmlPipeComponent,
-    ObjKeysPipe,
     StColumnSortDirective,
+    StPaginationComponent,
     StPaginationComponent,
     DatePickerComponent
   ],
@@ -41,6 +48,6 @@ const sharedComponents = [
     FormsModule,
     NgbModule
   ],
-    exports: [...sharedComponents, ToastNotificationComponent, SanitizeHtmlPipeComponent, DatePickerComponent]
+  exports: [...sharedComponents]
 })
 export class SharedModule { }

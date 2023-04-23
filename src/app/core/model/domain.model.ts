@@ -1,3 +1,6 @@
+import {ShippingModel} from "@app/core/model/shipping.model";
+import {PaymentDTO} from "@app/core/model/payment.model";
+
 enum UserStatus {
   VERIFIED = 'VERIFIED',
   UNVERIFIED = 'UNVERIFIED',
@@ -80,11 +83,12 @@ export interface ProductCategoryDTO {
 }
 
 export interface OrderDTO {
-  OrderId: number;
+  orderId: number;
   orderStatus: OrderStatus;
   orderDate: Date;
-  // shipping: Shipping;
+  shipping: ShippingModel;
   user: UserDTO;
+  payments: PaymentDTO[]
 }
 
 export interface AddressDTO {

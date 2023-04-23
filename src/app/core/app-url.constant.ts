@@ -17,10 +17,13 @@ export class ApiEndpoints {
         CUSTOM_USER_REGISTRATION: API_ENDPOINT + '/auth/register-user',
         CUSTOM_USER_LOGIN: API_ENDPOINT + '/auth/login',
 
-        CHECK_VERIFICATION_CODE: API_ENDPOINT + '/auth/check-verification-code',
-        RESEND_VERIFICATION_EMAIL: API_ENDPOINT + '/auth/resend-verification-email',
-        FORGOT_PASSWORD: API_ENDPOINT + '/auth/send-forgot-password',
-        PASSWORD_RESET_SET_NEW_PASS: API_ENDPOINT + '/auth/process-password-reset',
+        VENDOR_REGISTER: API_ENDPOINT + '/auth/register-vendor',
+
+        CHECK_EMAIL_IS_AVAILABLE: API_ENDPOINT + '/auth/check-email-availability',
+        CHECK_EMAIL_VERIFICATION_CODE: API_ENDPOINT + '/auth/check-email-verification-code',
+        // RESEND_VERIFICATION_EMAIL: API_ENDPOINT + '/auth/resend-verification-email',
+        FORGOT_PASSWORD: API_ENDPOINT + '/auth/send-forgot-password-email',
+        PASSWORD_RESET_SET_NEW_PASS: API_ENDPOINT + '/auth/process-password-update-request',
         LOGOUT: API_ENDPOINT + '/logout',
 
         GOOGLE_AUTH: API_ENDPOINT + '/oauth2/authorize/google?' + OAUTH2_UI_REDIRECT_URI,
@@ -37,6 +40,7 @@ export class ApiEndpoints {
 
     static readonly PRODUCTS = {
         ALL: API_ENDPOINT + '/products',
+        ALL_FOR_VENDOR: API_ENDPOINT+ '/allProducts/vendors',
         GET_BY_ID: API_ENDPOINT + '/products',
         CREATE: API_ENDPOINT + '/products',
         UPDATE: API_ENDPOINT + '/products',
@@ -53,7 +57,6 @@ export class ApiEndpoints {
         UPDATE: API_ENDPOINT + '/vendors',
         DELETE: API_ENDPOINT + '/vendors',
         FILTER: API_ENDPOINT + '/vendors/filter'
-
     };
 
     static readonly ORDERS = {
@@ -67,8 +70,19 @@ export class ApiEndpoints {
 
     };
 
+  static readonly MANAGE_ORDERS = {
+    ALL: API_ENDPOINT + '/manage-order',
+    GET_BY_ID: API_ENDPOINT + '/manage-order',
+    CREATE: API_ENDPOINT + '/manage-order',
+    UPDATE: API_ENDPOINT + '/manage-order',
+    DELETE: API_ENDPOINT + '/manage-order',
+    FILTER: API_ENDPOINT + '/manage-order/filter',
+    GET_BY_USER: API_ENDPOINT + '/manage-order/user'
+
+  };
+
   static readonly CATEGORIES = {
-    ALL: API_ENDPOINT + '/category',
+    ALL: API_ENDPOINT + '/public/category',
     GET_BY_ID: API_ENDPOINT + '/category',
     CREATE: API_ENDPOINT + '/category',
     UPDATE: API_ENDPOINT + '/category',

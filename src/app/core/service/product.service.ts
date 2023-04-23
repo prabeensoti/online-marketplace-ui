@@ -29,6 +29,14 @@ export class ProductService {
     return ProductsObservable;
   }
 
+  public getAllProductsWithPageForVendor(pageRequest: PageRequest): Observable<PageableResponse<ProductDTO[]>> {
+    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL_FOR_VENDOR, {
+      params: CoreUtil.buildPageParams(pageRequest)
+    }).pipe(catchError(this.errorHandler));
+    return ProductsObservable;
+  }
+
+
   getProductById(id: number): Observable<ProductDTO> {
     const ProductObservable: Observable<ProductDTO> = this.http.get<ProductDTO>(ApiEndpoints.PRODUCTS.GET_BY_ID + '/' + id);
     return ProductObservable;
@@ -58,7 +66,15 @@ export class ProductService {
 
 
   saveProduct(product : ProductModel): Observable<ProductModel> {
-    return this.http.post<ProductModel>(ApiEndpoints.PRODUCTS.CREATE, product);
+    const formData = new FormData();
+    formData.set("name", product.name);
+    formData.set("description", product.description);
+    formData.set("quantity", product.quantity.toString());
+    formData.set("price", product.price.toString());
+    // formData.set("vendorId", product.vendorId.toString());
+    formData.set("categoryId", product.categoryId.toString());
+    formData.set("images", product.images.toString());
+    return this.http.post<ProductModel>(ApiEndpoints.PRODUCTS.CREATE, formData);
   }
   verifyProduct(data: VerifyProductDTO): Observable<ProductDTO> {
     return this.http.put<ProductDTO>(ApiEndpoints.PRODUCTS.UPDATE, data);

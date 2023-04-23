@@ -1,1 +1,25 @@
-<p>user-orders works!</p>
+<div class="container">
+  <div class="col-12" *ngFor="let order of orderResponse; let i=index">
+    <div class="card" >
+      <div class="card-header">
+        <div class="row">
+          <div class="col-3">Order Placed</div>
+          <div class="col-3">Total</div>
+          <div class="col-3">Ship To</div>
+          <!--          <div class="col-3"><a routerLink="/invoice/{{data.orderId}}">View Invoice</a></div>-->
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row" *ngFor="let orderItem of order.relatedOrderItems">
+          <p></p>
+          <div class="col-1">
+            <img src="https://webobjects2.cdw.com/is/image/CDW/7061607?$product-detail$" width="130px" height="90px"/>
+          </div>
+          <div class="col-8">
+            {{orderItem.product.name}}, {{orderItem.product.description}}, Qty {{orderItem.quantity}}
+          </div>
+        </div>
+      </div>
+    </div> <br/>
+  </div>
+</div>

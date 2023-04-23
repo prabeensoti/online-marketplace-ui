@@ -14,7 +14,7 @@ import { PricingPlatformPageComponent } from './vendor-registration/components/p
 import { VendorRegistrationFormComponent } from './vendor-registration/components/vendor-registration-form/vendor-registration-form.component';
 import { VendorPaymentFormComponent } from './vendor-registration/components/vendor-payment-form/vendor-payment-form.component';
 import { VendorDetailsFormComponent } from './vendor-registration/components/vendor-details-form/vendor-details-form.component';
-import { AuthPagesNavbarComponent } from './auth-pages-navbar/auth-pages-navbar.component';
+import { AuthPagesNavbarComponent } from './components/auth-pages-navbar/auth-pages-navbar.component';
 import { AuthPagesFooterComponent } from './components/auth-pages-footer/auth-pages-footer.component';
 
 
@@ -38,7 +38,7 @@ import { AuthPagesFooterComponent } from './components/auth-pages-footer/auth-pa
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     {

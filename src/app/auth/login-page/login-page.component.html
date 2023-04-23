@@ -1,6 +1,6 @@
-<div class="container">
+<app-auth-pages-navbar></app-auth-pages-navbar>
 
-    <app-auth-pages-navbar></app-auth-pages-navbar>
+<div class="container">
 
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -15,8 +15,8 @@
 
                     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
                         <div class="form-floating mb-3">
-                            <input type="username" class="form-control" id="floatingUsername" placeholder="username/email"
-                                formControlName="username"
+                            <input type="username" class="form-control" id="floatingUsername"
+                                placeholder="username/email" formControlName="username"
                                 [ngClass]="{ 'is-invalid': isSubmitted && formControls['username'].errors }" required>
                             <label for="floatingUsername"><span class="text-danger">*</span> Username/Email</label>
                         </div>
@@ -28,7 +28,8 @@
                         </div>
 
                         <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" formControlName="rememberMe" id="rememberPasswordCheck">
+                            <input class="form-check-input" type="checkbox" formControlName="rememberMe"
+                                id="rememberPasswordCheck">
                             <label class="form-check-label" for="rememberPasswordCheck">
                                 Remember password
                             </label>
@@ -38,7 +39,8 @@
 
                         </div>
                         <div class="d-grid mb-2">
-                            <button class="btn btn-warning btn-login text-uppercase fw-bold" type="submit" [disabled]="loading">
+                            <button class="btn btn-warning btn-login text-uppercase fw-bold" type="submit"
+                                [disabled]="loading">
                                 Sign in
                                 <app-loading *ngIf="loading" [repeat]="3"></app-loading>
                             </button>
@@ -75,10 +77,6 @@
         </div>
     </div>
 </div>
-
-<app-auth-pages-footer></app-auth-pages-footer>
-
-
 
 
 <!-- Forgot password modal here -->
@@ -125,3 +123,4 @@
 </ng-template>
 
 
+<app-auth-pages-footer></app-auth-pages-footer>
