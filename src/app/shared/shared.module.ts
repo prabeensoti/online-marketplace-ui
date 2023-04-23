@@ -31,7 +31,7 @@ const sharedComponents = [
   HomeNavbarComponent,
   ServiceSearchComponent,
   FooterComponent,
-
+  DatePickerComponent
 ];
 
 @NgModule({
@@ -40,7 +40,6 @@ const sharedComponents = [
     StColumnSortDirective,
     StPaginationComponent,
     StPaginationComponent,
-    DatePickerComponent
   ],
   imports: [
     CommonModule,
