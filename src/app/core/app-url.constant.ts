@@ -45,8 +45,8 @@ export class ApiEndpoints {
         CREATE: API_ENDPOINT + '/products',
         UPDATE: API_ENDPOINT + '/products',
         DELETE: API_ENDPOINT + '/products',
-        FILTER: API_ENDPOINT + '/products/filter'
-
+        FILTER: API_ENDPOINT + '/products/filter',
+        SEARCH: API_ENDPOINT + '/s'
     };
 
     static readonly VENDORS = {
@@ -98,5 +98,6 @@ export class ApiEndpoints {
       PUT: API_ENDPOINT+'/shopping-cart',
       DELETE: API_ENDPOINT+'/shopping-cart'
   }
+  static APP_UI_ROUTES: any;
 
 }

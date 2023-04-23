@@ -106,3 +106,11 @@ export interface FileEntityDTO {
   uri: string;
   fileType?: FileType;
 }
+
+export interface SearchFilterContext {
+  name: string;
+  categoryName: string;
+  minPrice: number;
+  maxPrice: number;
+  sortedPrice: string;
+}

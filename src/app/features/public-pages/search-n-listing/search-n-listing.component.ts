@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, convertToParamMap, ParamMap, Params} from '@angular/router';
-import {ProductDTO} from '@app/core/model/domain.model';
+import {ProductDTO, SearchFilterContext} from '@app/core/model/domain.model';
 import {ProductService} from '@app/core/service/product.service';
 import {filter} from 'rxjs';
 import {CredentialsService} from "@app/auth/services/credentials.service";
 import {ShoppingCartService} from "@app/core/service/shopping-cart.service";
 import {ToastService} from "@app/core/service/toast.service";
 import {Constants} from "@app/core/core.constant";
+import { PageRequest } from '@app/core/core.model';
 
 @Component({
   selector: 'app-search-n-listing',
@@ -18,8 +19,16 @@ export class SearchNListingComponent implements OnInit {
 
   readonly CART_ITEMS_KEY = 'CART_ITEMS_KEY';
   products: ProductDTO[] = [];
+  totalElements: number = 0;
+  currentPage: number = 0;
 
-  searchText: string = "";
+  name: string = "";
+  categoryName: string = "";
+  minPrice: number = 0;
+  maxPrice: number = 0;
+  sortedPrice: string = "";
+
+
   loading: boolean = false;
 
   constructor(private credentialsService: CredentialsService,
@@ -30,15 +39,45 @@ export class SearchNListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initProductList();
+    // this.initProductList();
   }
 
   private initProductList(): void {
     this.productService.getAllProducts().subscribe({
       next: (res) => {
         this.products = res.content;
+        this.totalElements = res.totalElements;
       },
       error: (error) => {
+        console.log("error ", error);
+      },
+    });
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.onFilterChange();
+  }
+
+  /**
+   * Call this method every time the filter changes
+   */
+  private onFilterChange(): void {
+    const searchFilterContext: SearchFilterContext = {
+      name: this.categoryName,
+      categoryName: this.categoryName,
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice,
+      sortedPrice: this.sortedPrice,
+    }
+    const pageRequest: PageRequest = { page: this.currentPage-1, size: 10, sort: "name", direction: "asc"};
+
+    this.productService.searchProductByAdvanceFilter(pageRequest, searchFilterContext).subscribe({
+      next: (res: any) => {
+        this.products = res.content;
+        this.totalElements = res.totalElements;
+      },
+      error: (error: any) => {
         console.log("error ", error);
       },
     });
@@ -53,7 +92,10 @@ export class SearchNListingComponent implements OnInit {
         const routeQueryParams: Params = { ...params }
         if (params) {
           const paramMap: ParamMap = convertToParamMap(routeQueryParams);
-          this.searchText = paramMap.get("search") || "";
+          this.name = paramMap.get("name") || "";
+          this.categoryName = paramMap.get("categoryName") || "";
+          this.minPrice = Number(paramMap.get("minPrice")) || 0;
+          this.maxPrice = Number(paramMap.get("maxPrice")) || 0;
         }
       });
   }
@@ -84,5 +126,10 @@ export class SearchNListingComponent implements OnInit {
       this.loading = false
         this.toastService.show("Product Added To Cart", { classname: 'bg-success text-light fs-5', delay: 2000 });
     }
+  }
+
+  onSelectChange() {
+    console.log('Selected option: ' + this.sortedPrice);
+    this.onFilterChange();
   }
 }

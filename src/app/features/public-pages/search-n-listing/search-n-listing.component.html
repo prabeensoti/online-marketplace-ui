@@ -1,17 +1,69 @@
 <div class="container">
-    <h1>Product Listing</h1>
-    <hr>
+    <div class="row">
+        <h1>Product Listing</h1>
+        <hr>
+    </div>
 
     <div class="row">
-        <div class="col-lg-4 mb-4" *ngFor="let product of products">
-            <div class="card">
-                <!-- <img [src]="product.images[0].uri" class="card-img-top" alt="{{ product.name }}"> -->
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.description }}</p>
-                    <button class="btn btn-warning" (click)="onAddToCartClick(product)" [disabled]="loading">Add to Cart</button>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="card">
+                       <div class="card-header">
+                            <h4 class="my-0 fw-normal">Filter</h4>
+                       </div>
+                       <div class="card-body">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Sort Price By</label>
+                                <select class="form-select" aria-label="Default select example" [(ngModel)]="sortedPrice" (change)="onSelectChange()">
+                                    <option selected>Select</option>
+                                    <option value="ASC">Low to High</option>
+                                    <option value="DESC">High to Low</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Minimum Price</label>
+                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Minimum Price">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Maximum Price</label>
+                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Maximum Price">
+                            </div>
+                            
+                       </div>
+                    </div>
                 </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-4 mb-4" *ngFor="let product of products">
+                            <div class="card">
+                                <img src="https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img-top" alt="{{ product.name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.name }}</h5>
+                                    <p class="card-text">{{ product.description }}</p>
+                                    <button class="btn btn-warning" (click)="onAddToCartClick(product)" [disabled]="loading">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- generate pagination template in angular, for totalElements and pageSize -->
+                <div class="col-lg-12 d-flex justify-content-center">
+                    <ngb-pagination
+                        [collectionSize]="totalElements"
+                        [pageSize]="10"
+                        [rotate]="true"
+                        [boundaryLinks]="true"
+                        [maxSize]="5"
+                        [page]="currentPage"
+                        (pageChange)="onPageChange($event)">
+                    </ngb-pagination>
+                </div>
+
             </div>
         </div>
+
+       
     </div>
 </div>
