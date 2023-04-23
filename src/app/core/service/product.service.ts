@@ -71,7 +71,7 @@ export class ProductService {
     formData.set("description", product.description);
     formData.set("quantity", product.quantity.toString());
     formData.set("price", product.price.toString());
-    formData.set("vendorId", product.vendorId.toString());
+    // formData.set("vendorId", product.vendorId.toString());
     formData.set("categoryId", product.categoryId.toString());
     formData.set("images", product.images.toString());
     return this.http.post<ProductModel>(ApiEndpoints.PRODUCTS.CREATE, formData);

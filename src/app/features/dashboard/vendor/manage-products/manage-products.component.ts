@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { ProductDTO } from '@app/core/model/domain.model';
 import { AbstractDataConfigurer } from '@app/shared/table/abstract-data-configurer';
-import { ProductGridAdminService } from '../../configurer/product-grid-admin.service';
-import { Router } from '@angular/router';
-import { APP_UI_ROUTES } from '@app/core/route.util';
+import { AddProductComponent } from "@app/features/dashboard/vendor/manage-products/add-product/add-product.component";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {ProductGridVendorService} from "@app/features/dashboard/configurer/product-grid-vendor.service";
 
 @Component({
@@ -13,10 +12,10 @@ import {ProductGridVendorService} from "@app/features/dashboard/configurer/produ
 })
 export class ManageProductsComponent {
 
-  productVendorDataGridConfigurer!: AbstractDataConfigurer<ProductDTO>;
+  productVendorDataGridConfigure!: AbstractDataConfigurer<ProductDTO>;
 
-  constructor(private productGridVendorService: ProductGridVendorService, private router: Router) {
-    this.productVendorDataGridConfigurer = productGridVendorService;
+  constructor(private productGridService: ProductGridVendorService, public modalService: NgbModal) {
+    this.productVendorDataGridConfigure = productGridService;
   }
 
   updateProduct(data: ProductDTO): void {
@@ -25,4 +24,7 @@ export class ManageProductsComponent {
     // this.router.navigate([APP_UI_ROUTES.MANAGE_PRODUCTS + '/view', data.productId]);
   }
 
+  addProduct() {
+    this.modalService.open(AddProductComponent,{size: "lg"});
+  }
 }

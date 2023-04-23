@@ -16,6 +16,7 @@ import { StColumnSortDirective } from './table/st-column-sort/st-column-sort.dir
 import { StPaginationComponent } from './table/st-pagination/st-pagination.component';
 import { PageStatusViewComponent } from './page-status-view/page-status-view.component';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
+import { DatePickerComponent } from './datepicker/date-picker.component';
 
 const sharedComponents = [
   LoadingComponent,
@@ -38,6 +39,8 @@ const sharedComponents = [
     ...sharedComponents,
     StColumnSortDirective,
     StPaginationComponent,
+    StPaginationComponent,
+    DatePickerComponent
   ],
   imports: [
     CommonModule,
