@@ -12,7 +12,7 @@ import { VerifyProductsComponent } from "@app/features/dashboard/admin/verify-pr
 import { SupportNMessagesComponent } from "@app/features/dashboard/components/support-n-messages/support-n-messages.component";
 import { ReportViewComponent } from "@app/features/dashboard/components/report-view/report-view.component";
 import { UserOrdersComponent } from "@app/features/dashboard/user/user-orders/user-orders.component";
-import { AddProductComponent } from "@app/features/dashboard/vendor/products/add-product/add-product.component";
+import { AddProductComponent } from "@app/features/dashboard/vendor/manage-products/add-product/add-product.component";
 import { CategoryComponent } from "@app/features/public-pages/category/category.component";
 import {
   SalesReportComponent

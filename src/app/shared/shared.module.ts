@@ -14,6 +14,7 @@ import { TableComponent } from './table/table.component';
 import { ObjKeysPipe } from './table/pipe/obj-keys.pipe';
 import { StColumnSortDirective } from './table/st-column-sort/st-column-sort.directive';
 import { StPaginationComponent } from './table/st-pagination/st-pagination.component';
+import { DatePickerComponent } from './datepicker/date-picker.component';
 
 const sharedComponents = [
   HomeNavbarComponent,
@@ -31,7 +32,8 @@ const sharedComponents = [
     SanitizeHtmlPipeComponent,
     ObjKeysPipe,
     StColumnSortDirective,
-    StPaginationComponent
+    StPaginationComponent,
+    DatePickerComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,6 @@ const sharedComponents = [
     FormsModule,
     NgbModule
   ],
-  exports: [...sharedComponents, ToastNotificationComponent, SanitizeHtmlPipeComponent]
+    exports: [...sharedComponents, ToastNotificationComponent, SanitizeHtmlPipeComponent, DatePickerComponent]
 })
 export class SharedModule { }

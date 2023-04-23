@@ -1,4 +1,6 @@
-import {Component, TemplateRef} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {VendorProductSalesReportModel} from "@app/core/model/vendor-product-sales-report.model";
+import {DatePickerComponent} from "@app/shared/datepicker/date-picker.component";
 
 @Component({
   selector: 'app-sales-report',
@@ -6,5 +8,16 @@ import {Component, TemplateRef} from '@angular/core';
   styleUrls: ['./sales-report.component.scss']
 })
 export class SalesReportComponent {
-  myHtml: any='<p>My Html</p>';
+  @ViewChild(DatePickerComponent) datePicker!: DatePickerComponent;
+  productSalesReport: VendorProductSalesReportModel[] | undefined;
+  pageSize:number=10;
+  page: number=1;
+  collectionSize: number = 0;
+  getReport() {
+    console.log(this.datePicker.getDateRange());
+  }
+
+  refreshData() {
+
+  }
 }
