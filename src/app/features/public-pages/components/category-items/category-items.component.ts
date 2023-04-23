@@ -9,7 +9,7 @@ export class CategoryItemsComponent {
   categories = [
     {
       name: 'Books',
-      image: 'https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940',
+      image: 'https://picsum.photos/3264/1836?random=3',
       link: '/books'
     },
     {
