@@ -14,7 +14,7 @@ export interface RegisterContext {
 }
 export interface VerifyEmailContext {
     email: string;
-    verificationCode: string;
+    emailVerificationCode: string;
     registeredProviderName: string;
 }
 export interface VerifyForgotPasswordContext {

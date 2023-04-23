@@ -115,7 +115,7 @@ export class LoginPageComponent implements OnInit {
           this.loading = false;
           this.hasError = true;
           console.log(err);
-          this.loginResponseMessage = err?.error?.response || 'Sorry! Something went wrong !!!';
+          this.loginResponseMessage = err?.error?.message || 'Sorry! Something went wrong !!!';
         }
       );
   }
@@ -152,7 +152,7 @@ export class LoginPageComponent implements OnInit {
           this.hasError = true;
           this.hasResetPasswordError = true;
           console.log(err);
-          this.resetPasswordResponseMessage = err?.error?.response || 'Sorry! Something went wrong !!!';
+          this.resetPasswordResponseMessage = err?.error?.message || 'Sorry! Something went wrong !!!';
         }
       );
   }

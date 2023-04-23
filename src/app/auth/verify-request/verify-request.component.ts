@@ -82,11 +82,11 @@ export class VerifyRequestComponent implements OnInit {
   private verifyEmailVerificationRequest(paramMap: ParamMap) {
     console.log('verify email - verification request', paramMap);
     const email = paramMap.get(QueryParamKey.EMAIL) || '';
-    const verificationCode = paramMap.get(QueryParamKey.VERIFICATION_CODE) || '';
+    const verificationCode = paramMap.get(QueryParamKey.EMAIL_VERIFICATION_CODE) || '';
     const registeredProviderName = paramMap.get(QueryParamKey.REGISTERED_PROVIDER_NAME) || '';
     const verifyEmailContext: VerifyEmailContext = {
       email: email,
-      verificationCode: verificationCode,
+      emailVerificationCode: verificationCode,
       registeredProviderName: registeredProviderName
     };
     this.loading = true;

@@ -15,7 +15,7 @@ export class QueryParamKey {
 
   // Email Verification QueryParam Keys
   static readonly IS_PROCESS_VERIFY_EMAIL = "isProcessVerifyEmail";
-  static readonly VERIFICATION_CODE = "verificationCode";
+  static readonly EMAIL_VERIFICATION_CODE = "emailVerificationCode";
   static readonly REGISTERED_PROVIDER_NAME = "registeredProviderName";
 
   // Password reset query params

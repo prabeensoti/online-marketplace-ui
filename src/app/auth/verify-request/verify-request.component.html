@@ -1,8 +1,6 @@
-<div class="container">
+<app-auth-pages-navbar></app-auth-pages-navbar>
 
-    <div class="mt-2">
-        <a class="navbar-brand fw-bold fs-4" [routerLink]="'/'">{{appBrandName}}</a>
-    </div>
+<div class="container">
 
     <div class="row">
         <div class="card border-0 shadow rounded-3 my-3">
@@ -20,7 +18,7 @@
                 <ng-container *ngIf="isProcessVerifyEmail">
 
                     <div class="text-center">
-                        <p>  </p>
+                        <p> </p>
                         <button class="btn btn-warning btn-small" [routerLink]="['/login']"
                             routerLinkActive="router-link-active">Go to Login</button>
                     </div>
@@ -77,3 +75,6 @@
 
 
 </div>
+
+
+<app-auth-pages-footer></app-auth-pages-footer>
