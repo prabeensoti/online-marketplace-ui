@@ -4,6 +4,7 @@ export class OrderPayResponseDto {
     message : string;
     httpStatus !: string;
     paymentStatus !: string;
+    body !: number;
 
     constructor(message: string){
         this.message = message;
