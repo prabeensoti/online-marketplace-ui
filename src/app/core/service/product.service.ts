@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ProductDTO, VerifyProductDTO} from '../model/domain.model';
+import {ProductDTO, SearchFilterContext, VerifyProductDTO} from '../model/domain.model';
 import { Observable, catchError, throwError } from 'rxjs';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import { ApiEndpoints } from '../app-url.constant';
@@ -37,6 +37,14 @@ export class ProductService {
   }
 
 
+  public searchProductByAdvanceFilter(pageRequest : PageRequest, searchFilterContext: SearchFilterContext) : Observable<PageableResponse<ProductDTO[]>> {
+    // const pageParams: any = CoreUtil.buildPageParams(pageRequest);
+    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.SEARCH, {
+      params: {...pageRequest, ...searchFilterContext}
+    }).pipe(catchError(this.errorHandler));
+    return ProductsObservable;
+  }
+
   getProductById(id: number): Observable<ProductDTO> {
     const ProductObservable: Observable<ProductDTO> = this.http.get<ProductDTO>(ApiEndpoints.PRODUCTS.GET_BY_ID + '/' + id);
     return ProductObservable;
@@ -57,7 +65,6 @@ export class ProductService {
       .pipe(catchError(this.errorHandler));
   }
 
-
   errorHandler(error: HttpErrorResponse): Observable<any> {
     console.log('Product api error ', error);
     // show toast notification
@@ -68,6 +75,7 @@ export class ProductService {
   saveProduct(productFormData : FormData): Observable<ProductModel> {
     return this.http.post<ProductModel>(ApiEndpoints.PRODUCTS.CREATE, productFormData);
   }
+
   verifyProduct(data: VerifyProductDTO): Observable<ProductDTO> {
     let params = new HttpParams();
     params = params.append('productId', data.productId)

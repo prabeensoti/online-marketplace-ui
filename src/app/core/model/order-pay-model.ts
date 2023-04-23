@@ -1,26 +1,31 @@
+import { AddressModel } from "./address-model";
+import { CardInfoModel } from "./card-info-model";
+import { ShoppingCartDTO } from "./shopping-cart.model";
+
 export class OrderPayModel {
     
-    // userId!: number;
-    // addressModel!: AddressModel;
-    // cardInfoModel!: CardInfoModel;
-    // quantity!: number;
-    // price!: number;
-    // fullName!: string;
+    addressDto!: AddressModel;
+    cardInfoDto !: CardInfoModel;
+
+    isGuestUser !: boolean;
+    clientIp !: string;
+    cardId !: string;
+    transactionId !: string;
 
     userId!:number;
-    address!: string
-    city!: string
-    state!: string
-    zipcode!: string
-    country!: string
-    cardNumber!: number
-    nameOnCard!: string
-    securityCode!: number
-    expiryMonth!: number
-    expiryYear!: number
-    cardBrand!: string
-    quantity!: number
-    price!: number
-    fullName!: string
+    fullName!: string;
+    email!: string;
+    quantity!: number;
+    price!: number;
+    shoppingCartDtos!: ShoppingCartDTO[];
+
+    // cardNumber!: number;
+    // lastFourDigits!: number;
+    // nameOnCard!: string;
+    // securityCode!: number;
+    // expMonth!: number;
+    // expYear!: number;
+    // cvc!: string;
+    // cardBrand!: string
 
 }
