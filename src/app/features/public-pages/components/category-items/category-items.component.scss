@@ -1,17 +1,17 @@
 .category-items {
     position: relative;
-    width: 100%;
+    // width: 100%;
     overflow: hidden;
     border-radius: 10px;
     margin-bottom: 20px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    height: 70vh;
+    height: 50vh;
 }
 
 .category-items > img {
     width: 100%;
-    height: 100%;
+    height: 50vh;
     object-fit: cover;
     object-position: center;
 }
