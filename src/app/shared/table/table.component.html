@@ -82,6 +82,7 @@
             <tr>
 
               <ng-container *ngFor="let column of columns; let i = index">
+
                 <!-- Columns Data Display STARTS -->
                 <ng-container *ngIf="!column.hide">
                   <ng-container [ngSwitch]="column.type">

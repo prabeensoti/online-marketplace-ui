@@ -1,6 +1,6 @@
 <div class="container">
   <div class="col-12">
-    <h3>Final Details for Order {{orderId}}</h3>
+    <h3>Final Details for Order Code {{invoiceDetails.orderCode}}</h3>
   </div>
 
   <div class="row">
@@ -8,7 +8,7 @@
       <label>Paid By : {{paymentMethod[0].cardHolderName}}</label>
     </div>
     <label>Order Placed : {{invoiceDetails.orderPlaced | date: 'fullDate'}}</label>
-    <label>Order Code : {{invoiceDetails.orderCode}} </label>
+    <label>Order Status : {{invoiceDetails.orderStatus || 'PENDING'}} </label>
     <label>Order Total : {{invoiceDetails.totalAfterTax | currency: 'USD'}}</label>
   </div>
   <br>

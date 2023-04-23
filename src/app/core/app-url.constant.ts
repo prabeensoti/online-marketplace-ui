@@ -67,7 +67,8 @@ export class ApiEndpoints {
         UPDATE: API_ENDPOINT + '/orders',
         DELETE: API_ENDPOINT + '/orders',
         FILTER: API_ENDPOINT + '/orders/filter',
-        GET_BY_PRODUCT_CODE: API_ENDPOINT + '/orders'
+        GET_BY_PRODUCT_CODE: API_ENDPOINT + '/public/orders',
+        PATCH_ORDER: API_ENDPOINT + '/orders'
 
     };
 
@@ -78,7 +79,9 @@ export class ApiEndpoints {
     UPDATE: API_ENDPOINT + '/manage-order',
     DELETE: API_ENDPOINT + '/manage-order',
     FILTER: API_ENDPOINT + '/manage-order/filter',
-    GET_BY_USER: API_ENDPOINT + '/manage-order/user'
+    GET_BY_USER: API_ENDPOINT + '/manage-order/user',
+    GET_BY_VENDOR: API_ENDPOINT + '/manage-order/vendor',
+    GET_BY_ADMIN: API_ENDPOINT + '/manage-order/admin'
 
   };
 

@@ -1,0 +1,59 @@
+<div class="row justify-content-end me-5 mb-3">
+  <div class="col-auto">
+    <!--        <button class="btn btn-lg btn-primary rounded-pill" role="button">New +</button>-->
+  </div>
+</div>
+
+
+<div class="container">
+  <app-table [title]="'Manage Order'" [dataGridConfigurer]="adminOrderDataGridConfigure"
+             [actionTemplate]="{
+          'Order Status' : orderStatusTemplate,
+          'OrderItems': relatedProductTemplate,
+          'Update': updateTemplate
+          }">
+  </app-table>
+</div>
+
+<ng-template #orderStatusTemplate let-data>
+  <span class="badge" [ngClass]="data.orderDto.orderStatus == 'DELIVERED' ? 'bg-primary' : 'bg-danger' ">
+      {{data.orderDto.orderStatus || 'PENDING'}}
+  </span>
+</ng-template>
+
+<ng-template #updateTemplate let-data>
+  <a *ngIf="data.orderDto.orderStatus != 'DELIVERED'" class="fs-4 link-primary cursor-pointer" (click)="selectedOrder(data)">
+    <button class="btn" (click)="onDeliverClick(data, content)"><i class="bi bi-pencil-square"><span>Click To Deliver</span></i></button>
+  </a>
+</ng-template>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm to deliver?</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label class="form-check-label">
+          Are you Sure?
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <app-loading *ngIf="loading" cssClass="full-page-loader" [repeat]="3"></app-loading>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')" [disabled]="loading">Cancel</button>
+    <button type="button" class="btn btn-success" (click)="onOrderDeliver()" [disabled]="loading">Ok, Deliver</button>
+  </div>
+</ng-template>
+
+<ng-template #relatedProductTemplate let-data>
+  <!--  <a class="fs-4 link-primary cursor-pointer" (click)="selectedOrder(data)">-->
+  <!--    <i class="bi bi-pencil-square"></i>-->
+  <!--  </a>-->
+<!--  <p>{{data.orderDto.orderCode}}</p>-->
+  <ol class="list-group list-group-numbered">
+    <li *ngFor="let item of data.relatedOrderItems" class="list-group-item">{{item.product.name}}</li>
+  </ol>
+</ng-template>
