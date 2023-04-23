@@ -43,7 +43,8 @@ export class SearchNListingComponent implements OnInit {
   }
 
   private initProductList(): void {
-    this.productService.getAllProducts().subscribe({
+    const pageRequest: PageRequest = { page: this.currentPage, size: 10, sort: "name", direction: "asc"};
+    this.productService.getAllPublishedProducts(pageRequest).subscribe({
       next: (res) => {
         this.products = res.content;
         this.totalElements = res.totalElements;

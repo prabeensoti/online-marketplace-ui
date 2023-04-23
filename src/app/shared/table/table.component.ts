@@ -1,19 +1,10 @@
-// import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-// import { ColumnSortableDirective, SortDirection, SortEvent } from '../column-sortable.directive';
-// import { Column, GridRowOption, OpDataEmit } from '../table-model';
-// import { AbstractDataConfigurer } from '../../../generic-services/abstract-data-configurer';
-// import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-// import { GenericFilterRequest, PageRequest } from '../../../services/model';
-// import { Subject } from 'rxjs';
-
 import {
   ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef, ViewChild
 } from '@angular/core';
-import { get as _get } from 'lodash';
-import { cloneDeep as _cloneDeep } from 'lodash';
-import { Column, ColumnType, IColumn, SortDirection, SortEvent, TableStateEvent, TableUI } from './table-model';
+import { get as _get,  cloneDeep as _cloneDeep, toNumber as _toNumber  } from 'lodash';
+import { ColumnType, IColumn, SortDirection, SortEvent, TableStateEvent, TableUI } from './table-model';
 import { PageChangedEvent } from './st-pagination/st-pagination.model';
-import { Subject } from 'rxjs';
+import { Subject, debounceTime } from 'rxjs';
 import { AbstractDataConfigurer } from './abstract-data-configurer';
 import { GenericFilterRequest, PageRequest } from '@app/core/core.model';
 
@@ -40,6 +31,7 @@ export class TableComponent implements OnInit {
   @Input() sortColumnName!: string;
   @Input() searchTemplate!: TemplateRef<any>;
   @Input() actionTemplate!: { [columnName: string]: TemplateRef<any> };
+  @Input() showSerialNo: boolean = true;
 
   /**
    * with staticPagination = true: Performs Client side pagination, No dynamic data fetch required,
@@ -64,7 +56,7 @@ export class TableComponent implements OnInit {
   currentPage = 1;
   sortDirection: SortDirection = 'asc';
 
-  searchTerm = '';
+  searchTerm!: any;
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
   isCaseSensitiveSearch = false;
@@ -75,7 +67,7 @@ export class TableComponent implements OnInit {
   columns!: IColumn[];
   dataList: Array<any> = [];
   totalElements = 0; // Not required if "staticPagination = true"
-  searchColumnKey = '';
+  searchColumn!: IColumn;
   searchColumnPlaceholder = '';
 
   loading: boolean = true;
@@ -140,8 +132,8 @@ export class TableComponent implements OnInit {
     if (!column) {
       column = this.columns[0];
     } else {
-      this.searchColumnKey = column.name;
-      // this.searchColumnPlaceholder = 'Search by ' + column.label;
+      this.searchColumn = column;
+      this.searchColumnPlaceholder = 'Search by ' + column.label;
     }
 
     this.triggerRefresh.subscribe(value => {
@@ -177,8 +169,9 @@ export class TableComponent implements OnInit {
 
   private generateFilterRequest(): GenericFilterRequest<any> {
     const genericFilterRequest: GenericFilterRequest<any> = {
+      searchText: this.searchTerm,
       dataFilter: {
-        [this.searchColumnKey]: this.searchTerm,
+        [this.searchColumn.name]: this.searchColumn.type === ColumnType.NUMBER ? _toNumber(this.searchTerm) : this.searchTerm,
       },
     };
     return genericFilterRequest;

@@ -16,13 +16,13 @@
 </div>
 
 <ng-template #orderStatusTemplate let-data>
-  <span class="badge" [ngClass]="data.orderDto.orderStatus == 'SUCCESS' ? 'bg-primary' : 'bg-danger' ">
+  <span class="badge" [ngClass]="data.orderDto.orderStatus == 'DELIVERED' ? 'bg-primary' : 'bg-danger' ">
       {{data.orderDto.orderStatus || 'PENDING'}}
   </span>
 </ng-template>
 
 <ng-template #updateTemplate let-data>
-  <a class="fs-4 link-primary cursor-pointer" (click)="selectedOrder(data)">
+  <a *ngIf="data.orderDto.orderStatus != 'DELIVERED'" class="fs-4 link-primary cursor-pointer" (click)="selectedOrder(data)">
     <button class="btn" (click)="onDeliverClick(data, content)"><i class="bi bi-pencil-square"><span>Click To Deliver</span></i></button>
   </a>
 </ng-template>
@@ -42,8 +42,9 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cancel</button>
-    <button type="button" class="btn btn-success" (click)="onOrderDeliver()">Save</button>
+    <app-loading *ngIf="loading" cssClass="full-page-loader" [repeat]="3"></app-loading>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')" [disabled]="loading">Cancel</button>
+    <button type="button" class="btn btn-success" (click)="onOrderDeliver()" [disabled]="loading">Ok, Deliver</button>
   </div>
 </ng-template>
 
@@ -51,5 +52,8 @@
   <!--  <a class="fs-4 link-primary cursor-pointer" (click)="selectedOrder(data)">-->
   <!--    <i class="bi bi-pencil-square"></i>-->
   <!--  </a>-->
-  <p>{{data.orderDto.orderCode}}</p>
+<!--  <p>{{data.orderDto.orderCode}}</p>-->
+  <ol class="list-group list-group-numbered">
+    <li *ngFor="let item of data.relatedOrderItems" class="list-group-item">{{item.product.name}}</li>
+  </ol>
 </ng-template>

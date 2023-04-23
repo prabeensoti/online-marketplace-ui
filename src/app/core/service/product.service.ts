@@ -17,25 +17,31 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  public getAllProducts(): Observable<PageableResponse<ProductDTO[]>> {
-    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL);
-    return ProductsObservable;
-  }
+  // public getAllPublishedProducts(): Observable<PageableResponse<ProductDTO[]>> {
+  //   const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL_PUBLISHED);
+  //   return ProductsObservable;
+  // }
 
-  public getAllProductsWithPage(pageRequest: PageRequest): Observable<PageableResponse<ProductDTO[]>> {
-    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL, {
+  public getAllPublishedProducts(pageRequest: PageRequest): Observable<PageableResponse<ProductDTO[]>> {
+    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL_PUBLISHED, {
       params: CoreUtil.buildPageParams(pageRequest)
     }).pipe(catchError(this.errorHandler));
     return ProductsObservable;
   }
 
-  public getAllProductsWithPageForVendor(pageRequest: PageRequest): Observable<PageableResponse<ProductDTO[]>> {
-    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL_FOR_VENDOR, {
+  public getAllPublishedAndTempProducts(pageRequest: PageRequest): Observable<PageableResponse<ProductDTO[]>> {
+    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL_PUBLISHED_AND_TEMP, {
       params: CoreUtil.buildPageParams(pageRequest)
     }).pipe(catchError(this.errorHandler));
     return ProductsObservable;
   }
 
+  public getAllPublishedAndTempProductsOfVendor(pageRequest: PageRequest): Observable<PageableResponse<ProductDTO[]>> {
+    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL_PUBLISHED_AND_TEMP_OF_VENDOR, {
+      params: CoreUtil.buildPageParams(pageRequest)
+    }).pipe(catchError(this.errorHandler));
+    return ProductsObservable;
+  }
 
   public searchProductByAdvanceFilter(pageRequest : PageRequest, searchFilterContext: SearchFilterContext) : Observable<PageableResponse<ProductDTO[]>> {
     // const pageParams: any = CoreUtil.buildPageParams(pageRequest);
@@ -56,7 +62,7 @@ export class ProductService {
     return allProductsObservable;
   }
 
-  filterProducts(pageRequest: PageRequest, genericFilterRequest: GenericFilterRequest<ProductDTO>): Observable<PageableResponse<Array<ProductDTO>>> {
+  filterForAllPublishedAndTempProducts(pageRequest: PageRequest, genericFilterRequest: GenericFilterRequest<ProductDTO>): Observable<PageableResponse<Array<ProductDTO>>> {
     const options = {
       params: CoreUtil.buildPageParams(pageRequest)
     };
