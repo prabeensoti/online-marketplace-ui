@@ -21,7 +21,8 @@ export class AddProductComponent implements OnInit{
 
   categories: ProductCategoryDTO[] = [];
   product!: ProductModel;
-  private selectedFiles!: FileList;
+  files: File[] | undefined;
+
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService,
               private productService: ProductService,
@@ -51,7 +52,8 @@ export class AddProductComponent implements OnInit{
         description: ['', [Validators.required]],
         quantity: [, [Validators.required]],
         price: [, [Validators.required]],
-        categoryId: [, [Validators.required]]
+        categoryId: [, [Validators.required]],
+        files:[,[Validators.required]]
       });
   }
 
@@ -62,25 +64,30 @@ export class AddProductComponent implements OnInit{
 
   saveProduct() {
     const formValue = this.productForm.value
-    console.log(formValue)
     const product: ProductModel = {
-      productId: 0,
+      images: undefined,
+      productId: formValue.productId,
       categoryId: formValue.categoryId,
       name: formValue.name,
       description: formValue.description,
       quantity: formValue.quantity,
-      price: formValue.price,
-      images: this.selectedFiles
+      price: formValue.price
     }
-
-    this.productService.saveProduct(product).subscribe(next => {
-      this.toastService.show('Product Added Successfully!!!')
-    }, err => {
-
-    })
+    const productData = new FormData();
+    if(this.files)
+    for (const file of this.files) {
+      productData.append('files', file);
+    }
+    productData.append('product', JSON.stringify(product));
+    this.productService.saveProduct(productData).subscribe({
+      next: (res) => {
+      this.toastService.show('Product Added Successfully!!!',{ classname: 'bg-success text-light fs-5', delay: 2000 })
+    }, error: (err) => {
+        this.toastService.show(err.error.status+" "+err.error.message, { classname: 'bg-danger text-light fs-5', delay: 2000 });
+    }});
 
   }
   onFileSelected(files: any) {
-    this.selectedFiles = files.target.files;
+    this.files = files.target.files;
   }
 }

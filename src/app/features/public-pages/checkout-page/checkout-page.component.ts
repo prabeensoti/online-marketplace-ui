@@ -13,6 +13,7 @@ import { ShoppingCartService } from '@app/core/service/shopping-cart.service';
 import { ToastService } from '@app/core/service/toast.service';
 import {AppRouteConstant} from "@app/core/constant/app-route-constant";
 import { SessionModel } from '@app/core/model/session-model';
+import { APP_UI_ROUTES } from '@app/core/route.util';
 
 @Component({
   selector: 'app-checkout-page',
@@ -55,7 +56,8 @@ export class CheckoutPageComponent implements OnInit {
     private orderPayService: OrderPayService,
     private credentialsService: CredentialsService,
     private toastrService: ToastService,
-    private shoppingCartService:ShoppingCartService
+    private shoppingCartService:ShoppingCartService,
+    private router: Router
     ){
 
   }
@@ -90,7 +92,7 @@ export class CheckoutPageComponent implements OnInit {
         zipCode: true,
         token: function (this:any, token: any) {    
           alert('Stripe token generated!');
-          this.sToken = token.card;      
+          this.sToken = token;      
           console.log(this.sToken);
           this.createOrderPayment();
       }.bind(this),
@@ -136,24 +138,8 @@ export class CheckoutPageComponent implements OnInit {
 
 checkoutPageFormBuilder(){
   this.createCheckoutPageForm = this.fb.group({
-    // userId:[''],
     quantity:['', [Validators.required]],
-    price: ['', [Validators.required]],
-    // addressId: [''],
-    // address1: ['', [Validators.required]],
-    // address2: [''],
-    // city: ['', [Validators.required]],
-    // state: [''],
-    // zipCode: [''],
-    // country: [''],
-    // cardNumber: [''],
-    // nameOnCard: [''],
-    // securityCode: [''],
-    // expiryMonth: [''],
-    // expiryYear: [''],
-    // cardBrand: [''],
-    // fullName: ['', [Validators.required]]
-
+    price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
   })
 }
 
@@ -197,8 +183,15 @@ getCardInfos(){
 
 calculatePrice(){
   this.shippingCost = Math.ceil(this.orderPayInfoDto.price/50)*Utility.SHIPPING_CHARGE;
+  this.shippingCost = Number(this.formatNumber(this.shippingCost));
   this.tax = (Utility.TAX/100) * this.orderPayInfoDto.price;
+  this.tax = Number(this.formatNumber(this.tax));
   this.totalPrice = this.orderPayInfoDto.price + this.shippingCost + this.tax;
+  this.totalPrice = Number(this.formatNumber(this.totalPrice));
+}
+
+formatNumber(num: number): string {
+  return num.toFixed(2);
 }
 
 
@@ -222,8 +215,7 @@ activeRadio(val: string) {
   this.selectedCardBrand = val;
 }
 
-createOrderPayment(){
-  console.log("--------- setOrderPay -----------");
+createOrderPayment(){ 
   this.setUserDetails();
 
   if(!this.validateAddress()){
@@ -235,46 +227,48 @@ createOrderPayment(){
 }
 
 setUserDetails(){
-  this.createCheckoutPageForm.addControl('fullName', this.fb.control(this.sToken.name));
+  this.createCheckoutPageForm.addControl('fullName', this.fb.control(this.sToken.card.name));
   this.createCheckoutPageForm.addControl('email', this.fb.control(this.sToken.email));
   this.createCheckoutPageForm.addControl('isGuestUser', this.fb.control(this.isGuestUser));
-  this.createCheckoutPageForm.addControl('cardId', this.fb.control(this.sToken.id));
+  this.createCheckoutPageForm.addControl('cardId', this.fb.control(this.sToken.card.id));
+  this.createCheckoutPageForm.addControl('transactionId', this.fb.control(this.sToken.id)); //////////
   this.createCheckoutPageForm.addControl('clientIp', this.fb.control(this.sToken.client_ip));
+  this.createCheckoutPageForm.addControl('lastFourDigits', this.fb.control(this.sToken.card.last4)); ///
 
   this.createCheckoutPageForm.addControl('cardInfoDto', this.fb.group({
-    cardNumber: this.sToken.address_city, 
-    nameOnCard: this.sToken.name,
-    expYear: this.sToken.exp_year, 
-    expMonth: this.sToken.exp_month,
-    cvc: this.sToken.address_line2,
-    cardBrand: this.sToken.brand,
+    cardNumber: this.sToken.card.address_city, 
+    nameOnCard: this.sToken.card.name,
+    expYear: this.sToken.card.exp_year, 
+    expMonth: this.sToken.card.exp_month,
+    cvc: this.sToken.card.address_line2,
+    cardBrand: this.sToken.card.brand,
   }));
   
   this.createCheckoutPageForm.addControl('addressDto', this.fb.group({
-    city: this.sToken.address_city, 
-    state: this.sToken.address_state,
-    zipCode: this.sToken.address_zip, 
-    address1: this.sToken.address_line1,
-    address2: this.sToken.address_line2,
-    country: this.sToken.address_country,
+    city: this.sToken.card.address_city, 
+    state: this.sToken.card.address_state,
+    zipCode: this.sToken.card.address_zip, 
+    address1: this.sToken.card.address_line1,
+    address2: this.sToken.card.address_line2,
+    country: this.sToken.card.address_country,
   }));
 
 }
 
 saveOrderPayment(){
   var data = {...this.createCheckoutPageForm.value,shoppingCartDtos: this.cartItems};
-
-  console.log("=====saveOrderPayment ====");
   console.log(data);    
   
   this.orderPayService.createOrderPay(data)
     .pipe()
     .subscribe({ next: (resp) => {
-          console.log(" ::::::::::::: ");
           console.log(resp);
-
+          this.toastrService.show(resp.message, { classname: 'bg-success text-light fs-5', delay: 2000 });      
+          this.router.navigate([APP_UI_ROUTES.DASHBOARD]);
         },
-        error: (error) => { console.log(error);}
+        error: (error) => {
+          this.toastrService.show(error.message, { classname: 'bg-danger text-light fs-5', delay: 2000 });
+          }
       });
 
 }

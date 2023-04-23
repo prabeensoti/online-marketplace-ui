@@ -5,9 +5,9 @@ export class ProductModel {
   quantity: number;
   price: number;
   categoryId: number;
-  images: FileList;
+  images: String[] | undefined;
 
-  constructor(productId: number, name: string, description: string, quantity: number, price: number, categoryId: number,images: FileList) {
+  constructor(productId: number, name: string, description: string, quantity: number, price: number, categoryId: number,images?: String[]) {
     this.productId = productId;
     this.name = name;
     this.description = description;
