@@ -11,6 +11,7 @@ import { CategoryComponent } from "../public-pages/category/category.component";
 import { AddProductComponent } from "@app/features/dashboard/vendor/manage-products/add-product/add-product.component";
 
 
+
 export const ROUTES: Routes = [
     {
         path: '',

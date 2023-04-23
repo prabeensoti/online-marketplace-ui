@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AbstractDataConfigurer } from '@app/shared/table/abstract-data-configurer';
-import { OrderGridService } from '../../configurer/order-grid.service';
-import { OrderDTO } from '@app/core/model/domain.model';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {AbstractDataConfigurer} from '@app/shared/table/abstract-data-configurer';
+import {OrderDTO} from '@app/core/model/domain.model';
+import {VendorOrderGridService} from "@app/features/dashboard/configurer/order/vendor-order-grid.service";
+import {OrderResponseDto} from "@app/core/model/order-response.model";
 
 @Component({
   selector: 'app-manage-orders',
@@ -11,10 +12,10 @@ import { OrderDTO } from '@app/core/model/domain.model';
 })
 export class ManageOrdersComponent {
 
-  orderDataGridConfigurer!: AbstractDataConfigurer<OrderDTO>;
+  vendorOrderDataGridConfigure!: AbstractDataConfigurer<OrderResponseDto>;
 
-  constructor(private orderGridService: OrderGridService, private router: Router) {
-    this.orderDataGridConfigurer = orderGridService;
+  constructor(private vendorOrderGridService: VendorOrderGridService) {
+    this.vendorOrderDataGridConfigure = vendorOrderGridService;
   }
 
   selectedOrder(data: OrderDTO): void {

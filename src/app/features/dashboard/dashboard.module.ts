@@ -17,8 +17,14 @@ import { VerifyVendorsComponent } from './admin/verify-vendors/verify-vendors.co
 import { SupportNMessagesComponent } from './components/support-n-messages/support-n-messages.component';
 import { ReportViewComponent } from './components/report-view/report-view.component';
 import { UserOrdersComponent } from './user/user-orders/user-orders.component';
+
+import { CategoryComponent } from '../public-pages/category/category.component';
+//import {AddProductComponent} from "@app/features/dashboard/vendor/products/add-product/add-product.component";
+import { OrderManageAllComponent } from './admin/manage-order/order-manage-all.component';
+
 import {AddProductComponent} from "@app/features/dashboard/vendor/manage-products/add-product/add-product.component";
 import { SalesReportComponent } from './vendor/product-sales-report/sales-report.component';
+
 
 
 @NgModule({
@@ -37,7 +43,11 @@ import { SalesReportComponent } from './vendor/product-sales-report/sales-report
     ReportViewComponent,
     UserOrdersComponent,
     AddProductComponent,
+
+    OrderManageAllComponent
+
     SalesReportComponent
+
   ],
   imports: [
     CommonModule,
