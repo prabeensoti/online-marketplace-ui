@@ -50,6 +50,11 @@ export class OrderService {
     return this.http.get<any>(ApiEndpoints.ORDERS.GET_BY_PRODUCT_CODE, {params});
   }
 
+  patchOrder(orderId: number): Observable<boolean> {
+    const allOrdersObservable: Observable<boolean> = this.http.patch<boolean>(ApiEndpoints.ORDERS.PATCH_ORDER+'/'+orderId, {});
+    return allOrdersObservable;
+  }
+
 
   errorHandler(error: HttpErrorResponse): Observable<any> {
     console.log('Order api error ', error);
