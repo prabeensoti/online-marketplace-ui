@@ -67,7 +67,7 @@ export class ApiEndpoints {
         UPDATE: API_ENDPOINT + '/orders',
         DELETE: API_ENDPOINT + '/orders',
         FILTER: API_ENDPOINT + '/orders/filter',
-        GET_BY_PRODUCT_CODE: API_ENDPOINT + '/orders'
+        GET_BY_PRODUCT_CODE: API_ENDPOINT + '/public/orders'
 
     };
 
