@@ -54,10 +54,12 @@
               <span>Total (USD) :</span>
               <strong>{{ totalPrice }}</strong>
             </li>
-          </ul>
+          </ul>        
+          <button type="button"  (click)="confirmPayment()"class=" row btn btn-primary btn-sm m-2">Confirm Payment</button>
+    
         </div>
       </div>
-        <fieldset class="form-group">
+        <!-- <fieldset class="form-group">
           <legend class="col-form-label col-sm-2 pt-0"><strong>Shipping Address</strong></legend>
           <div class="my-3">
             <div *ngFor="let shippingAddress of shippingAddresses">
@@ -86,16 +88,20 @@
 
             <div *ngIf="selectedAddressId === 0 ">
               <div class="row">
-              <div class="form-group col-md-6">
-                <label for="inputAddress">Address Street</label>
-                <input type="text" formControlName="address1" class="form-control"
-                 placeholder="1234 Main St">
+                <div class="form-group col-md-4">
+                  <label>Full Name</label>
+                  <input type="text" formControlName="fullName" class="form-control"
+                   placeholder="Enter your name" [readonly]="!isGuestUser">
+                </div>
+              <div class="form-group col-md-4">
+                <label>Address Street</label>
+                <input type="text" formControlName="address1" class="form-control">
               </div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-4">
                 <label for="inputAddress2">Address 2</label>
                 <input type="text" formControlName="address2"
-                  class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                  class="form-control" id="inputAddress2">
               </div>
               </div>
 
@@ -119,31 +125,11 @@
             </div>
           </div>
 
-        </fieldset>
-          <fieldset class="form-group" disabled>
-            <legend class="col-form-label col-sm-2 pt-0">Payment</legend>
-            <div class="my-3">
-              <div *ngFor="let radiobutton of cardBrands">
+        </fieldset> -->
 
-                <input type="radio" formControlName="cardBrand" class="form-check-input"
-                [value]="radiobutton.val" (click)="activeRadio(radiobutton.val)"
-                [checked]="radiobutton.val === selectedCardBrand" readonly>
-                <label for="{{radiobutton.name}}" >
-                  {{radiobutton.name}}</label>
-              </div>
-            </div>
-          </fieldset>
-
-    <button type="button"  (click)="createOrderPayment()"class=" row btn btn-primary btn-md m-2">Confirm</button>
-
+   
     </div>
-
-  <button (click)="makePayment(10)">Pay $10</button>
 
   </form>
 
-    <!-- <ngx-stripe-card
-      [options]="cardOptions"
-      [elementsOptions]="elementsOptions"
-    ></ngx-stripe-card> -->
 
