@@ -38,8 +38,15 @@ export class AuthenticationService {
     return processedUserDTOObservable;
   }
 
+  public checkIfEmailIsAvailable(email: string): Observable<GenericResponse<boolean>> {
+    const emailAvailabilityObservable: Observable<GenericResponse<boolean>> = this.http.get<GenericResponse<boolean>>(this.AUTH_URL.CHECK_EMAIL_IS_AVAILABLE, {
+      params: {email: email}
+    });
+    return emailAvailabilityObservable;
+  }
+
   public verifyEmailVerificationRequest(verifyEmailContext: VerifyEmailContext, redirectToLoginUri?: boolean): Observable<GenericResponse<boolean>> {
-    const checkVerificationCodeResponse: Observable<GenericResponse<boolean>> = this.http.post<GenericResponse<boolean>>(this.AUTH_URL.CHECK_VERIFICATION_CODE, verifyEmailContext);
+    const checkVerificationCodeResponse: Observable<GenericResponse<boolean>> = this.http.post<GenericResponse<boolean>>(this.AUTH_URL.CHECK_EMAIL_VERIFICATION_CODE, verifyEmailContext);
     const processedVerificationCodeObservable: Observable<GenericResponse<boolean>> = checkVerificationCodeResponse.pipe(
       map((verificationResponse: GenericResponse<boolean>) => {
         if (redirectToLoginUri) {
@@ -63,6 +70,7 @@ export class AuthenticationService {
     // });
     const generateCredentialsObservable: Observable<Credentials> = authResponseObservable.pipe(
       map((authResponse: AuthResponse) => {
+        this.logout(false);
         const tokenPayload: JwtTokenPayload = this.parseJwt(authResponse.token);
         const credentialsData: Credentials = {
           userId: authResponse.userId,

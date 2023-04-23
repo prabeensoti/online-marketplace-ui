@@ -1,16 +1,9 @@
 .container .card .left-side {
-    // width: 35%;
     background-color: #304767;
-    // height: 100%;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     padding: 20px 30px;
     box-sizing: border-box;
-}
-
-/*left-side-start*/
-.left-heading {
-    color: #fff;
 }
 
 .steps-content {
@@ -73,9 +66,7 @@
     display: none;
 }
 
-/*.progress-bar li:last-child:after{*/
-/*  display:none;  */
-/*}*/
+
 .progress-bar li.active::before {
     color: #fff;
     border: 1px solid #fff;
@@ -86,20 +77,6 @@
 }
 
 .d-none {
-    display: none;
-}
-
-
-// /*left-side-end*/
-// .container .card .right-side {
-//     width: 65%;
-//     background-color: #fff;
-//     height: 100%;
-//     border-radius: 20px;
-// }
-
-/*right-side-start*/
-.main {
     display: none;
 }
 

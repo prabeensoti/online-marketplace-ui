@@ -1,181 +1,141 @@
 
-<div class="container">
-      <div class="py-5 text-center">
-        <h2>Checkout form</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+<form [formGroup]="createCheckoutPageForm">
+  <div class="container">
+    <div class="py-5 text-center">
+      <h2>CHECKOUT FORM</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-7 col-lg-8 pb-2" style="max-height: 70vh; overflow-y: scroll; overflow-x: hidden;">
+        <div *ngFor="let item of cartItems">
+            <div class="row">
+                <div class="border" style="padding: 10px">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="https://images.ctfassets.net/5gvckmvm9289/3BlDoZxSSjqAvv1jBJP7TH/65f9a95484117730ace42abf64e89572/Noissue-x-Creatsy-Tote-Bag-Mockup-Bundle-_4_-2.png"
+                                width="150px" />
+                        </div>
+                        <div class="col-md-10">
+                          <div class="product_name_container">
+                            <h5><a href="#" target="_blank">{{ item?.product?.name }}</a></h5>
+                          </div>
+                            <p>{{item.product.description}}</p>
+                            <p><strong>Category:</strong> {{ item.product.productCategory.category }}</p>
+                            <p><strong>Price:</strong> {{ item.product.price }}</p>
+                            <p><strong>Quantity:</strong> {{item.quantity}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
-
-      <div class="row g-5">
-        <div class="col-md-5 col-lg-4 order-md-last">
+        <div class="col-md-5 col-lg-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Your cart</span>
-            <span class="badge bg-primary rounded-pill">{{items.length}}</span>
+            <span class="text-primary">Your Cart Order Summary</span>
           </h4>
+  
           <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-sm" *ngFor="let item of items">
-              <div>
-                <h6 class="my-0">{{ item.name }}</h6>
-                <small class="text-muted">{{ item.description }}</small>
-              </div>
-              <span class="text-muted">{{ item.price }}</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-success">
-                <h6 class="my-0">{{ promo.name }}</h6>
-                <small>{{ promo.code }}</small>
-              </div>
-              <span class="text-success">−{{ promo.discount }}</span>
-            </li>
+            
             <li class="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
-              <strong>{{ total }}</strong>
+              <span class="my-0">Items <span class="badge bg-primary rounded-pill">{{orderPayInfoDto.quantity}}</span> :</span>
+              <span class="my-0">{{ orderPayInfoDto.price }}</span>
             </li>
-          </ul>
-
-          <form class="card p-2">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Promo code">
-              <button type="submit" class="btn btn-secondary">Redeem</button>
-            </div>
-          </form>
-
-          <button class="w-100 btn btn-primary btn-lg m-2" type="submit" (click)="onCheckOut()">Confirm</button>
-
-        </div>
-        <div class="col-md-7 col-lg-8">
-          <h4 class="mb-3">Billing address</h4>
-          <form class="needs-validation" novalidate>
-            <div class="row g-3">
-              <div class="col-sm-6">
-                <label for="firstName" class="form-label">First name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                <div class="invalid-feedback">
-                  Valid first name is required.
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-                <label for="lastName" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                <div class="invalid-feedback">
-                  Valid last name is required.
-                </div>
-              </div>
-
-              <div class="col-12">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-                <div class="invalid-feedback">
-                  Please enter your shipping address.
-                </div>
-              </div>
-
-              <div class="col-12">
-                <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-                <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-              </div>
-
-              <div class="col-md-5">
-                <label for="country" class="form-label">Country</label>
-                <select class="form-select" id="country" required>
-                  <option value="">Choose...</option>
-                  <option>United States</option>
-                </select>
-                <div class="invalid-feedback">
-                  Please select a valid country.
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <label for="state" class="form-label">State</label>
-                <select class="form-select" id="state" required>
-                  <option value="">Choose...</option>
-                  <option>California</option>
-                </select>
-                <div class="invalid-feedback">
-                  Please provide a valid state.
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <label for="zip" class="form-label">Zip</label>
-                <input type="text" class="form-control" id="zip" placeholder="" required>
-                <div class="invalid-feedback">
-                  Zip code required.
-                </div>
-              </div>
-            </div>
-
-            <hr class="my-4">
-
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="same-address">
-              <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
-            </div>
-
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="save-info">
-              <label class="form-check-label" for="save-info">Save this information for next time</label>
-            </div>
-
-            <hr class="my-4">
-
-            <h4 class="mb-3">Payment</h4>
-
-            <div class="my-3">
-              <div class="form-check">
-                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-                <label class="form-check-label" for="credit">Credit card</label>
-              </div>
-              <div class="form-check">
-                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-                <label class="form-check-label" for="debit">Debit card</label>
-              </div>
-              <div class="form-check">
-                <input id="stripe" name="paymentMethod" type="radio" class="form-check-input" required>
-                <label class="form-check-label" for="stripe">Stripe</label>
-              </div>
-            </div>
-
-            <div class="row gy-3">
-              <div class="col-md-6">
-                <label for="cc-name" class="form-label">Name on card</label>
-                <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                <small class="text-muted">Full name as displayed on card</small>
-                <div class="invalid-feedback">
-                  Name on card is required
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <label for="cc-number" class="form-label">Credit card number</label>
-                <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                <div class="invalid-feedback">
-                  Credit card number is required
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <label for="cc-expiration" class="form-label">Expiration</label>
-                <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                <div class="invalid-feedback">
-                  Expiration date required
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <label for="cc-cvv" class="form-label">CVV</label>
-                <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                <div class="invalid-feedback">
-                  Security code required
-                </div>
-              </div>
-            </div>
-
-            <hr class="my-4">
-
-          </form>
+  
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Shipping & Handling : </span>
+              <span>{{ shippingCost }}</span>
+            </li>
+  
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Estimated tax : </span>
+              <span>{{ tax }}</span>
+            </li>
+  
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD) :</span>
+              <strong>{{ totalPrice }}</strong>
+            </li>
+          </ul>  
         </div>
       </div>
+        <fieldset class="form-group">
+          <legend class="col-form-label col-sm-2 pt-0"><strong>Shipping Address</strong></legend>
+          <div class="my-3">
+            <div *ngFor="let shippingAddress of shippingAddresses">
+              <div *ngIf="shippingAddress.addressId!=0; else newAddress" class="form-check">
+                <input type="radio" formControlName="addressId"
+                [value]="shippingAddress.addressId" (click)="activeShippingAddress(shippingAddress.addressId)"
+                [checked]="shippingAddress.addressId === selectedAddressId" class="form-check-input">
+                <label class="form-check-label">
+                   {{shippingAddress?.address1}},
+                   {{shippingAddress?.address2}},
+                   {{shippingAddress?.city}},
+                   {{shippingAddress?.state}},
+                   {{shippingAddress?.zipCode}},
+                   {{shippingAddress?.country}}
+                </label>
+              </div>
+              <ng-template #newAddress>
+                <div class="form-check">
+                <input type="radio" 
+                [value]="shippingAddress.addressId" (click)="activeShippingAddress(shippingAddress.addressId)"
+                [checked]="shippingAddress.addressId === selectedAddressId" class="form-check-input">
+                <label class="form-check-label"><strong>New Address</strong></label>
+              </div>
+              </ng-template>
+            </div>
+            
+            <div *ngIf="selectedAddressId === 0 ">
+              <div class="row">
+              <div class="form-group col-md-6">
+                <label for="inputAddress">Address Street</label>
+                <input type="text" formControlName="address1" class="form-control"
+                 placeholder="1234 Main St">
+              </div>
 
-  </div>
+              <div class="form-group col-md-6">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" formControlName="address2"
+                  class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+              </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label for="inputCity">City</label>
+                  <input type="text" formControlName="city"
+                    class="form-control" id="inputCity">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputCity">State</label>
+                  <input type="text" formControlName="state"
+                  class="form-control" id="state">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputZip">Zip</label>
+                  <input type="text" formControlName="zipCode"
+                  class="form-control" id="inputZip">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </fieldset>
+          <fieldset class="form-group" disabled>
+            <legend class="col-form-label col-sm-2 pt-0">Payment</legend>
+            <div class="my-3">
+              <div *ngFor="let radiobutton of cardBrands">
+                
+                <input type="radio" formControlName="cardBrand" class="form-check-input" 
+                [value]="radiobutton.val" (click)="activeRadio(radiobutton.val)"
+                [checked]="radiobutton.val === selectedCardBrand" readonly>
+                <label for="{{radiobutton.name}}" >
+                  {{radiobutton.name}}</label>
+              </div>
+            </div>
+          </fieldset>
+        
+    <button type="button"  (click)="createOrderPayment()"class=" row btn btn-primary btn-md m-2">Confirm</button>
+  
+    </div>
+  
+  </form>

@@ -1,5 +1,5 @@
 <div class="container">
-    <app-table [title]="'Verify Order'" [dataGridConfigurer]="productDataGridConfigurer"
+    <app-table [title]="'Verify Product'" [dataGridConfigurer]="productDataGridConfigurer"
         [actionTemplate]="{'Update': updateTemplate}">
     </app-table>
 </div>
@@ -19,7 +19,7 @@
     <form>
       <div class="mb-3">
         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
-               [formControl]="isVerified">
+               [formControl]="isVerified"> &nbsp;
         <label class="form-check-label" for="flexCheckDefault">
           Verify Product
         </label>

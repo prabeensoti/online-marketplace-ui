@@ -16,6 +16,7 @@ import { ProductItemComponent } from './components/product-item/product-item.com
 import { NewsletterComponent } from './components/newsletter/newsletter.component';
 import {InvoiceComponent} from "@app/features/public-pages/invoice/invoice.component";
 import { CategoryComponent } from './category/category.component';
+import { CheckingOrderComponent } from './checking-order/checking-order.component';
 
 
 @NgModule({
@@ -30,12 +31,14 @@ import { CategoryComponent } from './category/category.component';
     CategoryItemsComponent,
     ProductItemComponent,
     NewsletterComponent,
-    CategoryComponent
+    CategoryComponent,
+    CheckingOrderComponent
   ],
   imports: [
     CommonModule,
     PublicPagesRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     SharedModule,
     ReactiveFormsModule

@@ -1,13 +1,43 @@
-<form [formGroup]="form" (ngSubmit)="onNext()">
-    <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="text" class="form-control" placeholder="Enter company email" formControlName="email">
+<div class="text">
+    <h2>Account Creation</h2>
+    <p>Create your initial admin username and password.</p>
+</div>
+
+<app-page-status-view [statusModel]="statusModel"></app-page-status-view>
+
+<div [formGroup]="parentForm">
+
+    <div formGroupName="account">
+        <div class="mb-3">
+            <label class="form-label"><span class="text-danger">*</span> Email</label>
+            <input type="text" class="form-control" placeholder="Enter company email" formControlName="email"
+                [ngClass]="{ 'is-invalid': !currentFormGroup.controls['email'].pristine && currentFormGroup.controls['email'].errors,
+                'is-valid': emailValidState.isValid && emailValidState.apiCalled}"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><span class="text-danger">*</span> Password</label>
+            <input type="password" class="form-control" placeholder="Password"
+                formControlName="password"
+                [ngClass]="{ 'is-invalid': !currentFormGroup.controls['password'].pristine && currentFormGroup.controls['password'].errors }" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><span class="text-danger">*</span> Confirm Password</label>
+            <input type="password" class="form-control" id="floatingPasswordConfirm"
+                placeholder="Confirm Password" formControlName="passwordConfirm"
+                [ngClass]="{ 'is-invalid': !currentFormGroup.controls['passwordConfirm'].pristine && currentFormGroup.controls['passwordConfirm'].errors }"
+                required>
+
+            <span class="text-danger"
+                *ngIf="currentFormGroup.controls['passwordConfirm'].errors?.['confirmedValidator']">
+                Password must match </span>
+        </div>
+
+        <div class="text-start">
+            <button class="btn btn-primary btn-lg" type="button" (click)="onNext()"
+                [disabled]="!currentFormGroup.valid">Next</button>
+        </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-control" placeholder="Enter password" formControlName="password">
-    </div>
-    <div class="text-center">
-        <button class="btn btn-primary" [disabled]="!form.valid">Next</button>
-    </div>
-</form>
+</div>

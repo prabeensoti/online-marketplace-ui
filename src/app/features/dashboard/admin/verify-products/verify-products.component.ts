@@ -6,6 +6,7 @@ import { ProductGridAdminService } from '../../configurer/product-grid-admin.ser
 import {FormControl} from "@angular/forms";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ProductService} from "@app/core/service/product.service";
+import {ToastService} from "@app/core/service/toast.service";
 
 @Component({
   selector: 'app-verify-products',
@@ -21,11 +22,13 @@ export class VerifyProductsComponent {
 
   constructor(private productGridService: ProductGridAdminService, private router: Router,
               private modalService: NgbModal,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private toastService: ToastService) {
     this.productDataGridConfigurer = productGridService;
   }
 
   verifySelectedProduct(data: ProductDTO, content: any): void {
+    this.isVerified = new FormControl();
     console.log('Verify product ', data);
     // TODO verify product
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
@@ -33,10 +36,14 @@ export class VerifyProductsComponent {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.isVerified.value)
         const isVerified = this.isVerified.value
-        if(isVerified == true)
+        if (isVerified == true) {
           data.isVerified = true
-        else
+          this.toastService.show("Product Verify Successfully!", {classname: 'bg-success text-light fs-5', delay: 2000});
+        }
+        else {
           data.isVerified = false
+          this.toastService.show("Product UnVerify Successfully!", {classname: 'bg-success text-light fs-5', delay: 2000});
+        }
 
         const verifyProduct : VerifyProductDTO = {
           categoryId: data.productCategory.categoryId,
@@ -55,6 +62,7 @@ export class VerifyProductsComponent {
           console.log('Response ', res)
         }, err => {
           console.log(err)
+          this.toastService.show(err.error.status+" "+err.error.message, { classname: 'bg-danger text-light fs-5', delay: 2000 });
         })
       },
       (reason) => {

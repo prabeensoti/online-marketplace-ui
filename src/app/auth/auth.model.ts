@@ -14,7 +14,7 @@ export interface RegisterContext {
 }
 export interface VerifyEmailContext {
     email: string;
-    verificationCode: string;
+    emailVerificationCode: string;
     registeredProviderName: string;
 }
 export interface VerifyForgotPasswordContext {
@@ -46,6 +46,22 @@ export interface JwtTokenPayload {
     attributes?: object;
     iat: string;
     exp: string
+}
+
+export interface CardInfoContext {
+    cardNumber: number;
+    firstName: string;
+    lastName: string;
+    expiryDate: string;
+    cvv: number
+}
+
+export interface VendorRegistrationContext {
+    email: string;
+    password: string;
+    companyName: string;
+    description: string;
+    cardInfo: CardInfoContext;
 }
 
 export interface CategoryContext {

@@ -1,22 +1,41 @@
-<form [formGroup]="form" (ngSubmit)="onNext()">
-    <div class="mb-3">
-        <label class="form-label">Card Number</label>
-        <input type="text" class="form-control" formControlName="cardNumber" placeholder="Enter card number">
+<div class="text">
+    <h2>Registration Payment</h2>
+    <p>Complete the paymenent and register into the system.</p>
+</div>
+
+<div [formGroup]="parentForm">
+    <div formGroupName="cardInfo">
+        <div class="mb-3">
+            <label class="form-label"><span class="text-danger">*</span> Card Number - 16 digits</label>
+            <input type="text" class="form-control" formControlName="cardNumber" placeholder="Enter card number - numeric"
+                [ngClass]="{ 'is-invalid': !currentFormGroup.controls['cardNumber'].pristine && currentFormGroup.controls['cardNumber'].errors }"
+                appAutoFocus>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><span class="text-danger">*</span>First name on card</label>
+            <input type="text" class="form-control" formControlName="firstName" placeholder="Enter first name on card"
+                [ngClass]="{ 'is-invalid': !currentFormGroup.controls['firstName'].pristine && currentFormGroup.controls['firstName'].errors }">
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><span class="text-danger">*</span>Last name on card</label>
+            <input type="text" class="form-control" formControlName="lastName" placeholder="Enter last name on card"
+                [ngClass]="{ 'is-invalid': !currentFormGroup.controls['lastName'].pristine && currentFormGroup.controls['lastName'].errors }">
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><span class="text-danger">*</span>Expiry Date</label>
+            <input type="text" class="form-control" formControlName="expiryDate" placeholder="MM/YY"
+                [ngClass]="{ 'is-invalid': !currentFormGroup.controls['expiryDate'].pristine && currentFormGroup.controls['expiryDate'].errors }">
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><span class="text-danger">*</span>CVV</label>
+            <input type="password" class="form-control" formControlName="cvv" placeholder="Enter CVV"
+                [ngClass]="{ 'is-invalid': !currentFormGroup.controls['cvv'].pristine && currentFormGroup.controls['cvv'].errors }">
+        </div>
+        <div class="d-flex justify-content-start">
+            <button class="btn btn-secondary btn-lg me-3" type="button" (click)="onNext(false)">Previous</button>
+            <!-- <button class="btn btn-primary btn-lg" type="button"
+                [disabled]="!currentFormGroup.valid" (click)="onNext()">Confirm</button> -->
+            <ng-content></ng-content>
+        </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Name on Card</label>
-        <input type="text" class="form-control" formControlName="nameOnCard" placeholder="Enter name on card">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Expiry Date</label>
-        <input type="text" class="form-control" formControlName="expiryDate" placeholder="MM/YY">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">CVV</label>
-        <input type="text" class="form-control" formControlName="cvv" placeholder="Enter CVV">
-    </div>
-    <div class="d-flex justify-content-between">
-        <button class="btn btn-secondary" type="button" (click)="onPrevious()">Previous</button>
-        <button class="btn btn-primary" type="submit" value="submit" [disabled]="!form.valid">Confirm</button>
-    </div>
-</form>
+</div>

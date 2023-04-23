@@ -1,3 +1,10 @@
+
+export interface StatusModel {
+  loading: boolean;
+  hasError: boolean;
+  message?: string;
+  messageType?: 'auto' | 'info' | 'success' | 'warning' | 'danger' | 'light'
+}
 export interface PageRequest {
   page: number;
   size: number;
@@ -8,8 +15,6 @@ export interface PageRequest {
 export interface GenericResponse<T> {
   messageCode: string;
   response: T;
-  totalElements: number;
-  httpStatus: string;
 }
 
 export interface GenericFilterRequest<T> {

@@ -1,0 +1,4 @@
+<div *ngIf="statusModel.message && statusModel.message.length > 0" class="alert"
+    [ngClass]="statusModel.hasError? 'alert-danger': 'alert-primary' " role="alert">
+    {{statusModel.message}}
+</div>
