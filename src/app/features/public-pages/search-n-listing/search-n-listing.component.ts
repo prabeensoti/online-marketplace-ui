@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, convertToParamMap, ParamMap, Params} from '@angular/router';
 import {ProductDTO, SearchFilterContext} from '@app/core/model/domain.model';
 import {ProductService} from '@app/core/service/product.service';
-import {filter} from 'rxjs';
+import {debounceTime, filter, fromEvent} from 'rxjs';
 import {CredentialsService} from "@app/auth/services/credentials.service";
 import {ShoppingCartService} from "@app/core/service/shopping-cart.service";
 import {ToastService} from "@app/core/service/toast.service";
@@ -134,10 +134,23 @@ export class SearchNListingComponent implements OnInit {
     this.onFilterChange();
   }
 
-  onInput(value: number) {
-    console.log('Input value: ' + value);
-    this.processRouteQueryParams();
-    this.onFilterChange();
+  onMinPriceInput(value: string) {
+    fromEvent(document, 'input')
+      .pipe(debounceTime(500))
+      .subscribe(() => {
+        console.log('Input value: ' + value);
+        this.processRouteQueryParams();
+        this.onFilterChange();
+      });
+  }
 
+  onMaxPriceInput(value: string) {
+    fromEvent(document, 'input')
+      .pipe(debounceTime(500))
+      .subscribe(() => {
+        console.log('Input value: ' + value);
+        this.processRouteQueryParams();
+        this.onFilterChange();
+      });
   }
 }
