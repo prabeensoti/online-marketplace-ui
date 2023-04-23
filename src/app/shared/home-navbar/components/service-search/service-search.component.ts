@@ -27,7 +27,7 @@ export class ServiceSearchComponent implements OnInit {
   getCategories() { 
     this.categoryService.getAllCategories().subscribe(res => {
       this.categories = res;
-      console.log(this.categories);
+      // console.log(this.categories);
     });
   }
 

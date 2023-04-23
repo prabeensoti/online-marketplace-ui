@@ -10,6 +10,11 @@ export class HomePageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("Home page");
+  }
+
+  onReload(): void {
+    window.location.reload();
   }
 
 }
