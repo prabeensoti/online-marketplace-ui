@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {catchError, Observable} from "rxjs";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {catchError, Observable, throwError} from "rxjs";
 import {ApiEndpoints} from "@app/core/app-url.constant";
-import {PageableResponse, PageRequest} from "@app/core/core.model";
+import {GenericFilterRequest, PageableResponse, PageRequest} from "@app/core/core.model";
 import {OrderResponseDto} from "@app/core/model/order-response.model";
 import {CoreUtil} from "@app/core/core.util";
 import {ProductService} from "@app/core/service/product.service";
+import { OrderDTO } from '../model/domain.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,4 +32,20 @@ export class ManageOrderService {
       params: CoreUtil.buildPageParams(pageRequest)
     }).pipe(catchError(this.productService.errorHandler));
   }
+
+  filterOrderByAdmin(pageRequest: PageRequest, genericFilterRequest: GenericFilterRequest<OrderDTO>): Observable<PageableResponse<Array<OrderResponseDto>>> {
+    const options = {
+      params: CoreUtil.buildPageParams(pageRequest)
+    };
+    return this.http
+      .post<PageableResponse<Array<OrderResponseDto>>>(ApiEndpoints.MANAGE_ORDERS.FILTER, genericFilterRequest, options)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  errorHandler(error: HttpErrorResponse): Observable<any> {
+    console.log('Product api error ', error);
+    // show toast notification
+    return throwError(error);
+  }
+
 }

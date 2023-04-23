@@ -42,30 +42,30 @@ export class HttpAuthInterceptor implements HttpInterceptor {
           const originalRequestedUri = urlPath && urlPath.length > 0 && urlPath ? urlPath : APP_UI_ROUTES.HOME;
 
           // Error Status 401: UnAuthorized Access
-          if (error.status === 401) {
-            const wasAuthenticated = this.credentialsService.isAuthenticated();
-            const UnAuthorizedAccessMsg = wasAuthenticated ? 'Session Timeout, Invalid Session ID !!!' : 'Un-Authorized Access ! Please Login !!!';
-            this.authenticationService.logout(false);
-            this.router.navigate([APP_UI_ROUTES.LOGIN],
-              {
-                queryParams: {
-                  [QueryParamUIKey.ORIGINAL_REQUEST_URI]: originalRequestedUri,
-                  [QueryParamUIKey.DEFAULT_INFO_MESSAGE]: UnAuthorizedAccessMsg
-                },
-                replaceUrl: true
-              });
-          }
-          // Error Status 403: Forbidden Access
-          if (error.status === 403) {
-            this.router.navigate([APP_UI_ROUTES.LOGIN],
-              {
-                queryParams: {
-                  [QueryParamUIKey.ORIGINAL_REQUEST_URI]: originalRequestedUri,
-                  [QueryParamUIKey.DEFAULT_INFO_MESSAGE]: 'Forbidden, Please login with elevated credentials'
-                },
-                replaceUrl: true
-              });
-          }
+          // if (error.status === 401) {
+          //   const wasAuthenticated = this.credentialsService.isAuthenticated();
+          //   const UnAuthorizedAccessMsg = wasAuthenticated ? 'Session Timeout, Invalid Session ID !!!' : 'Un-Authorized Access ! Please Login !!!';
+          //   this.authenticationService.logout(false);
+          //   this.router.navigate([APP_UI_ROUTES.LOGIN],
+          //     {
+          //       queryParams: {
+          //         [QueryParamUIKey.ORIGINAL_REQUEST_URI]: originalRequestedUri,
+          //         [QueryParamUIKey.DEFAULT_INFO_MESSAGE]: UnAuthorizedAccessMsg
+          //       },
+          //       replaceUrl: true
+          //     });
+          // }
+          // // Error Status 403: Forbidden Access
+          // if (error.status === 403) {
+          //   this.router.navigate([APP_UI_ROUTES.LOGIN],
+          //     {
+          //       queryParams: {
+          //         [QueryParamUIKey.ORIGINAL_REQUEST_URI]: originalRequestedUri,
+          //         [QueryParamUIKey.DEFAULT_INFO_MESSAGE]: 'Forbidden, Please login with elevated credentials'
+          //       },
+          //       replaceUrl: true
+          //     });
+          // }
 
           return throwError(error);
         }));
