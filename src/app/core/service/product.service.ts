@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ProductDTO, SearchFilterContext, VerifyProductDTO} from '../model/domain.model';
 import { Observable, catchError, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import { ApiEndpoints } from '../app-url.constant';
 import { GenericFilterRequest, PageRequest, PageableResponse } from '../core.model';
 import { CoreUtil } from '../core.util';
@@ -77,13 +77,16 @@ export class ProductService {
     formData.set("description", product.description);
     formData.set("quantity", product.quantity.toString());
     formData.set("price", product.price.toString());
-    formData.set("vendorId", product.vendorId.toString());
+    // formData.set("vendorId", product.vendorId.toString());
     formData.set("categoryId", product.categoryId.toString());
     formData.set("images", product.images.toString());
     return this.http.post<ProductModel>(ApiEndpoints.PRODUCTS.CREATE, formData);
   }
 
   verifyProduct(data: VerifyProductDTO): Observable<ProductDTO> {
-    return this.http.put<ProductDTO>(ApiEndpoints.PRODUCTS.UPDATE, data);
+    let params = new HttpParams();
+    params = params.append('productId', data.productId)
+    params = params.append('isVerified', data.isVerified);
+    return this.http.put<ProductDTO>(ApiEndpoints.PRODUCTS.VERIFY, params);
   }
 }

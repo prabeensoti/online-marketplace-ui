@@ -1,14 +1,10 @@
 <div class="row justify-content-end me-5 mb-3">
     <div class="col-auto">
-        <button class="btn btn-lg btn-primary rounded-pill" role="button">New +</button>
+        <button class="btn btn-lg btn-primary rounded-pill" role="button" (click)="addProduct()">Add Product</button>
     </div>
 </div>
-
-<app-add-product></app-add-product>
-
-
 <div class="container">
-    <app-table [title]="'Manage Products'" [dataGridConfigurer]="productVendorDataGridConfigurer"
+    <app-table [title]="'Manage Products'" [dataGridConfigurer]="productVendorDataGridConfigure"
         [actionTemplate]="{'Update': updateTemplate}">
     </app-table>
 </div>

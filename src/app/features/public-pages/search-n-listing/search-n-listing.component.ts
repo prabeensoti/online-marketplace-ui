@@ -130,6 +130,14 @@ export class SearchNListingComponent implements OnInit {
 
   onSelectChange() {
     console.log('Selected option: ' + this.sortedPrice);
+    this.processRouteQueryParams();
     this.onFilterChange();
+  }
+
+  onInput(value: number) {
+    console.log('Input value: ' + value);
+    this.processRouteQueryParams();
+    this.onFilterChange();
+
   }
 }

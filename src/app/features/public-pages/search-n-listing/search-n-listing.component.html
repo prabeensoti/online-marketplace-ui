@@ -23,11 +23,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Minimum Price</label>
-                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Minimum Price">
+                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Minimum Price" (input)="onInput($event.target.value)" >
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Maximum Price</label>
-                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Maximum Price">
+                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Maximum Price" (input)="onInput($event.target.value)" >
                             </div>
                             
                        </div>

@@ -8,9 +8,8 @@ import { AccountProfileComponent } from './components/account-profile/account-pr
 import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
 import { EmailHistoryComponent } from './admin/email-history/email-history.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgbModalModule, NgbPagination} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDatepicker, NgbInputDatepicker, NgbModalModule, NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import { EmailViewComponent } from './admin/email-history/email-view/email-view.component';
-import { BreadcrumbComponent } from '@app/shared/breadcrumb/breadcrumb.component';
 import { ManageOrdersComponent } from './vendor/manage-orders/manage-orders.component';
 import { ManageProductsComponent } from './vendor/manage-products/manage-products.component';
 import { VerifyProductsComponent } from './admin/verify-products/verify-products.component';
@@ -18,8 +17,8 @@ import { VerifyVendorsComponent } from './admin/verify-vendors/verify-vendors.co
 import { SupportNMessagesComponent } from './components/support-n-messages/support-n-messages.component';
 import { ReportViewComponent } from './components/report-view/report-view.component';
 import { UserOrdersComponent } from './user/user-orders/user-orders.component';
-import { CategoryComponent } from '../public-pages/category/category.component';
-import {AddProductComponent} from "@app/features/dashboard/vendor/products/add-product/add-product.component";
+import {AddProductComponent} from "@app/features/dashboard/vendor/manage-products/add-product/add-product.component";
+import { SalesReportComponent } from './vendor/product-sales-report/sales-report.component';
 
 
 @NgModule({
@@ -37,7 +36,8 @@ import {AddProductComponent} from "@app/features/dashboard/vendor/products/add-p
     SupportNMessagesComponent,
     ReportViewComponent,
     UserOrdersComponent,
-    AddProductComponent
+    AddProductComponent,
+    SalesReportComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +46,9 @@ import {AddProductComponent} from "@app/features/dashboard/vendor/products/add-p
     NgbPagination,
     FormsModule,
     NgbModalModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbInputDatepicker,
+    NgbDatepicker
   ]
 })
 export class DashboardModule { }
