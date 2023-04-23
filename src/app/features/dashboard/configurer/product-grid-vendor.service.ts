@@ -19,7 +19,7 @@ export const MANAGE_PRODUCTS_COLUMN: IColumn[] = [
 @Injectable({
   providedIn: 'root'
 })
-export class ProductGridService extends AbstractDataConfigurer<ProductDTO> {
+export class ProductGridVendorService extends AbstractDataConfigurer<ProductDTO> {
 
   displayColumns: IColumn[] = MANAGE_PRODUCTS_COLUMN;
 
@@ -36,11 +36,12 @@ export class ProductGridService extends AbstractDataConfigurer<ProductDTO> {
   }
 
   getGridData(pageRequest: PageRequest): Observable<PageableResponse<Array<ProductDTO>>> {
-    return this.productService.getAllProductsWithPage(pageRequest);
+    return this.productService.getAllProductsWithPageForVendor(pageRequest);
   }
 
   filterGridData(pageRequest: PageRequest, genericFilterRequest: GenericFilterRequest<ProductDTO>): Observable<PageableResponse<Array<ProductDTO>>> {
-    return this.productService.filterProducts(pageRequest, genericFilterRequest);
+    // return this.productService.filterProducts(pageRequest, genericFilterRequest);
+    return this.getGridData(pageRequest);
   }
 
 }

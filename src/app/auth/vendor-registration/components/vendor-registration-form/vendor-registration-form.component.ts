@@ -14,7 +14,7 @@ import { Subject, debounceTime, filter } from 'rxjs';
 export class VendorRegistrationFormComponent implements OnInit {
 
 
-  @Input() parentForm: FormGroup = new FormGroup({});;
+  @Input() parentForm: FormGroup = new FormGroup({});
   @Output() next: EventEmitter<any> = new EventEmitter();
 
   statusModel: StatusModel = { loading: false, hasError: false };

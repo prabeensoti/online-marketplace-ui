@@ -12,9 +12,12 @@ import { VerifyProductsComponent } from "@app/features/dashboard/admin/verify-pr
 import { SupportNMessagesComponent } from "@app/features/dashboard/components/support-n-messages/support-n-messages.component";
 import { ReportViewComponent } from "@app/features/dashboard/components/report-view/report-view.component";
 import { UserOrdersComponent } from "@app/features/dashboard/user/user-orders/user-orders.component";
-import { AddProductComponent } from "@app/features/dashboard/vendor/products/add-product/add-product.component";
+import { AddProductComponent } from "@app/features/dashboard/vendor/manage-products/add-product/add-product.component";
 import { CategoryComponent } from "@app/features/public-pages/category/category.component";
 import {OrderManageAllComponent} from "@app/features/dashboard/admin/manage-order/order-manage-all.component";
+import {
+  SalesReportComponent
+} from "@app/features/dashboard/vendor/product-sales-report/sales-report.component";
 
 export interface RoutePathAndRoles {
     allowedRoles?: EnumRole[];
@@ -39,14 +42,19 @@ export const APP_UI_ROUTES = {
     MANAGE_PRODUCTS: '/dashboard/manage-products',
 
     MANAGE_ORDERS: '/dashboard/manage-orders',
+
     MANAGE_ALL_ORDERS: '/dashboard/manage-all-orders',
 
   MANAGE_VENDORS: '/dashboard/manage-vendors',
 
+    MANAGE_VENDORS: '/dashboard/manage-vendors',
+    SALES_REPORT: '/dashboard/sales-reports',
+
+
     VERIFY_PRODUCTS: '/dashboard/verify-products',
     VERIFY_VENDORS: '/dashboard/verify-vendors',
-    REPORTS: '/dashboard/reports',
-    SUPPORT_N_MESSAGES: '/dashboard/support-n-messages'
+    SUPPORT_N_MESSAGES: '/dashboard/support-n-messages',
+    EMAIL_HISTORY: '/dashboard/email-history'
 };
 
 const allRoles: EnumRole[] = [EnumRole.ROLE_USER, EnumRole.ROLE_VENDOR, EnumRole.ROLE_ADMIN];
@@ -68,12 +76,15 @@ export const APP_UI_ROUTES_AND_ACCESS: { [key in AppUiRouteKey | any]?: RoutePat
 
     [APP_UI_ROUTES.MANAGE_PRODUCTS]: { allowedRoles: [EnumRole.ROLE_VENDOR] },
     [APP_UI_ROUTES.MANAGE_ORDERS]: { allowedRoles: [EnumRole.ROLE_VENDOR] },
+
     [APP_UI_ROUTES.MANAGE_ALL_ORDERS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
+
+    [APP_UI_ROUTES.SALES_REPORT]: { allowedRoles: [EnumRole.ROLE_VENDOR] },
+
 
   [APP_UI_ROUTES.VERIFY_PRODUCTS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
     [APP_UI_ROUTES.VERIFY_VENDORS]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
-    [APP_UI_ROUTES.REPORTS]: { allowedRoles: [EnumRole.ROLE_VENDOR, EnumRole.ROLE_ADMIN] },
-
+    [APP_UI_ROUTES.EMAIL_HISTORY]: { allowedRoles: [EnumRole.ROLE_ADMIN] },
 
     [APP_UI_ROUTES.SUPPORT_N_MESSAGES]: { allowedRoles: allRoles },
 };
@@ -116,6 +127,11 @@ export const DASHBOARD_ROUTES: Routes = [
         component: ManageOrdersComponent,
         data: { title: 'Manage Orders', label: 'Ship, track and cancel/return an order', }
     },
+    {
+      path: 'sales-reports',
+      component: SalesReportComponent,
+      data: { title: 'Product Sales Report', label: 'Overall Sales report of product', }
+    },
 
     // ROLE_ADMIN
     {
@@ -128,6 +144,7 @@ export const DASHBOARD_ROUTES: Routes = [
         component: VerifyVendorsComponent,
         data: { title: 'Verify Vendors', label: 'Verify Vendors', }
     },
+
   {
     path: 'manage-all-orders',
     component: OrderManageAllComponent,
@@ -136,11 +153,10 @@ export const DASHBOARD_ROUTES: Routes = [
 
     // ROLE_VENDOR and ROLE_ADMIN
     {
-        path: 'reports',
-        component: ReportViewComponent,
-        data: { title: 'View Reports', label: 'View sales and revenue reports', }
+      path: 'email-history',
+      component: EmailHistoryComponent,
+      data: { title: 'Email History', label: 'View all email send history of system' }
     },
-
     // ALL_USERS
     {
         path: 'support-n-messages',
@@ -152,11 +168,6 @@ export const DASHBOARD_ROUTES: Routes = [
     //     component: ManageViewsComponent,
     //     data: { title: 'Manage Home/Category/Banners', label: 'Manage home view, category add/edit and trending views', }
     // },
-    {
-        path: 'email-history',
-        component: EmailHistoryComponent,
-        data: { title: 'Email History' }
-    },
 ];
 
 

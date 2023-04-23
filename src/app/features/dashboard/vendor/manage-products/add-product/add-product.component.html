@@ -1,0 +1,59 @@
+
+<div class="card-body p-4 p-sm-5">
+  <h5 class="card-title text-center mb-3 fw-light fs-5">Add Product</h5>
+  <form [formGroup]="productForm" (ngSubmit)="saveProduct()" enctype="multipart/form-data">
+    <input type="number" hidden formControlName="productId" id="productId">
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="productName" placeholder="productName"
+             formControlName="name"
+             [ngClass]="{ 'is-invalid': isSubmitted && formControls['name'].errors }"
+             autofocus
+             required/>
+      <label for="productName"><span class="text-danger">*</span> Product Name </label>
+    </div>
+<!--    <div class="form-floating mb-3">-->
+<!--      <input type="text" class="form-control" id="description" placeholder="description"-->
+<!--             formControlName="description"-->
+<!--             [ngClass]="{ 'is-invalid': isSubmitted && formControls['description'].errors }" required-->
+<!--             />-->
+<!--      <label for="description"><span class="text-danger">*</span> Description </label>-->
+<!--    </div>-->
+    <div class="form-floating mb-3">
+      <textarea class="form-control" id="description" placeholder="description"
+            formControlName="description" rows="4" style="height: 100px;"
+            [ngClass]="{ 'is-invalid': isSubmitted && formControls['description'].errors }" required></textarea>
+      <label for="description"><span class="text-danger">*</span> Description </label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="quantity" placeholder="quantity"
+             formControlName="quantity"
+             [ngClass]="{ 'is-invalid': isSubmitted && formControls['quantity'].errors }" required
+             />
+      <label for="quantity"><span class="text-danger">*</span> Quantity </label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="price" placeholder="price"
+             formControlName="price"
+             [ngClass]="{ 'is-invalid': isSubmitted && formControls['price'].errors }" required
+             />
+      <label for="price"><span class="text-danger">*</span> Price </label>
+    </div>
+    <div class="form-floating mb-3">
+      <label for="category"><span class="text-danger">*</span> Categories </label>
+      <select class="form-control" id="category" formControlName="categoryId"
+              [ngClass]="{ 'is-invalid': isSubmitted && formControls['categoryId'].errors }" required>
+        <option *ngFor="let category of categories" [value]="category.categoryId">{{category.category}}</option>
+      </select>
+    </div>
+    <div class="form-group mb-3">
+      <label for="file-upload">Choose files</label>
+      <input type="file" id="file-upload" (change)="onFileSelected($event)" [ngClass]="{ 'is-invalid': isSubmitted && formControls['files'].errors }" required multiple>
+    </div>
+    <div class="d-grid mb-2">
+      <button class="btn btn btn-warning fw-bold text-uppercase" type="submit">
+        Save
+        <app-loading *ngIf="loading" [repeat]="3"></app-loading>
+      </button>
+    </div>
+  </form>
+</div>

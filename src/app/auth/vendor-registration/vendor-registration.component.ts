@@ -79,12 +79,12 @@ export class VendorRegistrationComponent implements OnInit {
     this.vendorService.registerVendor(vendorRegistrationContext).subscribe({
       next: (res) => {
         console.log("Registration Successful ", res);
-        this.statusModel = CoreUtil.responseStatusModel(true, "Registration Successful!, Once verified, You will get an email.");
+        this.statusModel = CoreUtil.responseStatusModel(true, "Registration Successful!, Please verify your email. After Verification and Admin approval, You will get an email with Successfull Registration.");
         this.vendorRegistrationForm.reset();
       },
       error: (err) => {
         console.log("error ", err);
-        this.statusModel = CoreUtil.responseStatusModel(false);
+        this.statusModel = CoreUtil.responseStatusModel(false, err?.error?.message);
       },
     })
   }

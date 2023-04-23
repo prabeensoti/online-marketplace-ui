@@ -32,32 +32,34 @@
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">Your Cart Order Summary</span>
           </h4>
-  
+
           <ul class="list-group mb-3">
-            
+
             <li class="list-group-item d-flex justify-content-between">
               <span class="my-0">Items <span class="badge bg-primary rounded-pill">{{orderPayInfoDto.quantity}}</span> :</span>
               <span class="my-0">{{ orderPayInfoDto.price }}</span>
             </li>
-  
+
             <li class="list-group-item d-flex justify-content-between">
               <span>Shipping & Handling : </span>
               <span>{{ shippingCost }}</span>
             </li>
-  
+
             <li class="list-group-item d-flex justify-content-between">
               <span>Estimated tax : </span>
               <span>{{ tax }}</span>
             </li>
-  
+
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (USD) :</span>
               <strong>{{ totalPrice }}</strong>
             </li>
-          </ul>  
+          </ul>        
+          <button type="button"  (click)="confirmPayment()"class=" row btn btn-primary btn-sm m-2">Confirm Payment</button>
+    
         </div>
       </div>
-        <fieldset class="form-group">
+        <!-- <fieldset class="form-group">
           <legend class="col-form-label col-sm-2 pt-0"><strong>Shipping Address</strong></legend>
           <div class="my-3">
             <div *ngFor="let shippingAddress of shippingAddresses">
@@ -76,26 +78,30 @@
               </div>
               <ng-template #newAddress>
                 <div class="form-check">
-                <input type="radio" 
+                <input type="radio"
                 [value]="shippingAddress.addressId" (click)="activeShippingAddress(shippingAddress.addressId)"
                 [checked]="shippingAddress.addressId === selectedAddressId" class="form-check-input">
                 <label class="form-check-label"><strong>New Address</strong></label>
               </div>
               </ng-template>
             </div>
-            
+
             <div *ngIf="selectedAddressId === 0 ">
               <div class="row">
-              <div class="form-group col-md-6">
-                <label for="inputAddress">Address Street</label>
-                <input type="text" formControlName="address1" class="form-control"
-                 placeholder="1234 Main St">
+                <div class="form-group col-md-4">
+                  <label>Full Name</label>
+                  <input type="text" formControlName="fullName" class="form-control"
+                   placeholder="Enter your name" [readonly]="!isGuestUser">
+                </div>
+              <div class="form-group col-md-4">
+                <label>Address Street</label>
+                <input type="text" formControlName="address1" class="form-control">
               </div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-4">
                 <label for="inputAddress2">Address 2</label>
                 <input type="text" formControlName="address2"
-                  class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                  class="form-control" id="inputAddress2">
               </div>
               </div>
 
@@ -119,23 +125,11 @@
             </div>
           </div>
 
-        </fieldset>
-          <fieldset class="form-group" disabled>
-            <legend class="col-form-label col-sm-2 pt-0">Payment</legend>
-            <div class="my-3">
-              <div *ngFor="let radiobutton of cardBrands">
-                
-                <input type="radio" formControlName="cardBrand" class="form-check-input" 
-                [value]="radiobutton.val" (click)="activeRadio(radiobutton.val)"
-                [checked]="radiobutton.val === selectedCardBrand" readonly>
-                <label for="{{radiobutton.name}}" >
-                  {{radiobutton.name}}</label>
-              </div>
-            </div>
-          </fieldset>
-        
-    <button type="button"  (click)="createOrderPayment()"class=" row btn btn-primary btn-md m-2">Confirm</button>
-  
+        </fieldset> -->
+
+   
     </div>
-  
+
   </form>
+
+

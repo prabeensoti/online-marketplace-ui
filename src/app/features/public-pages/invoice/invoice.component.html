@@ -7,17 +7,15 @@
     <div class="col-6">
       <label>Paid By : {{paymentMethod[0].cardHolderName}}</label>
     </div>
-
-    <label>Placed By : </label>
-    <label>Order Placed : {{invoiceDetails.orderPlaced}}</label>
-    <label>Order number : {{orderId}}</label>
-    <label>Order Total : {{totalAmount}}</label>
+    <label>Order Placed : {{invoiceDetails.orderPlaced | date: 'fullDate'}}</label>
+    <label>Order Code : {{invoiceDetails.orderCode}} </label>
+    <label>Order Total : {{invoiceDetails.totalAfterTax | currency: 'USD'}}</label>
   </div>
   <br>
   <div class="col">
     <div class="card mb-4 rounded-3 shadow-sm">
       <div class="card-header py-3">
-        <h5 class="my-0 fw-semibold align-items-center">Shipped on {{invoiceDetails.orderNumber}}</h5>
+        <h5 class="my-0 fw-semibold align-items-center">Shipped on {{invoiceDetails.shippedDate}}</h5>
       </div>
       <div class="card-body card card-outline-primary text-xs-center bg-light p-y-1">
         <div class="row">
@@ -56,13 +54,13 @@
           </div>
           <div class="col-2">
             <ul class="list-unstyled mt-3 mb-4">
-              <li>{{totalAmount}}</li>
-              <li>0.00</li>
+              <li>{{invoiceDetails.totalBeforeTax}}</li>
+              <li>0.0</li>
               <li>.................... </li>
-              <li class="text-black">0.0</li>
-              <li class="text-black">0.0</li>
+              <li class="text-black">{{invoiceDetails.totalBeforeTax}}</li>
+              <li class="text-black">{{invoiceDetails.tax}}</li>
               <li>.................... </li>
-              <li class="text-black"> {{totalAmount}}</li>
+              <li class="text-black"> {{invoiceDetails.totalAfterTax}}</li>
             </ul>
           </div>
         </div>
@@ -98,13 +96,13 @@
           </div>
           <div class="col-2">
             <ul class="list-unstyled mt-3 mb-4">
-              <li>{{totalAmount}}</li>
-              <li>0.00</li>
+              <li>{{invoiceDetails.totalBeforeTax}}</li>
+              <li>0.0</li>
               <li>.................... </li>
-              <li class="text-black">0.0</li>
-              <li class="text-black">0.0</li>
+              <li class="text-black">{{invoiceDetails.totalBeforeTax}}</li>
+              <li class="text-black">{{invoiceDetails.tax}}</li>
               <li>.................... </li>
-              <li class="text-black">{{totalAmount}} </li>
+              <li class="text-black">{{invoiceDetails.totalAfterTax}} </li>
             </ul>
           </div>
         </div>

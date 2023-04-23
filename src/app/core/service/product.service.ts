@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {ProductDTO, VerifyProductDTO} from '../model/domain.model';
+import {ProductDTO, SearchFilterContext, VerifyProductDTO} from '../model/domain.model';
 import { Observable, catchError, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import { ApiEndpoints } from '../app-url.constant';
 import { GenericFilterRequest, PageRequest, PageableResponse } from '../core.model';
 import { CoreUtil } from '../core.util';
@@ -29,6 +29,22 @@ export class ProductService {
     return ProductsObservable;
   }
 
+  public getAllProductsWithPageForVendor(pageRequest: PageRequest): Observable<PageableResponse<ProductDTO[]>> {
+    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL_FOR_VENDOR, {
+      params: CoreUtil.buildPageParams(pageRequest)
+    }).pipe(catchError(this.errorHandler));
+    return ProductsObservable;
+  }
+
+
+  public searchProductByAdvanceFilter(pageRequest : PageRequest, searchFilterContext: SearchFilterContext) : Observable<PageableResponse<ProductDTO[]>> {
+    // const pageParams: any = CoreUtil.buildPageParams(pageRequest);
+    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.SEARCH, {
+      params: {...pageRequest, ...searchFilterContext}
+    }).pipe(catchError(this.errorHandler));
+    return ProductsObservable;
+  }
+
   getProductById(id: number): Observable<ProductDTO> {
     const ProductObservable: Observable<ProductDTO> = this.http.get<ProductDTO>(ApiEndpoints.PRODUCTS.GET_BY_ID + '/' + id);
     return ProductObservable;
@@ -49,7 +65,6 @@ export class ProductService {
       .pipe(catchError(this.errorHandler));
   }
 
-
   errorHandler(error: HttpErrorResponse): Observable<any> {
     console.log('Product api error ', error);
     // show toast notification
@@ -57,10 +72,14 @@ export class ProductService {
   }
 
 
-  saveProduct(product : ProductModel): Observable<ProductModel> {
-    return this.http.post<ProductModel>(ApiEndpoints.PRODUCTS.CREATE, product);
+  saveProduct(productFormData : FormData): Observable<ProductModel> {
+    return this.http.post<ProductModel>(ApiEndpoints.PRODUCTS.CREATE, productFormData);
   }
+
   verifyProduct(data: VerifyProductDTO): Observable<ProductDTO> {
-    return this.http.put<ProductDTO>(ApiEndpoints.PRODUCTS.UPDATE, data);
+    let params = new HttpParams();
+    params = params.append('productId', data.productId)
+    params = params.append('isVerified', data.isVerified);
+    return this.http.put<ProductDTO>(ApiEndpoints.PRODUCTS.VERIFY, params);
   }
 }

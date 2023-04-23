@@ -2,6 +2,7 @@ import {OrderDTO, ProductDTO} from "@app/core/model/domain.model";
 
 export interface OrderResponseDto {
   orderDto: OrderDTO;
+  total: number;
   relatedOrderItems: [{
     orderItemId: number,
     price: number,
