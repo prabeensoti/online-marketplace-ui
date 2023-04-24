@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AdminProductSales} from "@app/core/model/admin-product-sales.model";
 import {AdminSalesReportService} from "@app/core/service/admin-sales-report.service";
 import {DatePickerComponent} from "@app/shared/datepicker/date-picker.component";
+import {ToastService} from "@app/core/service/toast.service";
 
 @Component({
   selector: 'app-admin-product-sales-report',
@@ -12,7 +13,7 @@ export class AdminProductSalesReportComponent implements OnInit{
   @ViewChild(DatePickerComponent) datePicker!: DatePickerComponent;
   productSalesReport!: AdminProductSales[];
 
-  constructor(private salesReportService: AdminSalesReportService) {
+  constructor(private salesReportService: AdminSalesReportService,private toastService: ToastService) {
   }
 
   ngOnInit(): void {
@@ -25,7 +26,7 @@ export class AdminProductSalesReportComponent implements OnInit{
         this.productSalesReport = res;
       },
       error: err => {
-
+        this.toastService.show(err.error.status+" "+err.error.message, { classname: 'bg-danger text-light fs-5', delay: 2000 });
       }
     });
   }
