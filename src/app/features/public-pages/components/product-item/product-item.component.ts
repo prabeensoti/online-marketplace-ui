@@ -24,7 +24,7 @@ export class ProductItemComponent implements OnChanges {
       images: [
         {
           fileId: 1,
-          uri: 'https://picsum.photos/3264/1836?random=4'
+          fileUri: 'https://picsum.photos/3264/1836?random=4'
         }
       ],
       isVerified: true,

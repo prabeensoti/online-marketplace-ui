@@ -106,7 +106,7 @@ export interface AddressDTO {
 
 export interface FileEntityDTO {
   fileId: number;
-  uri: string;
+  fileUri: string;
   fileType?: FileType;
 }
 
