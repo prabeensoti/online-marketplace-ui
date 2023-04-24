@@ -36,7 +36,7 @@ export class ProductGridVendorService extends AbstractDataConfigurer<ProductDTO>
   }
 
   getGridData(pageRequest: PageRequest): Observable<PageableResponse<Array<ProductDTO>>> {
-    return this.productService.getAllProductsWithPageForVendor(pageRequest);
+    return this.productService.getAllPublishedAndTempProductsOfVendor(pageRequest);
   }
 
   filterGridData(pageRequest: PageRequest, genericFilterRequest: GenericFilterRequest<ProductDTO>): Observable<PageableResponse<Array<ProductDTO>>> {

@@ -39,8 +39,9 @@ export class ApiEndpoints {
     // CATEGORY
 
     static readonly PRODUCTS = {
-        ALL: API_ENDPOINT + '/products',
-        ALL_FOR_VENDOR: API_ENDPOINT+ '/allProducts/vendors',
+        ALL_PUBLISHED: API_ENDPOINT + '/public/products',
+        ALL_PUBLISHED_AND_TEMP: API_ENDPOINT + '/allProducts',
+        ALL_PUBLISHED_AND_TEMP_OF_VENDOR: API_ENDPOINT+ '/allProducts/vendors',
         GET_BY_ID: API_ENDPOINT + '/products',
         CREATE: API_ENDPOINT + '/products',
         UPDATE: API_ENDPOINT + '/products',
@@ -67,7 +68,8 @@ export class ApiEndpoints {
         UPDATE: API_ENDPOINT + '/orders',
         DELETE: API_ENDPOINT + '/orders',
         FILTER: API_ENDPOINT + '/orders/filter',
-        GET_BY_PRODUCT_CODE: API_ENDPOINT + '/orders'
+        GET_BY_PRODUCT_CODE: API_ENDPOINT + '/public/orders',
+        PATCH_ORDER: API_ENDPOINT + '/orders'
 
     };
 

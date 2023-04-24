@@ -8,7 +8,7 @@
                     <p class="lead fw-normal mb-4"> Shop unique products and support local sellers on our online marketplace.
                         Join our community today and experience the joy of discovering one-of-a-kind items. Start browsing and discover the magic </p>
                     <div>
-                        <app-service-search></app-service-search>
+                        <a class="btn btn-primary btn-lg" href="/s">Shop Now</a>
                     </div>
 
                 </div>
@@ -23,22 +23,27 @@
 </header>
 <section>
     <div class="container">
-        <div class="row row g-4 py-5 row-cols-1 row-cols-lg-3">
-            <app-category-items></app-category-items>
-            <app-category-items></app-category-items>
-            <app-category-items></app-category-items>
-        </div>
+        <app-category-items></app-category-items>
     </div>
 </section>
 <section>
     <div class="container">
-        <div class="row row g-4 py-5 row-cols-1 row-cols-lg-5">
-            <app-product-item></app-product-item>
-            <app-product-item></app-product-item>
-            <app-product-item></app-product-item>
-            <app-product-item></app-product-item>
-            <app-product-item></app-product-item>
+        <div>
+            <h2 class="text-center">Featured Products</h2>
         </div>
+        <app-product-item></app-product-item>
+    </div>
+    <div class="container">
+        <div>
+            <h2 class="text-center">Featured Products</h2>
+        </div>
+        <app-product-item></app-product-item>
+    </div>
+    <div class="container">
+        <div>
+            <h2 class="text-center">Featured Products</h2>
+        </div>
+        <app-product-item></app-product-item>
     </div>
 </section>
 <app-newsletter></app-newsletter>

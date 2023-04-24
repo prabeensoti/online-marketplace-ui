@@ -58,9 +58,7 @@ export class CheckoutPageComponent implements OnInit {
     private toastrService: ToastService,
     private shoppingCartService:ShoppingCartService,
     private router: Router
-    ){
-
-  }
+    ){}
 
   ngOnInit(): void {
     if(this.credentialsService.isAuthenticated()) 
@@ -184,10 +182,8 @@ getCardInfos(){
 calculatePrice(){
   this.shippingCost = Math.ceil(this.orderPayInfoDto.price/50)*Utility.SHIPPING_CHARGE;
   this.shippingCost = Number(this.formatNumber(this.shippingCost));
-  this.tax = (Utility.TAX/100) * this.orderPayInfoDto.price;
-  this.tax = Number(this.formatNumber(this.tax));
-  this.totalPrice = this.orderPayInfoDto.price + this.shippingCost + this.tax;
-  this.totalPrice = Number(this.formatNumber(this.totalPrice));
+  this.tax = Number(this.formatNumber((Utility.TAX/100) * this.orderPayInfoDto.price));
+  this.totalPrice = Number(this.formatNumber(this.orderPayInfoDto.price));
 }
 
 formatNumber(num: number): string {
@@ -233,7 +229,6 @@ setUserDetails(){
   this.createCheckoutPageForm.addControl('cardId', this.fb.control(this.sToken.card.id));
   this.createCheckoutPageForm.addControl('transactionId', this.fb.control(this.sToken.id)); //////////
   this.createCheckoutPageForm.addControl('clientIp', this.fb.control(this.sToken.client_ip));
-  this.createCheckoutPageForm.addControl('lastFourDigits', this.fb.control(this.sToken.card.last4)); ///
 
   this.createCheckoutPageForm.addControl('cardInfoDto', this.fb.group({
     cardNumber: this.sToken.card.address_city, 
@@ -242,6 +237,7 @@ setUserDetails(){
     expMonth: this.sToken.card.exp_month,
     cvc: this.sToken.card.address_line2,
     cardBrand: this.sToken.card.brand,
+    last4: Number(this.sToken.card.last4)
   }));
   
   this.createCheckoutPageForm.addControl('addressDto', this.fb.group({
@@ -264,7 +260,7 @@ saveOrderPayment(){
     .subscribe({ next: (resp) => {
           console.log(resp);
           this.toastrService.show(resp.message, { classname: 'bg-success text-light fs-5', delay: 2000 });      
-          this.router.navigate([APP_UI_ROUTES.DASHBOARD]);
+          this.router.navigate(['invoice/', resp.body]);
         },
         error: (error) => {
           this.toastrService.show(error.message, { classname: 'bg-danger text-light fs-5', delay: 2000 });

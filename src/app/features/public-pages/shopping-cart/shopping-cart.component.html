@@ -1,4 +1,6 @@
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 shopping-cart-wrapper">
+  <!-- <button class="btn btn-success float-md-end" [routerLink]="['/checkingorder']">Check Previous Order</button> -->
+
     <div *ngIf="cartItems.length>0 else noItemsInCart" class="row">
         <div class="container">
             <h2>Shopping Cart</h2>
@@ -8,21 +10,21 @@
                     <div class="border" style="padding: 10px">
                         <div class="row">
                             <div class="col-md-2">
-                                <img src="https://images.ctfassets.net/5gvckmvm9289/3BlDoZxSSjqAvv1jBJP7TH/65f9a95484117730ace42abf64e89572/Noissue-x-Creatsy-Tote-Bag-Mockup-Bundle-_4_-2.png"
-                                    width="150px" />
+                                <img src="https://picsum.photos/3264/1836?random=6" />
                             </div>
                             <div class="col-md-10">
                               <div class="product_name_container">
                                 <h5><a href="#" target="_blank">{{ item?.product?.name }}</a></h5>
-                                <i class="bi bi-trash-fill cursor-pointer" (click)="onItemRemove(item)"></i>
+                                <button class="btn btn-danger"><i class="bi bi-trash-fill cursor-pointer" (click)="onItemRemove(item)"></i></button>
                               </div>
                                 <p>{{ item.product.description }}</p>
                                 <p><strong>Category:</strong> {{ item.product.productCategory.category }}</p>
-                                <p><strong>Price:</strong> {{ item.product.price }}</p>
+                                <p><strong>Price:</strong> $ {{ item.product.price }}</p>
                                 <p><strong>Quantity: {{" "}}</strong>
-                                  <button class="btn btn-info btn-sm" (click)="onQtyChangeClick(item, false)" [disabled]="loading">{{"  "}}-{{"  "}}</button>
+                                
+                                  <button class="btn btn-info btn-sm" (click)="onQtyChangeClick(item, false)" [disabled]="loading">{{"  "}} - {{"  "}}</button>
                                   {{ item.quantity }}
-                                  <button class="btn btn-info btn-sm" (click)="onQtyChangeClick(item,true)" [disabled]="loading">{{"  "}}+{{"  "}}</button>
+                                  <button class="btn btn-info btn-sm" (click)="onQtyChangeClick(item,true)" [disabled]="loading">{{"  "}} + {{"  "}}</button>
                                   <app-loading *ngIf="loading" cssClass="full-page-loader" [repeat]="3"></app-loading>
                                 </p>
                             </div>
@@ -31,7 +33,7 @@
                 </div>
             </div>
             <div class="float-end">
-              <p class="lead mb-0">Subtotal ({{ cartItems.length }} item): {{ total }}</p>
+              <p class="lead mb-3">Subtotal ({{ cartItems.length }} item): {{ total }}</p>
               <button class="btn btn-success btn-lg float-end" [routerLink]="['/checkout']" routerLinkActive="router-link-active">Checkout</button>
             </div>
         </div>

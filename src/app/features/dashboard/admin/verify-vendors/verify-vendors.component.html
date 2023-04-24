@@ -1,8 +1,14 @@
 <div class="container">
     <app-table [title]="'Verify Vendor'" [dataGridConfigurer]="vendorDataGridConfigurer"
-        [actionTemplate]="{'Update': updateTemplate}">
+        [actionTemplate]="{'Is Verified': vendorStatusTemplate,'Update': updateTemplate}">
     </app-table>
 </div>
+
+<ng-template #vendorStatusTemplate let-data>
+  <span class="badge" [ngClass]="data['isVerified'] ? 'bg-primary' : 'bg-danger' ">
+      {{data['isVerified'] || 'False'}}
+  </span>
+</ng-template>
 
 <ng-template #updateTemplate let-data>
     <a class="fs-4 link-primary cursor-pointer" (click)="verifySelectedVendor(data, content)">

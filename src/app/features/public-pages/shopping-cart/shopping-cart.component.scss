@@ -1,4 +1,30 @@
-.product_name_container{
-  display: flex;
-  justify-content: space-between;
+.shopping-cart-wrapper {
+  min-height: 50vh;
+
+  img {
+    height: 100px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .product_name_container{
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      color: #333;
+      text-decoration: none;
+      font-size: 1.2rem;
+      &:hover {
+        color: #333;
+        text-decoration: underline;
+      }
+    }
+
+    .shopping-cart-edit-quantity {
+      button {
+        color: #fff;
+      }
+    }
+  }
 }

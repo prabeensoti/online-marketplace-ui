@@ -2,5 +2,10 @@
 
 <div class="container-fluid m-2">
     <app-breadcrumb [rootUrl]="DASHBOARD_URL"></app-breadcrumb>
-    <router-outlet></router-outlet>
+    <div class="dashboard-wrapper">
+        <router-outlet></router-outlet>
+    </div>
+    
 </div>
+
+<app-footer></app-footer>

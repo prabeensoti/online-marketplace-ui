@@ -49,7 +49,7 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild, CanDe
     }
     console.log('Not authenticated, redirecting and adding redirect url...');
     const LoginRoutePath = APP_UI_ROUTES.LOGIN;
-    this.router.navigate([LoginRoutePath], { queryParams: { [QueryParamKey.ORIGINAL_REQUEST_URI]: url }, replaceUrl: true });
+    // this.router.navigate([LoginRoutePath], { queryParams: { [QueryParamKey.ORIGINAL_REQUEST_URI]: url }, replaceUrl: true });
     return false;
   }
 }

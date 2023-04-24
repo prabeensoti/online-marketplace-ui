@@ -1,40 +1,50 @@
-<div class="container">
-  <div class="col-12">
-    <h3>Final Details for Order {{orderId}}</h3>
-  </div>
+<h1 class = "no-printme"></h1>
 
+<div class='printme'>
+  Print this only
+</div>
+
+
+
+<div class="container">
+  <button class="btn btn-secondary float-md-end" onclick={window.print()}>Print</button>
+  <h3 class="text-center">Final Details for Order Code {{invoiceDetails.orderCode}}</h3>
   <div class="row">
     <div class="col-6">
-      <label>Paid By : {{paymentMethod[0].cardHolderName}}</label>
+      <label><strong>Paid By : </strong>{{paymentMethod[0].cardHolderName}}</label>
     </div>
-    <label>Order Placed : {{invoiceDetails.orderPlaced | date: 'fullDate'}}</label>
-    <label>Order Code : {{invoiceDetails.orderCode}} </label>
-    <label>Order Total : {{invoiceDetails.totalAfterTax | currency: 'USD'}}</label>
+    <label><strong>Order Placed : </strong> {{invoiceDetails.orderPlaced | date: 'fullDate'}}</label>
+    <label><strong>Order Status : </strong><span class="badge"
+                                                 [ngClass]="invoiceDetails.orderStatus === 'DELIVERED' ? 'bg-primary': 'bg-danger' ">{{invoiceDetails.orderStatus || 'PENDING'}}</span>
+    </label>
+    <label><strong>Order Total : {{invoiceDetails.totalAfterTax | currency: 'USD'}}</strong></label>
   </div>
   <br>
   <div class="col">
-    <div class="card mb-4 rounded-3 shadow-sm">
+    <div class="card mb-4 rounded-3">
       <div class="card-header py-3">
-        <h5 class="my-0 fw-semibold align-items-center">Shipped on {{invoiceDetails.shippedDate}}</h5>
+        <strong>Shipped on {{invoiceDetails.shippedDate}}</strong>
       </div>
       <div class="card-body card card-outline-primary text-xs-center bg-light p-y-1">
         <div class="row">
           <div class="col-md-10">
-            <h6 class="card-title pricing-card-title">Items Ordered</h6>
+            <strong class="card-title pricing-card-title font-weight-bold">Items Ordered</strong>
             <ul class="list-unstyled mt-3 mb-4" *ngFor="let orderItem of orderItems; let i=index">
-              <li>{{i+1}}) {{orderItem.product.name}}, {{orderItem.product.description}}, Qty {{orderItem.quantity}}</li>
+              <li><strong>{{i + 1}})</strong> {{orderItem.product.name}}, {{orderItem.product.description}},
+                Qty {{orderItem.quantity}}</li>
             </ul>
           </div>
           <div class="col-2">
-            <h6 class="card-title pricing-card-title">Price</h6>
+            <strong class="card-title pricing-card-title font-weight-bold">Price</strong>
             <ul class="list-unstyled mt-3 mb-4" *ngFor="let orderItem of orderItems">
               <li>{{orderItem.price * orderItem.quantity}}</li>
             </ul>
           </div>
         </div>
+        <hr class="solid"/>
         <div class="row">
           <div class="col-7">
-            <h6 class="card-title pricing-card-title">Shipping Address:</h6>
+            <strong class="card-title pricing-card-title font-weight-bold">Shipping Address:</strong>
             <ul class="list-unstyled mt-3 mb-4">
               <li>{{shippingAddress.address.address1}}</li>
               <li>{{shippingAddress.address.city}}, {{shippingAddress.address.state}}</li>
@@ -43,24 +53,24 @@
           </div>
           <div class="col-3">
             <ul class="list-unstyled mt-3 mb-4">
-              <li>Item(s) Subtotal: </li>
-              <li>Shipping & Handling: </li>
+              <li>Item(s) Subtotal:</li>
+              <li>Shipping & Handling:</li>
               <li>..................................................</li>
               <li>Total before tax:</li>
-              <li>Sales Tax: </li>
+              <li>Sales Tax:</li>
               <li>..................................................</li>
-              <li class="text-black">Total for this Shipment: </li>
+              <li class="text-black"><strong>Total for this Shipment: </strong></li>
             </ul>
           </div>
           <div class="col-2">
             <ul class="list-unstyled mt-3 mb-4">
               <li>{{invoiceDetails.totalBeforeTax}}</li>
               <li>0.0</li>
-              <li>.................... </li>
+              <li>....................</li>
               <li class="text-black">{{invoiceDetails.totalBeforeTax}}</li>
               <li class="text-black">{{invoiceDetails.tax}}</li>
-              <li>.................... </li>
-              <li class="text-black"> {{invoiceDetails.totalAfterTax}}</li>
+              <li>....................</li>
+              <li class="text-black"><strong>{{invoiceDetails.totalAfterTax}}</strong></li>
             </ul>
           </div>
         </div>
@@ -76,7 +86,7 @@
       <div class="card-body card card-outline-primary text-xs-center bg-light p-y-1">
         <div class="row">
           <div class="col-md-7">
-            <h6 class="card-title pricing-card-title">Payment Method:</h6>
+            <strong class="card-title pricing-card-title">Payment Method:</strong>
             <ul class="list-unstyled mt-3 mb-4">
               <li>{{paymentMethod[0].cardBrand}}</li>
               <li>{{paymentMethod[0].paymentStatus}}</li>
@@ -85,24 +95,24 @@
           </div>
           <div class="col-3">
             <ul class="list-unstyled mt-3 mb-4">
-              <li>Item(s) Subtotal: </li>
-              <li>Shipping & Handling: </li>
+              <li>Item(s) Subtotal:</li>
+              <li>Shipping & Handling:</li>
               <li>..................................................</li>
               <li>Total before tax:</li>
-              <li>Estimated Tax: </li>
+              <li>Estimated Tax:</li>
               <li>..................................................</li>
-              <li class="text-black">Grand Total: </li>
+              <li class="text-black"><strong>Grand Total: </strong></li>
             </ul>
           </div>
           <div class="col-2">
             <ul class="list-unstyled mt-3 mb-4">
               <li>{{invoiceDetails.totalBeforeTax}}</li>
               <li>0.0</li>
-              <li>.................... </li>
+              <li>....................</li>
               <li class="text-black">{{invoiceDetails.totalBeforeTax}}</li>
               <li class="text-black">{{invoiceDetails.tax}}</li>
-              <li>.................... </li>
-              <li class="text-black">{{invoiceDetails.totalAfterTax}} </li>
+              <li>....................</li>
+              <li class="text-black"><strong>{{invoiceDetails.totalAfterTax}}</strong></li>
             </ul>
           </div>
         </div>

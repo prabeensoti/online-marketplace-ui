@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   appBrandName: 'Online Marketplace',
   apiUrl: 'http://localhost:8080',
-  stripeKey: 'pk_test_51MznCLJD0ralU2zuyMKJT30ZW8CPXThSXvZXJb4ulRENhiODKbFUy02c2syxucLeC20kb0mPuGmFv3KEvINazt0o00pY5dRY6q',
+  stripeKey: 'pk_test_51N07rBKaMuZ2QFTYDXkStc2EjjoL2lav2mJ2mSN5DZX42RgkoB8WuJSAr43iCNFLY14X2aTThHUrj1gf2ZznVPQX00wMz9EyyP',
+
   // stripeKey: 'pk_test_51Mwq8GIVB9DnC73sKFDQeKKgvlP27ZfAOGBZ084zgKZVSRJn8Eo1yUO7webkBt0oPUr5DJFmY1g7Hl5mYxp9WoJL00qxcTNDZ1'
 };
 

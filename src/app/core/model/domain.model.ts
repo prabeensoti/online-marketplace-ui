@@ -1,5 +1,6 @@
 import {ShippingModel} from "@app/core/model/shipping.model";
 import {PaymentDTO} from "@app/core/model/payment.model";
+import {OrderStatusModel} from "@app/core/model/order.model";
 
 enum UserStatus {
   VERIFIED = 'VERIFIED',
@@ -19,7 +20,8 @@ enum FileType {
 enum OrderStatus {
   NEW = "NEW",
   IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED"
+  COMPLETED = "COMPLETED",
+  DELIVERED = 'DELIVERED'
 }
 
 export interface UserDTO {
@@ -84,7 +86,7 @@ export interface ProductCategoryDTO {
 
 export interface OrderDTO {
   orderId: number;
-  orderStatus: OrderStatus;
+  orderStatus: OrderStatusModel;
   orderDate: Date;
   shipping: ShippingModel;
   user: UserDTO;
