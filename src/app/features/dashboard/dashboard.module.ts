@@ -23,7 +23,9 @@ import { CategoryComponent } from '../public-pages/category/category.component';
 import { OrderManageAllComponent } from './admin/manage-order/order-manage-all.component';
 
 import {AddProductComponent} from "@app/features/dashboard/vendor/manage-products/add-product/add-product.component";
-import { SalesReportComponent } from './vendor/product-sales-report/sales-report.component';
+import { ProductSalesReportComponent } from './vendor/product-sales-report/product-sales-report.component';
+import { AdminProductSalesReportComponent } from './admin/admin-product-sales-report/admin-product-sales-report.component';
+import { AdminVendorSalesReportComponent } from './admin/admin-vendor-sales-report/admin-vendor-sales-report.component';
 
 
 
@@ -46,7 +48,9 @@ import { SalesReportComponent } from './vendor/product-sales-report/sales-report
 
     OrderManageAllComponent,
 
-    SalesReportComponent
+    ProductSalesReportComponent,
+      AdminProductSalesReportComponent,
+      AdminVendorSalesReportComponent
 
   ],
   imports: [

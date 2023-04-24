@@ -38,7 +38,6 @@ export class AddProductComponent implements OnInit{
     this.categoryService.getAllCategories().subscribe({
       next: (res) => {
         this.categories = res;
-        console.log(res);
       }, error: (err) => {
 
       }

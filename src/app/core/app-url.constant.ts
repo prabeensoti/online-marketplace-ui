@@ -101,6 +101,14 @@ export class ApiEndpoints {
       PUT: API_ENDPOINT+'/shopping-cart',
       DELETE: API_ENDPOINT+'/shopping-cart'
   }
+  static readonly REPORT = {
+    VENDOR_PRODUCT_SALES: API_ENDPOINT+'/report/vendor/product/sales',
+    VENDOR_PRODUCT_SALES_PDF: API_ENDPOINT+'/report/vendor/product/sales/pdf',
+    ADMIN_PRODUCT_SALES: API_ENDPOINT+'/report/admin/product/sales',
+    ADMIN_PRODUCT_SALES_PDF: API_ENDPOINT+'/report/admin/product/sales/pdf',
+    ADMIN_VENDOR_SALES: API_ENDPOINT+'/report/admin/vendor/sales',
+    ADMIN_VENDOR_SALES_PDF: API_ENDPOINT+'/report/admin/vendor/sales/pdf',
+  }
   static APP_UI_ROUTES: any;
 
 }
