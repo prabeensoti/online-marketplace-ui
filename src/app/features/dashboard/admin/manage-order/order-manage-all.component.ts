@@ -7,6 +7,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {OrderService} from "@app/core/service/order.service";
 import {debounce, debounceTime} from "rxjs";
 import {OrderStatusModel} from "@app/core/model/order.model";
+import {ToastService} from "@app/core/service/toast.service";
 
 @Component({
   selector: 'app-order-manage-all',
@@ -19,11 +20,13 @@ export class OrderManageAllComponent {
   adminOrderDataGridConfigure !: AbstractDataConfigurer<OrderResponseDto>;
   selectedRowData!:OrderResponseDto;
   loading:boolean=false;
+  protected readonly OrderStatusModel = OrderStatusModel;
 
   constructor(
       private adminOrderGridService: AdminOrderGridService,
       private modalService: NgbModal,
-      private orderService: OrderService) {
+      private orderService: OrderService,
+      private toastService:ToastService) {
     this.adminOrderDataGridConfigure = adminOrderGridService;
   }
 
@@ -40,6 +43,7 @@ export class OrderManageAllComponent {
         this.modalService.dismissAll();
         this.loading = false;
         console.log("res",res);
+        this.toastService.show("Success",{ classname: 'bg-success text-light fs-5', delay: 2000 })
         this.selectedRowData.orderDto.orderStatus = OrderStatusModel.DELIVERED;
       },
       error:(err)=> {

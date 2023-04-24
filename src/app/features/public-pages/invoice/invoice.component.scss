@@ -118,3 +118,26 @@ hr {
 .float-right {
   float: right;
 }
+
+hr.solid {
+  border-top: 1px solid #110d0d;
+}
+
+.printme {
+  display: none;
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .no-printme  {
+    display: none;
+  }
+  .printme  {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    visibility: visible;
+  }
+}

@@ -20,7 +20,8 @@ enum FileType {
 enum OrderStatus {
   NEW = "NEW",
   IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED"
+  COMPLETED = "COMPLETED",
+  DELIVERED = 'DELIVERED'
 }
 
 export interface UserDTO {
@@ -51,7 +52,7 @@ export interface ProductDTO {
   isVerified: boolean;
   isDeleted: boolean;
 
-  vendor: VendorDTO;
+  vendor?: VendorDTO;
   productCategory: ProductCategoryDTO;
 }
 
@@ -81,6 +82,7 @@ export interface VendorDTO {
 export interface ProductCategoryDTO {
   categoryId: number;
   category: string;
+  imageUrl?: string;
 }
 
 export interface OrderDTO {
@@ -104,7 +106,7 @@ export interface AddressDTO {
 
 export interface FileEntityDTO {
   fileId: number;
-  uri: string;
+  fileUri: string;
   fileType?: FileType;
 }
 

@@ -7,8 +7,8 @@ import { GenericFilterRequest, PageRequest, PageableResponse } from '@app/core/c
 import { Observable } from 'rxjs';
 
 export const MANAGE_PRODUCTS_COLUMN: IColumn[] = [
-  { id: 1, name: 'productId', label: 'Product Id', type: ColumnType.NUMBER, sortable: false, hide: true },
-  { id: 2, name: 'name', label: 'Product Name', type: ColumnType.STRING, defaultSearch: true },
+  { id: 1, name: 'productId', label: 'Product Id', type: ColumnType.NUMBER, hide: true },
+  { id: 2, name: 'name', label: 'Product Name', type: ColumnType.STRING,  defaultSearch: true},
   // { id: 3, name: 'description', label: 'Description', type: ColumnType.STRING, cssClasses: 'w-10' },
   { id: 4, name: 'quantity', label: 'Quantity', type: ColumnType.NUMBER },
   { id: 2, name: 'isVerified', label: 'Is Verified', type: ColumnType.BOOLEAN },
@@ -40,7 +40,7 @@ export class ProductGridVendorService extends AbstractDataConfigurer<ProductDTO>
   }
 
   filterGridData(pageRequest: PageRequest, genericFilterRequest: GenericFilterRequest<ProductDTO>): Observable<PageableResponse<Array<ProductDTO>>> {
-    // return this.productService.filterProducts(pageRequest, genericFilterRequest);
+    return this.productService.filterForAllPublishedAndTempProducts(pageRequest, genericFilterRequest);
     return this.getGridData(pageRequest);
   }
 

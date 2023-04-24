@@ -21,7 +21,7 @@ export class ManageOrderService {
     return this.http.get<any>(ApiEndpoints.MANAGE_ORDERS.GET_BY_USER);
   }
 
-  getOrderByVendor(pageRequest: PageRequest) : Observable<PageableResponse<OrderResponseDto[]>> {
+  getAllOrderByVendor(pageRequest: PageRequest, ) : Observable<PageableResponse<OrderResponseDto[]>> {
     return this.http.get<PageableResponse<OrderResponseDto[]>>(ApiEndpoints.MANAGE_ORDERS.GET_BY_VENDOR, {
       params: CoreUtil.buildPageParams(pageRequest)
     }).pipe(catchError(this.productService.errorHandler));
@@ -33,7 +33,7 @@ export class ManageOrderService {
     }).pipe(catchError(this.productService.errorHandler));
   }
 
-  filterOrderByAdmin(pageRequest: PageRequest, genericFilterRequest: GenericFilterRequest<OrderDTO>): Observable<PageableResponse<Array<OrderResponseDto>>> {
+  filterManageOrders(pageRequest: PageRequest, genericFilterRequest: GenericFilterRequest<OrderDTO>): Observable<PageableResponse<Array<OrderResponseDto>>> {
     const options = {
       params: CoreUtil.buildPageParams(pageRequest)
     };

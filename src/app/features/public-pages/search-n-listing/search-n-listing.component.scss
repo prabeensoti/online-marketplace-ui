@@ -1,11 +1,21 @@
 .search-n-listing-wrapper {
+    padding-top: 20px;
+    min-height: 50vh;
     .search-n-listing-product-img img {
         width: 100%;
-        height: 30vh;
+        height: 250px;
         object-fit: cover;
     }
 
     .card-body {
-        height: 35vh;
+        height: 15rem;
+    }
+
+    .search-n-listing-product-content .card-text {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+                line-clamp: 2; 
+        -webkit-box-orient: vertical;
     }
 }

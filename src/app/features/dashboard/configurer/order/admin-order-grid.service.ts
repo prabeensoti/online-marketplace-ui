@@ -10,9 +10,9 @@ import { toNumber as _toNumber  } from 'lodash';
 
 
 export const MANAGE_ALL_ORDERS_COLUMN: IColumn[] = [
-  { id: 1, name: 'orderId', label: 'Order Id', type: ColumnType.OBJECT, sortable: true, hide: true },
+  { id: 1, name: 'orderId', label: 'Order Id', type: ColumnType.OBJECT, hide: true },
   { id: 3, name: 'orderDto', label: 'User', type: ColumnType.OBJECT, bindKeys: ['orderDto', 'user', 'fullName'] },
-  { id: 2, name: 'orderDto', label: 'Order Id', type: ColumnType.OBJECT, bindKeys: ['orderDto', 'orderId'], sortable: false, defaultSearch: true },
+  { id: 2, name: 'orderDto', label: 'Order Id', type: ColumnType.OBJECT, bindKeys: ['orderDto', 'orderId'], defaultSearch: true },
   // { id: 4, name: 'orderDto', label: 'Order Status', type: ColumnType.OBJECT, bindKeys: ['orderDto', 'orderStatus'] },
   // { id: 2, name: 'orderStatus', label: 'Status', type: ColumnType.STRING },
 ];
@@ -45,7 +45,7 @@ export class AdminOrderGridService extends AbstractDataConfigurer<OrderResponseD
         orderId: _toNumber(genericFilterRequest.searchText)
       }
     }
-    return this.manageOrderService.filterOrderByAdmin(pageRequest, mappedGenericFilterRequest);
+    return this.manageOrderService.filterManageOrders(pageRequest, mappedGenericFilterRequest);
     // return of({} as PageableResponse<OrderResponseDto[]>);
     // return this.getGridData(pageRequest);
   }

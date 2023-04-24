@@ -16,18 +16,18 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Sort Price By</label>
                                 <select class="form-select" aria-label="Default select example" [(ngModel)]="sortedPrice" (change)="onSelectChange()">
-                                    <option selected>Select</option>
+                                    <option value="default" selected="true">Select Price as</option>
                                     <option value="ASC">Low to High</option>
                                     <option value="DESC">High to Low</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Minimum Price</label>
-                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Minimum Price" (input)="onMinPriceInput(inputField.value)" #inputField>
+                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Minimum Price" (input)="onMinPriceInput(minPrice.value)" #minPrice>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Maximum Price</label>
-                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Maximum Price" (input)="onMaxPriceInput(inputField.value)" #inputField>
+                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Maximum Price" (input)="onMaxPriceInput(maxPrice.value)" #maxPrice>
                             </div>
                             
                        </div>
@@ -38,7 +38,17 @@
                         <div class="col-lg-4 mb-4 search-n-listing-product" *ngFor="let product of products">
                             <div class="card search-n-listing-product-card">
                                 <div class="search-n-listing-product-img">
-                                    <img src="https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img-top" alt="{{ product.name }}">
+                                    <!-- <img src="http://localhost:9000/pmstorage/basics10nonstick.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=WI74J2DT6NCB3X4OYM5W%2F20230424%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230424T062454Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJXSTc0SjJEVDZOQ0IzWDRPWU01VyIsImV4cCI6MTY4MjM1ODQ2MiwicGFyZW50Ijoicm9vdCJ9.a_xn-MOqROU-LRujeWH7WsgHTKWXpQkmMG4UBKxW3_fHEnudZtwYs5ERJziUgOOt8KdrWjaUCXV6SlYSaPz5XQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=8535e44acf52c437d37a93532858a4c029c8ae75268bfc41a8f7cf89148a1b2f" class="card-img-top" alt="{{ product.name }}"> -->
+
+                                    <div class="product-item__image" *ngIf="(product.images && product.images.length > 0); else placeholderImg">
+                                        <img [src]="product.images[0].fileUri" class="card-img-top" [alt]="product.name" title="{{product.name}}">
+                                    </div>
+                        
+                                    <ng-template #placeholderImg>
+                                        <img src="http://via.placeholder.com/640x360" class="card-img-top" alt="placeholder image"
+                                            title="product image" />
+                                    </ng-template>
+
                                 </div>
                                 <div class="card-body search-n-listing-product-content">
                                     <h5 class="card-title">{{ product.name }}</h5>

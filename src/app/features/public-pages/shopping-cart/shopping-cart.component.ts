@@ -4,6 +4,7 @@ import {ShoppingCartDTO} from "@app/core/model/shopping-cart.model";
 import {ToastService} from "@app/core/service/toast.service";
 import {CredentialsService} from "@app/auth/services/credentials.service";
 import {Constants} from "@app/core/core.constant";
+import {CartService} from "@app/core/service/cart.service";
 
 @Component({
   selector: 'app-shopping-cart',
@@ -17,7 +18,8 @@ export class ShoppingCartComponent implements OnInit {
   total = 0; // replace with actual total calculation logic
   constructor(private shoppingCartService: ShoppingCartService,
               private toastService: ToastService,
-              private credentialsService: CredentialsService) { }
+              private credentialsService: CredentialsService,
+              private cartService: CartService) { }
 
   ngOnInit(): void {
     if(this.credentialsService.isAuthenticated())
@@ -28,13 +30,19 @@ export class ShoppingCartComponent implements OnInit {
   private initLocalItem(): void {
     // load local storage item to cart
     this.cartItems = JSON.parse(Constants.STORAGE_LOCATION.getItem(Constants.CART_ITEMS_KEY) || '[]');
+    this.setCartItems(this.cartItems.length);
     this.total=this.cartItems.length > 0 ? this.cartItems.map(x=> x.quantity*x.product.price).reduce((x,y)=>x+y) : 0;
+  }
+
+  private setCartItems(totalItems: number): void {
+    this.cartService.cartTotal.next(totalItems);
   }
 
   private initCartList(): void {
     this.shoppingCartService.getAllCartItems().subscribe({
       next:(res) => {
         this.cartItems = res
+        this.setCartItems(res.length)
         this.total=this.cartItems.length > 0 ? res.map(x=> x.quantity*x.product.price).reduce((x,y)=>x+y) : 0;
         this.loading = false
         //this.toastService.show("Cart Loaded", { classname: 'bg-success text-light fs-5', delay: 2000 });

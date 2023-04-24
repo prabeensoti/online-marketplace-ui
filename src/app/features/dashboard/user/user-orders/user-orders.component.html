@@ -13,15 +13,15 @@
             <div>{{order.total | currency: 'USD'}}</div>
           </div>
           <div class="col-2">Shipping Status
-            <div>
+            <span class="badge " [ngClass]="order.orderDto.orderStatus === 'DELIVERED' ? 'bg-primary': 'bg-danger' ">
               {{order.orderDto.orderStatus || 'PENDING'}}
-            </div>
+            </span>
           </div>
           <div class="col-3">Ship To
             <div>{{order.orderDto.shipping.address.address1}}, {{order.orderDto.shipping.address.city}}
               , {{order.orderDto.shipping.address.state}}</div>
           </div>
-          <div class="col-2"><a routerLink="/invoice/{{order.orderDto.orderId}}">View Invoice</a></div>
+          <div class="col-2"><a class="text-decoration-none" routerLink="/invoice/{{order.orderDto.orderId}}">View Invoice</a></div>
         </div>
       </div>
       <div class="card-body">

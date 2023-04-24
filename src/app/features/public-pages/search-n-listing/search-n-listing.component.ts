@@ -8,6 +8,8 @@ import {ShoppingCartService} from "@app/core/service/shopping-cart.service";
 import {ToastService} from "@app/core/service/toast.service";
 import {Constants} from "@app/core/core.constant";
 import { PageRequest } from '@app/core/core.model';
+import {CartService} from "@app/core/service/cart.service";
+import { CategoryService } from '@app/core/service/category.service';
 
 @Component({
   selector: 'app-search-n-listing',
@@ -26,7 +28,7 @@ export class SearchNListingComponent implements OnInit {
   categoryName: string = "";
   minPrice: number = 0;
   maxPrice: number = 0;
-  sortedPrice: string = "";
+  sortedPrice: string = "default";
 
 
   loading: boolean = false;
@@ -35,15 +37,37 @@ export class SearchNListingComponent implements OnInit {
               private route: ActivatedRoute,
               private productService: ProductService,
               private shoppingCartService: ShoppingCartService,
+              private categoryService: CategoryService,
               private toastService: ToastService) {
   }
 
   ngOnInit(): void {
     // this.initProductList();
+    this.onCategorySelection();
+    this.onSearchInputChange();
+    this.processRouteQueryParams();
+  }
+
+  onCategorySelection(): void {
+    this.categoryService.onCategoryChange.subscribe({
+      next: (cat) => {
+        this.categoryName = cat;
+        this.onFilterChange();
+      }
+    });
+  }
+
+  onSearchInputChange(): void {
+    this.categoryService.onSearchInputChange.subscribe({
+      next: (searchInput) => {
+        this.name = searchInput;
+        this.onFilterChange();
+      }
+    });
   }
 
   private initProductList(): void {
-    const pageRequest: PageRequest = { page: this.currentPage, size: 10, sort: "name", direction: "asc"};
+    const pageRequest: PageRequest = {page: this.currentPage, size: 10, sort: "name", direction: "asc"};
     this.productService.getAllPublishedProducts(pageRequest).subscribe({
       next: (res) => {
         this.products = res.content;
@@ -65,13 +89,13 @@ export class SearchNListingComponent implements OnInit {
    */
   private onFilterChange(): void {
     const searchFilterContext: SearchFilterContext = {
-      name: this.categoryName,
+      name: this.name,
       categoryName: this.categoryName,
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,
       sortedPrice: this.sortedPrice,
     }
-    const pageRequest: PageRequest = { page: this.currentPage-1, size: 10, sort: "name", direction: "asc"};
+    const pageRequest: PageRequest = { page: this.currentPage-1, size: 10, sort: "price", direction: this.sortedPrice};
 
     this.productService.searchProductByAdvanceFilter(pageRequest, searchFilterContext).subscribe({
       next: (res: any) => {
@@ -98,6 +122,7 @@ export class SearchNListingComponent implements OnInit {
           this.minPrice = Number(paramMap.get("minPrice")) || 0;
           this.maxPrice = Number(paramMap.get("maxPrice")) || 0;
         }
+        this.onFilterChange();
       });
   }
 
@@ -131,7 +156,6 @@ export class SearchNListingComponent implements OnInit {
 
   onSelectChange() {
     console.log('Selected option: ' + this.sortedPrice);
-    this.processRouteQueryParams();
     this.onFilterChange();
   }
 
@@ -139,8 +163,8 @@ export class SearchNListingComponent implements OnInit {
     fromEvent(document, 'input')
       .pipe(debounceTime(500))
       .subscribe(() => {
+        this.minPrice = Number(value); 
         console.log('Input value: ' + value);
-        this.processRouteQueryParams();
         this.onFilterChange();
       });
   }
@@ -149,8 +173,8 @@ export class SearchNListingComponent implements OnInit {
     fromEvent(document, 'input')
       .pipe(debounceTime(500))
       .subscribe(() => {
+        this.maxPrice = Number(value); 
         console.log('Input value: ' + value);
-        this.processRouteQueryParams();
         this.onFilterChange();
       });
   }

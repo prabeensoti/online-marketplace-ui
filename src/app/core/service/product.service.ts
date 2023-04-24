@@ -29,6 +29,13 @@ export class ProductService {
     return ProductsObservable;
   }
 
+  public getAllTopPublishedProductsByCategory(pageRequest: PageRequest, categoryId: number): Observable<PageableResponse<ProductDTO[]>> {
+    const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL_PUBLISHED, {
+      params: {...pageRequest, categoryId: categoryId}
+    }).pipe(catchError(this.errorHandler));
+    return ProductsObservable;
+  }
+
   public getAllPublishedAndTempProducts(pageRequest: PageRequest): Observable<PageableResponse<ProductDTO[]>> {
     const ProductsObservable: Observable<PageableResponse<ProductDTO[]>> = this.http.get<PageableResponse<ProductDTO[]>>(ApiEndpoints.PRODUCTS.ALL_PUBLISHED_AND_TEMP, {
       params: CoreUtil.buildPageParams(pageRequest)

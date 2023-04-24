@@ -5,6 +5,9 @@
   <div class="col-2">
     <button class="btn btn-primary" (click)="getReport()">View Report</button>
   </div>
+  <div class="col-2">
+    <button class="btn btn-primary" (click)="downloadReport()">Print Report</button>
+  </div>
 </div>
 <div *ngIf=" productSalesReport && productSalesReport.length!=0; else dataNotFound" class="card card-body table-responsive">
   <table class="table table-hover align-middle">
@@ -18,7 +21,6 @@
         <th scope="col">Discount</th>
         <th scope="col">Tax</th>
         <th scope="col">Total</th>
-        <th scope="col">Purchase Date</th>
       </tr>
     </thead>
     <tbody>
@@ -31,26 +33,9 @@
         <th scope="row">{{productSale.discount}}</th>
         <th scope="row">{{productSale.tax}}</th>
         <th scope="row">{{productSale.total}}</th>
-        <th scope="row">{{productSale.purchaseDate}}</th>
       </tr>
     </tbody>
   </table>
-
-  <div class="d-flex justify-content-between p-2">
-    <ngb-pagination
-      [collectionSize]="collectionSize"
-      [(page)]="page"
-      [pageSize]="pageSize"
-      (pageChange)="refreshData()"
-    >
-    </ngb-pagination>
-
-    <select class="form-select pt-0 pb-0" style="width: auto; height: 2.5rem;" [(ngModel)]="pageSize" (ngModelChange)="refreshData()">
-      <option [ngValue]="10">10</option>
-      <option [ngValue]="50">50</option>
-      <option [ngValue]="100">100</option>
-    </select>
-  </div>
 </div>
 <ng-template #dataNotFound>
   <div class="card text-center">

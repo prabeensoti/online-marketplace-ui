@@ -51,7 +51,7 @@
   </ng-container>
 
   <div [class.table-responsive]="tableUI.tableResponsive">
-    <table
+    <table style="table-layout: fixed;"
       [ngClass]="{'table': true, 'table-bordered': tableUI.tableBordered, 'table-hover': tableUI.tableHover, 'table-striped': tableUI.tableStripped}"
       class="{{tableUI.additionalCSSClass}}">
       <thead>
@@ -59,7 +59,7 @@
           <th *ngIf="showSerialNo">S.N</th>
 
           <ng-container *ngFor="let column of columns">
-            <th style="cursor: pointer" *ngIf="!column.hide" scope="col" libStColumnSort [column]="column"
+            <th [ngClass]="column.disableSortable ? '' : 'cursor-pointer' " *ngIf="!column.hide" scope="col" libStColumnSort [column]="column"
               [direction]="sortDirection" (sort)="onSortTriggered($event)">
               <span>{{column.label}}</span>
               <span class="px-1">

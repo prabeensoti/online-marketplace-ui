@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ProductCategoryDTO } from '@app/core/model/domain.model';
 
 @Component({
   selector: 'app-category-items',
@@ -6,26 +7,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./category-items.component.scss']
 })
 export class CategoryItemsComponent {
-  categories = [
+
+
+  @Input() topCategories: ProductCategoryDTO[] = [
     {
-      name: 'Books',
-      image: 'https://picsum.photos/3264/1836?random=3',
-      link: '/books'
+      categoryId: 1,
+      category: 'Books',
+      imageUrl: 'https://picsum.photos/3264/1836?random=3',
     },
     {
-      name: 'Music',
-      image: 'https://picsum.photos/3264/1836?random=1',
-      link: '/music'
+      categoryId: 2,
+      category: 'Music',
+      imageUrl: 'https://picsum.photos/3264/1836?random=1',
     },
     {
-      name: 'Movies',
-      image: 'https://picsum.photos/3264/1836?random=2',
-      link: '/movies'
+      categoryId: 3,
+      category: 'Movies',
+      imageUrl: 'https://picsum.photos/3264/1836?random=2',
     }
   ];
-
-
-
 
 
 }

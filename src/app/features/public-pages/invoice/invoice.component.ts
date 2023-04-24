@@ -33,6 +33,7 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.getInvoice(this.orderId).subscribe(response => {
       this.invoiceDetails = response;
       this.shippingAddress = response.shippingAddress;
+      console.log("Shipping Address", this.shippingAddress)
       this.paymentMethod = response.paymentMethod;
       this.orderItems = response.orderItemList
       this.totalAmount = response.total;

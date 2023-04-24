@@ -40,6 +40,8 @@ export class ApiEndpoints {
 
     static readonly PRODUCTS = {
         ALL_PUBLISHED: API_ENDPOINT + '/public/products',
+        ALL_TOP_PRODUCTS_BY_CATEGORY: API_ENDPOINT + '/public/top-products-by-category',
+
         ALL_PUBLISHED_AND_TEMP: API_ENDPOINT + '/allProducts',
         ALL_PUBLISHED_AND_TEMP_OF_VENDOR: API_ENDPOINT+ '/allProducts/vendors',
         GET_BY_ID: API_ENDPOINT + '/products',
@@ -102,6 +104,14 @@ export class ApiEndpoints {
       POST: API_ENDPOINT+'/shopping-cart',
       PUT: API_ENDPOINT+'/shopping-cart',
       DELETE: API_ENDPOINT+'/shopping-cart'
+  }
+  static readonly REPORT = {
+    VENDOR_PRODUCT_SALES: API_ENDPOINT+'/report/vendor/product/sales',
+    VENDOR_PRODUCT_SALES_PDF: API_ENDPOINT+'/report/vendor/product/sales/pdf',
+    ADMIN_PRODUCT_SALES: API_ENDPOINT+'/report/admin/product/sales',
+    ADMIN_PRODUCT_SALES_PDF: API_ENDPOINT+'/report/admin/product/sales/pdf',
+    ADMIN_VENDOR_SALES: API_ENDPOINT+'/report/admin/vendor/sales',
+    ADMIN_VENDOR_SALES_PDF: API_ENDPOINT+'/report/admin/vendor/sales/pdf',
   }
   static APP_UI_ROUTES: any;
 

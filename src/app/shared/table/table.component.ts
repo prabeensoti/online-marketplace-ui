@@ -147,7 +147,7 @@ export class TableComponent implements OnInit {
     const pageRequest: PageRequest = {
       page: this.currentPage - 1,
       size: this.pageSize,
-      sort: this.sortColumn.name,
+      sort: this.sortColumn.type == ColumnType.OBJECT ? this.sortColumn.bindKeys?.at(-1) || this.sortColumnName : this.sortColumn.name,
       direction: this.sortDirection
     };
     return pageRequest;
@@ -179,6 +179,9 @@ export class TableComponent implements OnInit {
 
   onSortTriggered(sortEvent: SortEvent): void {
     // console.log('onSortTriggered ', sortEvent);
+    if(sortEvent.column.disableSortable) {
+      return;
+    }
     this.sortColumn = sortEvent.column;
     this.sortColumnName = sortEvent.column.name;
     this.sortDirection = sortEvent.direction;

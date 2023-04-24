@@ -9,16 +9,29 @@
                 <div class="row row-cols-1">
                     <div class="border" style="padding: 10px">
                         <div class="row">
-                            <div class="col-md-2">
+
+                          <div class="col-md-2" *ngIf="(item.product.images && item.product.images.length > 0); else placeholderImg">
+                            <img [src]="item.product.images[0].fileUri" class="card-img-top" [alt]="item.product.name" title="{{item.product.name}}">
+                        </div>
+            
+                        <ng-template #placeholderImg>
+                          <div class="col-md-2">
+                            <img src="http://via.placeholder.com/640x360" class="card-img-top" alt="placeholder image"
+                                title="product image" />
+                          </div>
+                        </ng-template>
+
+                            <!-- <div class="col-md-2">
                                 <img src="https://picsum.photos/3264/1836?random=6" />
-                            </div>
+                            </div> -->
+
                             <div class="col-md-10">
                               <div class="product_name_container">
                                 <h5><a href="#" target="_blank">{{ item?.product?.name }}</a></h5>
                                 <button class="btn btn-danger"><i class="bi bi-trash-fill cursor-pointer" (click)="onItemRemove(item)"></i></button>
                               </div>
                                 <p>{{ item.product.description }}</p>
-                                <p><strong>Category:</strong> {{ item.product.productCategory.category }}</p>
+                                <p><strong>Category:</strong> {{ item.product.productCategory?.category }}</p>
                                 <p><strong>Price:</strong> $ {{ item.product.price }}</p>
                                 <p><strong>Quantity: {{" "}}</strong>
                                 

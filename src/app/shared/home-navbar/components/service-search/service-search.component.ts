@@ -12,7 +12,7 @@ import { CategoryService } from '@app/core/service/category.service';
 export class ServiceSearchComponent implements OnInit {
   categories: ProductCategoryDTO[] = [];
   searchText!: string;
-  searchCategory!: string;
+  searchCategory: string = '';
   minPrice!: number;
   maxPrice!: number;
   sortedOrder!: string;
@@ -24,7 +24,12 @@ export class ServiceSearchComponent implements OnInit {
     this.getCategories();
   }
 
-  getCategories() { 
+  onCategoryChange(): void {
+    this.categoryService.onCategoryChange.next(this.searchCategory);
+    this.onSearchSubmit();
+  }
+
+  getCategories() {
     this.categoryService.getAllCategories().subscribe(res => {
       this.categories = res;
       // console.log(this.categories);
@@ -34,13 +39,14 @@ export class ServiceSearchComponent implements OnInit {
   onSearchSubmit() {
     const productBrowseQueryParams = {
       name: this.searchText,
-      categoryName: this.searchCategory,
+      ...(this.searchCategory != '' && { categoryName: this.searchCategory }),
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,
       sortedOrder: this.sortedOrder
     };
 
     console.log(productBrowseQueryParams);
+    this.categoryService.onSearchInputChange.next(this.searchText);
     this.router.navigate([APP_UI_ROUTES.SEARCH], { queryParams: productBrowseQueryParams, queryParamsHandling: 'merge' });
   }
 

@@ -22,7 +22,7 @@
 </ng-template>
 
 <ng-template #updateTemplate let-data>
-  <a *ngIf="data.orderDto.orderStatus != 'DELIVERED'" class="fs-4 link-primary cursor-pointer" (click)="selectedOrder(data)">
+  <a *ngIf="data.orderDto.orderStatus != OrderStatusModel.DELIVERED" class="fs-4 link-primary cursor-pointer" (click)="selectedOrder(data)">
     <button class="btn" (click)="onDeliverClick(data, content)"><i class="bi bi-pencil-square"><span>Click To Deliver</span></i></button>
   </a>
 </ng-template>
@@ -36,7 +36,7 @@
     <form>
       <div class="mb-3">
         <label class="form-check-label">
-          Are you Sure?
+          Are you Sure? (Admin can Delivered the order)
         </label>
       </div>
     </form>
@@ -54,6 +54,6 @@
   <!--  </a>-->
 <!--  <p>{{data.orderDto.orderCode}}</p>-->
   <ol class="list-group list-group-numbered">
-    <li *ngFor="let item of data.relatedOrderItems" class="list-group-item">{{item.product.name}}</li>
+    <li *ngFor="let item of data.relatedOrderItems" class="list-group-item">{{item.product.name.slice(0, 15)+'...'}}</li>
   </ol>
 </ng-template>

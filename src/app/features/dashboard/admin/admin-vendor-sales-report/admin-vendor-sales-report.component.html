@@ -1,0 +1,43 @@
+<div class="row p-2 d-flex justify-content-center align-items-center">
+  <div class="col-6 flex-end">
+    <app-datepicker></app-datepicker>
+  </div>
+  <div class="col-2">
+    <button class="btn btn-primary" (click)="getReport()">View Report</button>
+  </div>
+  <div class="col-2">
+    <button class="btn btn-primary" (click)="downloadReport()">Print Report</button>
+  </div>
+</div>
+<div *ngIf=" vendorSalesReport && vendorSalesReport.length!=0; else dataNotFound" class="card card-body table-responsive">
+  <table class="table table-hover align-middle">
+    <thead>
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Vendor Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total Revenue</th>
+      <th scope="col">Commission</th>
+      <th scope="col">Tax</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let vendorSale of vendorSalesReport; index as sn">
+      <th scope="row">{{vendorSale.id}}</th>
+      <th scope="row">{{vendorSale.vendorName}}</th>
+      <th scope="row">{{vendorSale.quantity}}</th>
+      <th scope="row">{{vendorSale.totalRevenue}}</th>
+      <th scope="row">{{vendorSale.commission}}</th>
+      <th scope="row">{{vendorSale.tax}}</th>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #dataNotFound>
+  <div class="card text-center">
+    <div class="card-body" style="color: red">
+      <h1><i class="bi bi-exclamation-triangle-fill"></i></h1>
+      <h5 class="card-title">Data Not Found</h5>
+    </div>
+  </div>
+</ng-template>
