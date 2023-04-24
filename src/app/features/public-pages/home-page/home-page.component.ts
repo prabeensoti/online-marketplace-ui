@@ -27,17 +27,17 @@ export class HomePageComponent implements OnInit {
     {
       categoryId: 1,
       category: 'Books',
-      imageUrl: 'https://picsum.photos/3264/1836?random=3',
+      fileUri: 'https://picsum.photos/3264/1836?random=3',
     },
     {
       categoryId: 2,
       category: 'Music',
-      imageUrl: 'https://picsum.photos/3264/1836?random=1',
+      fileUri: 'https://picsum.photos/3264/1836?random=1',
     },
     {
       categoryId: 3,
       category: 'Movies',
-      imageUrl: 'https://picsum.photos/3264/1836?random=2',
+      fileUri: 'https://picsum.photos/3264/1836?random=2',
     }
   ];
 

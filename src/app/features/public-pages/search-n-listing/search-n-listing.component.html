@@ -53,6 +53,7 @@
                                 <div class="card-body search-n-listing-product-content">
                                     <h5 class="card-title">{{ product.name }}</h5>
                                     <p class="card-text">{{ product.description }}</p>
+                                    <p class="card-text">$ {{ product.price }}</p>
                                     <button class="btn btn-warning" (click)="onAddToCartClick(product)" [disabled]="loading">Add to Cart</button>
                                 </div>
                             </div>

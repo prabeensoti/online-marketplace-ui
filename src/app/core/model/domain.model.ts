@@ -82,7 +82,7 @@ export interface VendorDTO {
 export interface ProductCategoryDTO {
   categoryId: number;
   category: string;
-  imageUrl?: string;
+  fileUri?: string;
 }
 
 export interface OrderDTO {
