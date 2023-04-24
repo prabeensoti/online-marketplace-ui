@@ -17,6 +17,7 @@ import { StPaginationComponent } from './table/st-pagination/st-pagination.compo
 import { PageStatusViewComponent } from './page-status-view/page-status-view.component';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { DatePickerComponent } from './datepicker/date-picker.component';
+import {StripeCardComponent} from "@app/shared/stripe-card/stripe-card.component";
 
 const sharedComponents = [
   LoadingComponent,
@@ -27,7 +28,7 @@ const sharedComponents = [
   ObjKeysPipe,
   SanitizeHtmlPipeComponent,
   ToastNotificationComponent,
-
+  StripeCardComponent,
   HomeNavbarComponent,
   ServiceSearchComponent,
   FooterComponent,
