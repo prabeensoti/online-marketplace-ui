@@ -18,9 +18,7 @@
                     <span class="product-item__price--currency">$ </span>
                     <span class="product-item__price--value">{{ product.price }}</span>
                 </div>
-                <button class="btn btn-warning" (click)="onAddToCartClick(1)">
-                    <span class="product-item__actions--add-to-cart--text">Add to cart</span>
-                </button>
+                <button class="btn btn-warning" (click)="onAddToCartClick(product)" [disabled]="loading">Add to Cart</button>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CategoryContext } from '@app/auth/auth.model';
 import { environment } from '@env/environment';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {PageableResponse} from "@app/core/core.model";
 import {ProductCategoryDTO, ProductDTO} from "@app/core/model/domain.model";
 import {ApiEndpoints} from "@app/core/app-url.constant";
@@ -13,6 +13,9 @@ const API_URL = environment.apiUrl;
   providedIn: 'root'
 })
 export class CategoryService {
+
+  onCategoryChange: Subject<string> = new Subject();
+  onSearchInputChange: Subject<string> = new Subject();
 
   constructor(private httpClient : HttpClient) { }
 
