@@ -229,7 +229,6 @@ setUserDetails(){
   this.createCheckoutPageForm.addControl('cardId', this.fb.control(this.sToken.card.id));
   this.createCheckoutPageForm.addControl('transactionId', this.fb.control(this.sToken.id)); //////////
   this.createCheckoutPageForm.addControl('clientIp', this.fb.control(this.sToken.client_ip));
-  this.createCheckoutPageForm.addControl('last4', this.fb.control(this.sToken.card.last4)); ///
 
   this.createCheckoutPageForm.addControl('cardInfoDto', this.fb.group({
     cardNumber: this.sToken.card.address_city, 
@@ -238,6 +237,7 @@ setUserDetails(){
     expMonth: this.sToken.card.exp_month,
     cvc: this.sToken.card.address_line2,
     cardBrand: this.sToken.card.brand,
+    last4: Number(this.sToken.card.last4)
   }));
   
   this.createCheckoutPageForm.addControl('addressDto', this.fb.group({
