@@ -3,7 +3,7 @@
         <div class="card product-item">
 
             <div class="product-item__image" *ngIf="(product.images && product.images.length > 0); else placeholderImg">
-                <img [src]="product.images[0].uri" class="card-img-top" [alt]="product.name" title="{{product.name}}">
+                <img [src]="product.images[0].fileUri" class="card-img-top" [alt]="product.name" title="{{product.name}}">
             </div>
 
             <ng-template #placeholderImg>
