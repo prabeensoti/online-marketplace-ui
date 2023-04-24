@@ -6,24 +6,24 @@
 
 
 
-<div class="container">
+<div class="container" *ngIf="invoiceDetails">
   <button class="btn btn-secondary float-md-end" onclick={window.print()}>Print</button>
-  <h3 class="text-center">Final Details for Order Code {{invoiceDetails.orderCode || ''}}</h3>
+  <h3 class="text-center">Final Details for Order Code {{invoiceDetails?.orderCode || ''}}</h3>
   <div class="row">
     <div class="col-6">
       <label *ngIf="paymentMethod && paymentMethod.length > 0"><strong>Paid By : </strong>{{paymentMethod[0].cardHolderName || ''}}</label>
     </div>
-    <label><strong>Order Placed : </strong> {{invoiceDetails.orderPlaced | date: 'fullDate'}}</label>
+    <label><strong>Order Placed : </strong> {{invoiceDetails?.orderPlaced | date: 'fullDate'}}</label>
     <label><strong>Order Status : </strong><span class="badge"
-                                                 [ngClass]="invoiceDetails.orderStatus === 'DELIVERED' ? 'bg-primary': 'bg-danger' ">{{invoiceDetails.orderStatus || 'PENDING'}}</span>
+                                                 [ngClass]="invoiceDetails?.orderStatus === 'DELIVERED' ? 'bg-primary': 'bg-danger' ">{{invoiceDetails?.orderStatus || 'PENDING'}}</span>
     </label>
-    <label><strong>Order Total : {{invoiceDetails.totalAfterTax | currency: 'USD'}}</strong></label>
+    <label><strong>Order Total : {{invoiceDetails?.totalAfterTax | currency: 'USD'}}</strong></label>
   </div>
   <br>
   <div class="col">
     <div class="card mb-4 rounded-3">
       <div class="card-header py-3">
-        <strong>Shipped on {{invoiceDetails.shippedDate}}</strong>
+        <strong>Shipped on {{invoiceDetails?.shippedDate}}</strong>
       </div>
       <div class="card-body card card-outline-primary text-xs-center bg-light p-y-1">
         <div class="row">
