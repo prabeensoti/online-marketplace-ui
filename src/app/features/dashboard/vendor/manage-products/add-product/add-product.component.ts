@@ -80,7 +80,8 @@ export class AddProductComponent implements OnInit{
     productData.append('product', JSON.stringify(product));
     this.productService.saveProduct(productData).subscribe({
       next: (res) => {
-      this.toastService.show('Product Added Successfully!!!',{ classname: 'bg-success text-light fs-5', delay: 2000 })
+        this.initializeProductForm();
+        this.toastService.show('Product Added Successfully!!!',{ classname: 'bg-success text-light fs-5', delay: 2000 })
     }, error: (err) => {
         this.toastService.show(err.error.status+" "+err.error.message, { classname: 'bg-danger text-light fs-5', delay: 2000 });
     }});

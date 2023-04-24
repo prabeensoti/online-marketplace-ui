@@ -13,7 +13,7 @@
                           <div class="col-md-2" *ngIf="(item.product.images && item.product.images.length > 0); else placeholderImg">
                             <img [src]="item.product.images[0].fileUri" class="card-img-top" [alt]="item.product.name" title="{{item.product.name}}">
                         </div>
-            
+
                         <ng-template #placeholderImg>
                           <div class="col-md-2">
                             <img src="http://via.placeholder.com/640x360" class="card-img-top" alt="placeholder image"
@@ -31,10 +31,10 @@
                                 <button class="btn btn-danger"><i class="bi bi-trash-fill cursor-pointer" (click)="onItemRemove(item)"></i></button>
                               </div>
                                 <p>{{ item.product.description }}</p>
-                                <p><strong>Category:</strong> {{ item.product.productCategory?.category }}</p>
+                                <p><strong>Category:</strong> {{ item.product.productCategory.category }}</p>
                                 <p><strong>Price:</strong> $ {{ item.product.price }}</p>
                                 <p><strong>Quantity: {{" "}}</strong>
-                                
+
                                   <button class="btn btn-info btn-sm" (click)="onQtyChangeClick(item, false)" [disabled]="loading">{{"  "}} - {{"  "}}</button>
                                   {{ item.quantity }}
                                   <button class="btn btn-info btn-sm" (click)="onQtyChangeClick(item,true)" [disabled]="loading">{{"  "}} + {{"  "}}</button>
