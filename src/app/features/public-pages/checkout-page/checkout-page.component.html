@@ -10,7 +10,6 @@
             <div class="row">
                 <div class="border" style="padding: 10px">
                     <div class="row">
-                        <div class="col-md-2">
 
                           <div class="col-md-2" *ngIf="(item.product.images && item.product.images.length > 0); else placeholderImg">
                             <img [src]="item.product.images[0].fileUri" class="card-img-top" [alt]="item.product.name" title="{{item.product.name}}">
@@ -23,7 +22,6 @@
                             </div>
                           </ng-template>
 
-                        </div>
                         <div class="col-md-10">
                           <div class="product_name_container">
                             <h5><a href="#" target="_blank">{{ item?.product?.name }}</a></h5>
