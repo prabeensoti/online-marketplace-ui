@@ -11,8 +11,18 @@
                 <div class="border" style="padding: 10px">
                     <div class="row">
                         <div class="col-md-2">
-                            <img src="https://images.ctfassets.net/5gvckmvm9289/3BlDoZxSSjqAvv1jBJP7TH/65f9a95484117730ace42abf64e89572/Noissue-x-Creatsy-Tote-Bag-Mockup-Bundle-_4_-2.png"
-                                width="150px" />
+
+                          <div class="col-md-2" *ngIf="(item.product.images && item.product.images.length > 0); else placeholderImg">
+                            <img [src]="item.product.images[0].fileUri" class="card-img-top" [alt]="item.product.name" title="{{item.product.name}}">
+                          </div>
+
+                          <ng-template #placeholderImg>
+                            <div class="col-md-2">
+                              <img src="http://via.placeholder.com/640x360" class="card-img-top" alt="placeholder image"
+                                   title="product image" />
+                            </div>
+                          </ng-template>
+
                         </div>
                         <div class="col-md-10">
                           <div class="product_name_container">
@@ -54,11 +64,11 @@
               <span>Total (USD) :</span>
               <strong>{{ orderPayInfoDto.price }}</strong>
             </li>
-          </ul>        
+          </ul>
           <button type="button"  (click)="confirmPayment()"class=" row btn btn-primary btn-sm m-2">Confirm Payment</button>
         </div>
       </div>
-          
+
     </div>
 
   </form>
