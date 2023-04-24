@@ -6,13 +6,16 @@ import {ShoppingCartDTO} from "@app/core/model/shopping-cart.model";
 import {CredentialsService} from "@app/auth/services/credentials.service";
 import {ProductDTO} from "@app/core/model/domain.model";
 import {Constants} from "@app/core/core.constant";
+import {CartService} from "@app/core/service/cart.service";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingCartService {
-  constructor(private http: HttpClient, private credentialService:CredentialsService) { }
+  constructor(private http: HttpClient,
+              private credentialService:CredentialsService,
+              private cartService:CartService) { }
   private  httpOptions = {
     headers: new HttpHeaders({
       'Accept': 'application/json',
@@ -60,6 +63,7 @@ export class ShoppingCartService {
       console.log("10")
       cartItems.push({product,quantity: 1});
     }
+    this.cartService.cartTotal.next(cartItems.length)
     Constants.STORAGE_LOCATION.setItem(Constants.CART_ITEMS_KEY, JSON.stringify(cartItems))
   }
 
@@ -73,6 +77,7 @@ export class ShoppingCartService {
     }
     if(existingItemIdx > -1){
       cartItems.splice(existingItemIdx, 1)
+      this.cartService.cartTotal.next(cartItems.length)
       Constants.STORAGE_LOCATION.setItem(Constants.CART_ITEMS_KEY, JSON.stringify(cartItems));
     }
   }

@@ -8,6 +8,7 @@ import {ShoppingCartService} from "@app/core/service/shopping-cart.service";
 import {ToastService} from "@app/core/service/toast.service";
 import {Constants} from "@app/core/core.constant";
 import { PageRequest } from '@app/core/core.model';
+import {CartService} from "@app/core/service/cart.service";
 
 @Component({
   selector: 'app-search-n-listing',
@@ -43,7 +44,7 @@ export class SearchNListingComponent implements OnInit {
   }
 
   private initProductList(): void {
-    const pageRequest: PageRequest = { page: this.currentPage, size: 10, sort: "name", direction: "asc"};
+    const pageRequest: PageRequest = {page: this.currentPage, size: 10, sort: "name", direction: "asc"};
     this.productService.getAllPublishedProducts(pageRequest).subscribe({
       next: (res) => {
         this.products = res.content;
@@ -71,7 +72,7 @@ export class SearchNListingComponent implements OnInit {
       maxPrice: this.maxPrice,
       sortedPrice: this.sortedPrice,
     }
-    const pageRequest: PageRequest = { page: this.currentPage-1, size: 10, sort: "name", direction: "asc"};
+    const pageRequest: PageRequest = {page: this.currentPage-1, size: 10, sort: "name", direction: "asc"};
 
     this.productService.searchProductByAdvanceFilter(pageRequest, searchFilterContext).subscribe({
       next: (res: any) => {

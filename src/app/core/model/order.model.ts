@@ -10,3 +10,8 @@ export enum OrderStatusModel {
   DELIVERED='DELIVERED',
   CANCELED='CANCELED'
 }
+
+export enum OrderItemModel {
+  REQUESTED= 'REQUESTED',
+  WAREHOUSE_SHIP='WAREHOUSE_SHIP'
+}
