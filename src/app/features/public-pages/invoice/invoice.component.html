@@ -8,10 +8,10 @@
 
 <div class="container">
   <button class="btn btn-secondary float-md-end" onclick={window.print()}>Print</button>
-  <h3 class="text-center">Final Details for Order Code {{invoiceDetails.orderCode}}</h3>
+  <h3 class="text-center">Final Details for Order Code {{invoiceDetails.orderCode || ''}}</h3>
   <div class="row">
     <div class="col-6">
-      <label><strong>Paid By : </strong>{{paymentMethod[0].cardHolderName}}</label>
+      <label><strong>Paid By : </strong>{{paymentMethod[0].cardHolderName || ''}}</label>
     </div>
     <label><strong>Order Placed : </strong> {{invoiceDetails.orderPlaced | date: 'fullDate'}}</label>
     <label><strong>Order Status : </strong><span class="badge"
@@ -37,7 +37,7 @@
           <div class="col-2">
             <strong class="card-title pricing-card-title font-weight-bold">Price</strong>
             <ul class="list-unstyled mt-3 mb-4" *ngFor="let orderItem of orderItems">
-              <li>{{orderItem.price * orderItem.quantity}}</li>
+              <li>{{orderItem.price * orderItem.quantity | number:'0.2'}}</li>
             </ul>
           </div>
         </div>
@@ -64,13 +64,13 @@
           </div>
           <div class="col-2">
             <ul class="list-unstyled mt-3 mb-4">
-              <li>{{invoiceDetails.totalBeforeTax}}</li>
+              <li>{{invoiceDetails.totalBeforeTax | number:'0.2'}}</li>
               <li>0.0</li>
               <li>....................</li>
-              <li class="text-black">{{invoiceDetails.totalBeforeTax}}</li>
-              <li class="text-black">{{invoiceDetails.tax}}</li>
+              <li class="text-black">{{invoiceDetails.totalBeforeTax | number:'0.2'}}</li>
+              <li class="text-black">{{invoiceDetails.tax | number:'0.2'}}</li>
               <li>....................</li>
-              <li class="text-black"><strong>{{invoiceDetails.totalAfterTax}}</strong></li>
+              <li class="text-black"><strong>{{invoiceDetails.totalAfterTax | number:'0.2'}}</strong></li>
             </ul>
           </div>
         </div>
@@ -88,9 +88,9 @@
           <div class="col-md-7">
             <strong class="card-title pricing-card-title">Payment Method:</strong>
             <ul class="list-unstyled mt-3 mb-4">
-              <li>{{paymentMethod[0].cardBrand}}</li>
-              <li>{{paymentMethod[0].paymentStatus}}</li>
-              <li>{{paymentMethod[0].cardHolderName}}</li>
+              <li>{{paymentMethod[0].cardBrand || ''}}</li>
+              <li>{{paymentMethod[0].paymentStatus || ''}}</li>
+              <li>{{paymentMethod[0].cardHolderName || ''}}</li>
             </ul>
           </div>
           <div class="col-3">
@@ -106,13 +106,13 @@
           </div>
           <div class="col-2">
             <ul class="list-unstyled mt-3 mb-4">
-              <li>{{invoiceDetails.totalBeforeTax}}</li>
+              <li>{{invoiceDetails.totalBeforeTax | number:'0.2'}}</li>
               <li>0.0</li>
               <li>....................</li>
-              <li class="text-black">{{invoiceDetails.totalBeforeTax}}</li>
-              <li class="text-black">{{invoiceDetails.tax}}</li>
+              <li class="text-black">{{invoiceDetails.totalBeforeTax | number:'0.2'}}</li>
+              <li class="text-black">{{invoiceDetails.tax | number:'0.2'}}</li>
               <li>....................</li>
-              <li class="text-black"><strong>{{invoiceDetails.totalAfterTax}}</strong></li>
+              <li class="text-black"><strong>{{invoiceDetails.totalAfterTax | number:'0.2'}}</strong></li>
             </ul>
           </div>
         </div>
