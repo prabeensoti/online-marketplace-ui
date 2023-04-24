@@ -185,7 +185,7 @@ setAddressDto(){
     expMonth: this.sToken.card.exp_month,
     cvc: this.sToken.card.address_line2,
     cardBrand: this.sToken.card.brand,
-    last4: Number(this.sToken.card.last4)
+    cardDigit: this.sToken.card.last4
   }));
 }
 
