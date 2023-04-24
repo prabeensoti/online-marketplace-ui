@@ -1,19 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CredentialsService } from '@app/auth/services/credentials.service';
 import { Utility } from '@app/core/constant/utility';
 import { Constants } from '@app/core/core.constant';
 import { AddressDto } from '@app/core/dto/address-dto';
-import { CardInfoDto } from '@app/core/dto/card-info-dto';
 import { OrderPayInfoDto } from '@app/core/dto/order-pay-info-dto';
 import { ShoppingCartDTO } from '@app/core/model/shopping-cart.model';
 import { OrderPayService } from '@app/core/service/order-pay.service';
 import { ShoppingCartService } from '@app/core/service/shopping-cart.service';
 import { ToastService } from '@app/core/service/toast.service';
 import {AppRouteConstant} from "@app/core/constant/app-route-constant";
-import { SessionModel } from '@app/core/model/session-model';
-import { APP_UI_ROUTES } from '@app/core/route.util';
 
 @Component({
   selector: 'app-checkout-page',
@@ -25,31 +22,15 @@ export class CheckoutPageComponent implements OnInit {
   createCheckoutPageForm!: FormGroup;
   shippingCost!: number;
   tax!: number;
-  totalPrice!: number;
-  loading!:boolean
+  itemPrice!: number;
   isGuestUser = true;
 
-  cardBrands = [
-   {name: 'Master Card', val: Utility.MASTERCARD},
-   {name: 'Visa', val: Utility.VISA},
-   {name: 'Stripe', val: Utility.STRIPE}
-  ];
-  selectedCardBrand!: string;
   orderPayInfoDto = new OrderPayInfoDto();
   addressDto = new AddressDto();
-  shippingAddresses : AddressDto[] = [];
-
-  cardInfos = [
-    {'cardInfoId':0, 'cardNumber':'', 'nameOnCard':'', 'expYear':0, 'expMonth':0, 'cvc':'', 'cardBrand':'', 'addressType':''}
-  ]
-  selectedAddressId!: number;
-  selectedCardInfos !: number;
   cartItems : ShoppingCartDTO[] = [];
 
   stripe!: any;
-  session!: SessionModel;
   sToken !: any;
-
 
   constructor(
     private fb: FormBuilder,
@@ -71,7 +52,7 @@ export class CheckoutPageComponent implements OnInit {
   }
 
   confirmPayment() {   
-    if(!this.totalPrice){
+    if(!this.orderPayInfoDto.price){
       this.toastrService.show("No calculation done!", { classname: 'bg-danger text-light fs-5', delay: 2000 });
       return;
     }
@@ -91,15 +72,14 @@ export class CheckoutPageComponent implements OnInit {
         token: function (this:any, token: any) {    
           alert('Stripe token generated!');
           this.sToken = token;      
-          console.log(this.sToken);
           this.createOrderPayment();
       }.bind(this),
     });
 
     paymentHandler.open({
-      name: 'Payment Method',
+      name: 'Online MarketPlace',
       description: this.orderPayInfoDto.quantity +' Products Added',
-      amount: this.totalPrice * 100
+      amount: this.orderPayInfoDto.price * 100
     });
 
   }
@@ -115,11 +95,9 @@ export class CheckoutPageComponent implements OnInit {
   }
 
   findShoppingCartsDetail(){
-  this.loading = false
   if(!this.isGuestUser){
     this.shoppingCartService.getAllCartItems().subscribe({
       next:(res)=>{
-        this.loading = false;
         this.cartItems = res;
       },
       error:(err)=>{
@@ -148,48 +126,25 @@ findOrderPayInfo(cartItems: ShoppingCartDTO[]) {
         .subscribe({
           next: (resp) => {
             this.orderPayInfoDto = resp;
-
-            this.getShippingAddresses();
-            this.getCardInfos();
             this.calculatePrice();
             this.patchCreateCheckoutPageForm();
-
       },
       error: (error) => { console.log(error);}
     });
 
 }
 
-getShippingAddresses(){
-  this.orderPayInfoDto?.addressDtos?.forEach(list => {
-    this.shippingAddresses.push(new AddressDto().add(list));
-  });  
-  this.setNewAddress();
-}
-
-setNewAddress(){
-  this.addressDto.addressId = 0;
-  this.addressDto.address1 = 'Add New';
-  this.shippingAddresses.push(this.addressDto);
-}
-
-getCardInfos(){
-  this.orderPayInfoDto?.cardInfoDtos?.forEach(list => {
-    this.cardInfos.push(new CardInfoDto().add(list));
-  })
-}
-
 calculatePrice(){
-  this.shippingCost = Math.ceil(this.orderPayInfoDto.price/50)*Utility.SHIPPING_CHARGE;
-  this.shippingCost = Number(this.formatNumber(this.shippingCost));
-  this.tax = Number(this.formatNumber((Utility.TAX/100) * this.orderPayInfoDto.price));
-  this.totalPrice = Number(this.formatNumber(this.orderPayInfoDto.price));
+  this.itemPrice = Number(this.formatNumber(this.orderPayInfoDto.itemPrice));  
+  let shipping = (((this.orderPayInfoDto.itemPrice/50)*Utility.SHIPPING_CHARGE).toString());  
+  this.shippingCost = Number(shipping.split('.')[0]);  
+  this.shippingCost = Number(this.formatNumber(this.shippingCost));  
+  this.tax = Number(this.formatNumber((Utility.TAX/100) * this.orderPayInfoDto.itemPrice));
 }
 
 formatNumber(num: number): string {
   return num.toFixed(2);
 }
-
 
 patchCreateCheckoutPageForm(){
   this.createCheckoutPageForm.patchValue({
@@ -197,18 +152,6 @@ patchCreateCheckoutPageForm(){
     quantity: this.orderPayInfoDto?.quantity,
     price: this.orderPayInfoDto?.price,
   })
-}
-
-reset() {
-  // this.buttonPressed = false;
-}
-
-activeShippingAddress(val:number){
-  this.selectedAddressId = val;
-}
-
-activeRadio(val: string) {
-  this.selectedCardBrand = val;
 }
 
 createOrderPayment(){ 
@@ -227,9 +170,14 @@ setUserDetails(){
   this.createCheckoutPageForm.addControl('email', this.fb.control(this.sToken.email));
   this.createCheckoutPageForm.addControl('isGuestUser', this.fb.control(this.isGuestUser));
   this.createCheckoutPageForm.addControl('cardId', this.fb.control(this.sToken.card.id));
-  this.createCheckoutPageForm.addControl('transactionId', this.fb.control(this.sToken.id)); //////////
+  this.createCheckoutPageForm.addControl('transactionId', this.fb.control(this.sToken.id)); 
   this.createCheckoutPageForm.addControl('clientIp', this.fb.control(this.sToken.client_ip));
+  this.setAddressDto();
+  this.setCardInfoDto();
 
+}
+
+setAddressDto(){
   this.createCheckoutPageForm.addControl('cardInfoDto', this.fb.group({
     cardNumber: this.sToken.card.address_city, 
     nameOnCard: this.sToken.card.name,
@@ -239,7 +187,9 @@ setUserDetails(){
     cardBrand: this.sToken.card.brand,
     last4: Number(this.sToken.card.last4)
   }));
-  
+}
+
+setCardInfoDto(){  
   this.createCheckoutPageForm.addControl('addressDto', this.fb.group({
     city: this.sToken.card.address_city, 
     state: this.sToken.card.address_state,
@@ -266,7 +216,6 @@ saveOrderPayment(){
           this.toastrService.show(error.message, { classname: 'bg-danger text-light fs-5', delay: 2000 });
           }
       });
-
 }
 
 validateAddress(){

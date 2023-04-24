@@ -8,6 +8,7 @@ export class OrderPayInfoDto {
     addressDtos!: [];
     cardInfoDtos!: [];
     
+    itemPrice!: number;
     quantity!: number
     price!: number
 }
