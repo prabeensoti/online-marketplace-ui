@@ -55,8 +55,7 @@ export class VerifyProductsComponent {
           price: data.price,
           productId: data.productId,
           quantity: data.quantity,
-          vendorId: data.vendor.vendorId
-
+          vendorId: data.vendor != null ? data.vendor.vendorId: 0,
         }
         this.productService.verifyProduct(verifyProduct).subscribe(res => {
           console.log('Response ', res)

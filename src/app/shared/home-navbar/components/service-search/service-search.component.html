@@ -2,10 +2,10 @@
     <form role="form" (ngSubmit)="onSearchSubmit()" novalidate="novalidate">
         <div class="input-group">
             <select [(ngModel)]="searchCategory" [ngModelOptions]="{standalone: true}" id="inputState" class="form-select">
-                <option selected>Categories</option>
+                <option value="category">Select a category</option>
                 <option *ngFor="let c of categories" [value]="c.category">{{ c.category }}</option>
             </select>
-            <input type="text" class="form-control" id="floatingSearchText" placeholder="Search online marketplace ?"
+            <input type="text" class="form-control w-50" id="floatingSearchText" placeholder="Search online marketplace ?"
              [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" required>
         </div>
     </form>

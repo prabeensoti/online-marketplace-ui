@@ -38,7 +38,17 @@
                         <div class="col-lg-4 mb-4 search-n-listing-product" *ngFor="let product of products">
                             <div class="card search-n-listing-product-card">
                                 <div class="search-n-listing-product-img">
-                                    <img src="https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img-top" alt="{{ product.name }}">
+                                    <!-- <img src="https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img-top" alt="{{ product.name }}"> -->
+
+                                    <div class="product-item__image" *ngIf="(product.images && product.images.length > 0); else placeholderImg">
+                                        <img [src]="product.images[0].uri" class="card-img-top" [alt]="product.name" title="{{product.name}}">
+                                    </div>
+                        
+                                    <ng-template #placeholderImg>
+                                        <img src="http://via.placeholder.com/640x360" class="card-img-top" alt="placeholder image"
+                                            title="product image" />
+                                    </ng-template>
+
                                 </div>
                                 <div class="card-body search-n-listing-product-content">
                                     <h5 class="card-title">{{ product.name }}</h5>

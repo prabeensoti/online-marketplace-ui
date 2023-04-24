@@ -7,7 +7,7 @@ import { ColumnType, IColumn } from '@app/shared/table/table-model';
 import { Observable } from 'rxjs';
 
 export const MANAGE_ORDERS_COLUMN: IColumn[] = [
-  { id: 1, name: 'orderId', label: 'Order Id', type: ColumnType.NUMBER, sortable: false, hide: true, defaultSearch: true },
+  { id: 1, name: 'orderId', label: 'Order Id', type: ColumnType.NUMBER, hide: true, defaultSearch: true },
   { id: 7, name: 'user', label: 'Vendor', type: ColumnType.OBJECT, bindKeys: ['user', 'fullName'] },
   { id: 2, name: 'orderStatus', label: 'Status', type: ColumnType.STRING },
 ];

@@ -1,21 +1,28 @@
 <div class="row row g-4 py-5 row-cols-1 row-cols-lg-5">
-        <div class="col-lg-2 mb-4 product" *ngFor="let product of products">
-            <div class="card product-item">
-                <div class="product-item__image">
-                    <img [src]="product.image" class="card-img-top" alt="{{ product.name }}">
+    <div class="col-lg-3 mb-4 product" *ngFor="let product of topProducts">
+        <div class="card product-item">
+
+            <div class="product-item__image" *ngIf="(product.images && product.images.length > 0); else placeholderImg">
+                <img [src]="product.images[0].uri" class="card-img-top" [alt]="product.name" title="{{product.name}}">
+            </div>
+
+            <ng-template #placeholderImg>
+                <img src="http://via.placeholder.com/640x360" class="card-img-top" alt="placeholder image"
+                    title="product image" />
+            </ng-template>
+
+            <div class="card-body product-item__content">
+                <h5 class="card-title product-item__title">{{ product.name }}</h5>
+                <p class="card-text product-item__description">{{ product.description }}</p>
+                <div class="product-item__price">
+                    <span class="product-item__price--currency">$ </span>
+                    <span class="product-item__price--value">{{ product.price }}</span>
                 </div>
-                <div class="card-body product-item__content">
-                    <h5 class="card-title product-item__title">{{ product.name }}</h5>
-                    <p class="card-text product-item__description">{{ product.description }}</p>
-                    <div class="product-item__price">
-                        <span class="product-item__price--currency">$ </span>
-                        <span class="product-item__price--value">{{ product.price }}</span>
-                    </div>
-                    <button class="btn btn-warning" (click)="onAddToCartClick(1)">
-                        <span class="product-item__actions--add-to-cart--text">Add to cart</span>
-                    </button>
-                </div>
+                <button class="btn btn-warning" (click)="onAddToCartClick(1)">
+                    <span class="product-item__actions--add-to-cart--text">Add to cart</span>
+                </button>
             </div>
         </div>
-    
+    </div>
+
 </div>

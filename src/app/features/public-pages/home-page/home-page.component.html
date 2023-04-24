@@ -5,8 +5,10 @@
             <div class="col-lg-8 col-xl-7 col-xxl-6">
                 <div class="my-5 text-center text-xl-start">
                     <h1 class="display-5 fw-bolder mb-2">Welcome, Start browsing and discover the magic !</h1>
-                    <p class="lead fw-normal mb-4"> Shop unique products and support local sellers on our online marketplace.
-                        Join our community today and experience the joy of discovering one-of-a-kind items. Start browsing and discover the magic </p>
+                    <p class="lead fw-normal mb-4"> Shop unique products and support local sellers on our online
+                        marketplace.
+                        Join our community today and experience the joy of discovering one-of-a-kind items. Start
+                        browsing and discover the magic </p>
                     <div>
                         <a class="btn btn-primary btn-lg" href="/s">Shop Now</a>
                     </div>
@@ -21,29 +23,25 @@
         </div>
     </div>
 </header>
+
+
 <section>
     <div class="container">
-        <app-category-items></app-category-items>
+        <app-category-items [topCategories]="topCategories"></app-category-items>
     </div>
 </section>
+
+
 <section>
-    <div class="container">
+
+
+    <div class="container" *ngFor="let category of topCategories">
         <div>
-            <h2 class="text-center">Featured Products</h2>
+            <h2 class="text-center">{{category.category}}</h2>
         </div>
-        <app-product-item></app-product-item>
+        <app-product-item [categoryId]="category.categoryId"></app-product-item>
     </div>
-    <div class="container">
-        <div>
-            <h2 class="text-center">Featured Products</h2>
-        </div>
-        <app-product-item></app-product-item>
-    </div>
-    <div class="container">
-        <div>
-            <h2 class="text-center">Featured Products</h2>
-        </div>
-        <app-product-item></app-product-item>
-    </div>
+
 </section>
+
 <app-newsletter></app-newsletter>

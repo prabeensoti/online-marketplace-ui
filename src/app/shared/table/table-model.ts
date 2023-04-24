@@ -65,7 +65,7 @@ export interface IColumn {
   bindKeys?: Array<string>;
   cssClasses?: string;
   cssValueMap?: { [dataValue: string]: string };
-  sortable?: boolean;
+  disableSortable?: boolean;
   filterable?: boolean;
   hide?: boolean;
   parseValue?: (func: (item: any) => string ) => string;
@@ -80,7 +80,7 @@ export class Column implements IColumn {
   bindKeys: Array<string> = [];
   cssClasses: string = '';
   cssValueMap: { [dataValue: string]: string } = {};
-  sortable: boolean = true;
+  disableSortable: boolean = false;
   filterable: boolean = true;
   hide: boolean = false;
   parseValue?: (func: (item: any) => string ) => string;

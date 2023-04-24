@@ -40,6 +40,8 @@ export class ApiEndpoints {
 
     static readonly PRODUCTS = {
         ALL_PUBLISHED: API_ENDPOINT + '/public/products',
+        ALL_TOP_PRODUCTS_BY_CATEGORY: API_ENDPOINT + '/public/top-products-by-category',
+
         ALL_PUBLISHED_AND_TEMP: API_ENDPOINT + '/allProducts',
         ALL_PUBLISHED_AND_TEMP_OF_VENDOR: API_ENDPOINT+ '/allProducts/vendors',
         GET_BY_ID: API_ENDPOINT + '/products',

@@ -25,6 +25,12 @@ export class CategoryService {
     return categoriesObservable;
   }
 
+  public getTopCategories(): Observable<ProductCategoryDTO[]> {
+    const categoriesObservable: Observable<ProductCategoryDTO[]> = this.httpClient
+      .get<ProductCategoryDTO[]>(ApiEndpoints.CATEGORIES.ALL);
+    return categoriesObservable;
+  }
+
 
   saveCategory(category: CategoryContext): Observable<CategoryContext>{
     return this.httpClient.post<CategoryContext>(`${API_URL}/category`, category);

@@ -5,13 +5,14 @@ import {GenericFilterRequest, PageableResponse, PageRequest} from "@app/core/cor
 import {Observable} from "rxjs";
 import {OrderResponseDto} from "@app/core/model/order-response.model";
 import {ManageOrderService} from "@app/core/service/manage-order.service";
-
+import { OrderDTO } from '@app/core/model/domain.model';
+import { toNumber as _toNumber  } from 'lodash';
 
 export const MANAGE_ORDERS_COLUMN: IColumn[] = [
-  { id: 1, name: 'orderId', label: 'Order Id', type: ColumnType.OBJECT, sortable: true, hide: true, defaultSearch: true },
+  { id: 1, name: 'orderId', label: 'Order Id', type: ColumnType.OBJECT, hide: true, defaultSearch: true },
   // { id: 2, name: 'orderDto', label: 'Order Id', type: ColumnType.OBJECT, bindKeys: ['orderDto', 'orderId'] },
-  { id: 3, name: 'orderDto', label: 'User', type: ColumnType.OBJECT, bindKeys: ['orderDto', 'user', 'fullName'] },
-  // { id: 4, name: 'orderDto', label: 'Order Status', type: ColumnType.OBJECT, bindKeys: ['orderDto', 'orderStatus'] },
+  { id: 3, name: 'orderDto', label: 'User', type: ColumnType.OBJECT, bindKeys: ['orderDto', 'user', 'fullName'], disableSortable: true },
+  { id: 4, name: 'orderDto', label: 'Order Date', type: ColumnType.OBJECT, bindKeys: ['orderDto', 'orderDate'] },
 
   // { id: 2, name: 'orderStatus', label: 'Status', type: ColumnType.STRING },
 ];
@@ -36,13 +37,18 @@ export class VendorOrderGridService extends AbstractDataConfigurer<OrderResponse
   }
 
   getGridData(pageRequest: PageRequest): Observable<PageableResponse<Array<OrderResponseDto>>> {
-    return this.manageOrderService.getOrderByVendor(pageRequest);
+    return this.manageOrderService.getAllOrderByVendor(pageRequest);
   }
 
   filterGridData(pageRequest: PageRequest, genericFilterRequest: GenericFilterRequest<OrderResponseDto>): Observable<PageableResponse<Array<OrderResponseDto>>> {
-    // return this.manageOrderService.filterOrders(pageRequest, genericFilterRequest);
-    // return of({} as PageableResponse<OrderResponseDto[]>);
-    return this.getGridData(pageRequest);
+    console.log(genericFilterRequest);
+    const mappedGenericFilterRequest: GenericFilterRequest<OrderDTO> | any = {
+      dataFilter: {
+        ...genericFilterRequest.dataFilter.orderDto,
+        orderId: _toNumber(genericFilterRequest.searchText)
+      }
+    }
+    return this.manageOrderService.filterManageOrders(pageRequest, mappedGenericFilterRequest);
   }
 
 }

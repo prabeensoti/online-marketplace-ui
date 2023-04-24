@@ -52,7 +52,7 @@ export interface ProductDTO {
   isVerified: boolean;
   isDeleted: boolean;
 
-  vendor: VendorDTO;
+  vendor?: VendorDTO;
   productCategory: ProductCategoryDTO;
 }
 
@@ -82,6 +82,7 @@ export interface VendorDTO {
 export interface ProductCategoryDTO {
   categoryId: number;
   category: string;
+  imageUrl?: string;
 }
 
 export interface OrderDTO {

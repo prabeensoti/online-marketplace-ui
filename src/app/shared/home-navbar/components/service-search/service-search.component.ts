@@ -12,7 +12,7 @@ import { CategoryService } from '@app/core/service/category.service';
 export class ServiceSearchComponent implements OnInit {
   categories: ProductCategoryDTO[] = [];
   searchText!: string;
-  searchCategory!: string;
+  searchCategory: string = 'category';
   minPrice!: number;
   maxPrice!: number;
   sortedOrder!: string;

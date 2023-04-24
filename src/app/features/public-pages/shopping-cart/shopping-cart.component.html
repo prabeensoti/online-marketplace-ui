@@ -18,7 +18,7 @@
                                 <button class="btn btn-danger"><i class="bi bi-trash-fill cursor-pointer" (click)="onItemRemove(item)"></i></button>
                               </div>
                                 <p>{{ item.product.description }}</p>
-                                <p><strong>Category:</strong> {{ item.product.productCategory.category }}</p>
+                                <p><strong>Category:</strong> {{ item.product.productCategory?.category }}</p>
                                 <p><strong>Price:</strong> $ {{ item.product.price }}</p>
                                 <p><strong>Quantity: {{" "}}</strong>
                                 
