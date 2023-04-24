@@ -29,7 +29,7 @@
           <div class="col-3">Total
             <div>{{data.total | currency: 'USD'}}</div>
           </div>
-          <div class="col-3">Shipping Status<br/>
+          <div class="col-3">Order Status<br/>
             <span class="badge" [ngClass]="data.orderStatus === 'DELIVERED' ? 'bg-primary': 'bg-danger'">
               {{data.orderStatus || 'PENDING'}}
             </span>
