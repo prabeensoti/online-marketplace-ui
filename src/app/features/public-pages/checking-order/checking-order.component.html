@@ -30,11 +30,11 @@
             <div>{{data.total | currency: 'USD'}}</div>
           </div>
           <div class="col-3">Shipping Status
-            <div>
+            <div class="badge" [ngClass]="data.orderStatus === 'DELIVERED' ? 'bg-primary': 'bg-danger'">
               {{data.orderStatus || 'PENDING'}}
             </div>
           </div>
-          <div class="col-3"><a routerLink="/invoice/{{data.orderId}}">View Invoice</a></div>
+          <div class="col-3"><a class="text-decoration-none" routerLink="/invoice/{{data.orderId}}">View Invoice</a></div>
         </div>
       </div>
       <div class="card-body">

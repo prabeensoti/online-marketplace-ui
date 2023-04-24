@@ -20,7 +20,8 @@ enum FileType {
 enum OrderStatus {
   NEW = "NEW",
   IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED"
+  COMPLETED = "COMPLETED",
+  DELIVERED = 'DELIVERED'
 }
 
 export interface UserDTO {
