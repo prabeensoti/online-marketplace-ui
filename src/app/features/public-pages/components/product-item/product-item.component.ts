@@ -44,7 +44,7 @@ export class ProductItemComponent implements OnChanges {
       images: [
         {
           fileId: 2,
-          uri: 'https://picsum.photos/3264/1836?random=5'
+          fileUri: 'https://picsum.photos/3264/1836?random=5'
         }
       ],
       isVerified: true,
@@ -60,7 +60,7 @@ export class ProductItemComponent implements OnChanges {
       images: [
         {
           fileId: 2,
-          uri: 'https://picsum.photos/3264/1836?random=6'
+          fileUri: 'https://picsum.photos/3264/1836?random=6'
         }
       ],
       isVerified: true,
@@ -75,7 +75,7 @@ export class ProductItemComponent implements OnChanges {
       images: [
         {
           fileId: 2,
-          uri: 'https://picsum.photos/3264/1836?random=7'
+          fileUri: 'https://picsum.photos/3264/1836?random=7'
         }
       ],
       isVerified: true,
